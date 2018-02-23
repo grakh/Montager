@@ -1,0 +1,233 @@
+html{
+margin:0px;
+padding:0px;
+}
+
+body{
+margin:0px;
+padding:0px;
+width:350px;
+height:400px;
+}
+
+div{
+border-top:0px;
+position:relative;
+display:block;
+}
+
+input[type="text"]{
+float:right;
+margin-right:10px;
+padding-right:50px;
+}
+
+input[id="XYR"]{
+/*float:left;*/
+width:50px;
+}
+
+
+#check {
+	width: 25px;
+     height:25px;
+}
+
+
+
+input[type="radio"]{
+float:right;
+width:34px;
+height:34px;
+margin-left:22px;
+margin-top:-10px;
+z-index:2;
+cursor: pointer;
+}
+
+img{
+position:absolute;
+margin-top: -7px;
+z-index:1;
+}
+
+p{
+margin:0px;
+padding-top:0px;
+padding-right:0px;
+padding-left:7px;
+padding-bottom:0px;
+text-align:left;
+}
+
+#button{
+text-align:center;
+}
+
+#Settings{
+position:relative;
+align-items:center;
+width:100%;
+height:85%;
+}
+
+#LabelTextbox{
+padding-left:7px;
+padding-top: 10px;
+position:relative;
+display:block-inline;
+width:100%;
+height:8%;
+}
+
+#LabelDinamics{
+padding-left:7px;
+padding-top: 10px;
+position:relative;
+display:block-inline;
+width:100%;
+height:8%;
+}
+
+#Wrap{
+padding-left:7px;
+padding-top: 10px;
+position:relative;
+display:block-inline;
+width:100%;
+height:8%;
+}
+
+
+#Forms {
+padding-top:20px;
+margin-bottom: 20px;
+}
+
+#Forms label:hover::before {
+	content: attr(for);
+	font-family: Arial, -apple-system, sans-serif;
+	text-transform: capitalize;
+	font-size: 11px;
+	position: absolute;
+	top: 170%;
+	left: 0;
+	right: 0;
+	opacity: 0.75;
+	background-color: #323232;
+	color: #fff;	
+	padding: 4px;
+	border-radius: 13px;
+	display: block;
+}
+
+.Figures{
+width:34px;
+height:34px;
+display:inline-block;
+margin-right:20px;
+}
+
+.Figures label {
+	cursor: pointer;
+	position: relative;
+}
+
+.Figures label + label {
+	margin-left: 15px;
+}
+
+input[type="radio"] {
+	opacity: 0; /* hidden but still tabable */
+	position: absolute;
+}
+
+input[type="radio"] + span {
+	color: #B3CEFB;
+	border-radius: 110px;
+padding-top:11px;
+padding-bottom:11px;
+padding-right:22px;
+padding-left:22px;
+margin-top:10px;
+margin-left:50%;
+	transition: all 0.4s;
+	-webkit-transition: all 0.4s;
+}
+
+input[type="radio"]:checked + span {
+	color: #D9E7FD;
+  background-color: #4285F4;
+}
+
+input[type="radio"]:focus + span {
+	color: #fff;
+}
+
+.button{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 12px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.button{
+    background-color: white; 
+    color: black; 
+    border: 2px solid #008CBA;
+}
+
+.button:hover {
+    background-color: #008CBA;
+    color: white;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+#Forms label:hover::before{
+	content: attr(for);
+	font-family: Arial, -apple-system, sans-serif;
+	text-transform: capitalize;
+	font-size: 11px;
+	position: absolute;
+	top: 170%;
+	left: 0;
+	right: 0;
+	opacity: 0.75;
+	background-color: #323232;
+	color: #fff;	
+	padding: 4px;
+	border-radius: 13px;
+	display: block;
+        width:60px;
+}
+
+img{
+margin-top:-24px;
+margin-left:5px;
+}
+
+#Forms{
+margin-bottom:20px;
+}
+
+input[type="radio"] + span {
+	color: #B3CEFB;
+	border-radius: 0px;
+
+padding-top:11px;
+padding-bottom:11px;
+padding-right:22px;
+padding-left:44px;
+	transition: all 0.4s;
+	-webkit-transition: all 0.4s;
+}
+
+}
