@@ -8,7 +8,6 @@
 <link rel="stylesheet" href="css/topcoat-desktop-dark.min.css"/>
 <link  id="hostStyle" rel="stylesheet" href="css/styles.css"/>
 <script src="jsx/funcs.jsx"></script>
-<script src="jsx/flabel.jsx"></script>
     <script src="jsx/hostscript.jsx"></script>
     
 
@@ -22,10 +21,10 @@
 <div id="LabelTextbox">
 <label>
 Order number:
-<input id="Namber" type="text"><br>
+<input id="Namber" type="text" value="0"><br>
 </label>
 </div>
-
+    
 <div id="LabelTextbox">
 <label>
 Customer:
@@ -36,31 +35,39 @@ Customer:
 <div id="LabelTextbox">
 <label>
 Raport, mm:
-<input id="Raport" type="text"><br>
+<input id="Raport" type="text" value="304.8"><br>
 </label>
 </div>
 
 <div id="LabelTextbox">
 <label>
 Repetition:
-<input id="Repetition" type="text"><br>
+<input id="Repetition" type="text" value="1"><br>
 </label>
 </div>
 
 <div id="LabelTextbox">
 <label>
 Streams:
-<input id="Streams" type="text"><br>
+<input id="Streams" type="text" value="1"><br>
 </label>
 </div>
 
 <div id="LabelTextbox">
 <label>
 G A P, mm:
-<input id="GAP" type="text"><br>
+<input id="GAP" type="text" value="0"><br>
 </label>
 </div>
 
+    <script>
+        doc.getElementById("Namber").onkeypress = function(e){return !(/[А-Яа-яA-Za-z]/.test(String.fromCharCode(e.charCode)))}
+        doc.getElementById("Raport").onkeypress = function(e){return !(/[А-Яа-яA-Za-z]/.test(String.fromCharCode(e.charCode)))}
+        doc.getElementById("Repetition").onkeypress = function(e){return !(/[А-Яа-яA-Za-z]/.test(String.fromCharCode(e.charCode)))}
+        doc.getElementById("Streams").onkeypress = function(e){return !(/[А-Яа-яA-Za-z]/.test(String.fromCharCode(e.charCode)))}
+        doc.getElementById("GAP").onkeypress = function(e){return !(/[А-Яа-яA-Za-z]/.test(String.fromCharCode(e.charCode)))}
+    </script>
+    
 <hr>
 
 <div id="Forms" align="center">
@@ -85,9 +92,13 @@ G A P, mm:
 <div id="Wrap">
 <label>
 Diameter:
-<input type="text"><br>
+<input type="text" id="diam" value="10"><br>
 </label>
 </div>
+    
+    <script>
+        doc.getElementById("diam").onkeypress = function(e){return !(/[А-Яа-яA-Za-z]/.test(String.fromCharCode(e.charCode)))}
+    </script>
 
     <hr>
 <!-----------------****------------------>

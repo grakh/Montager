@@ -1,13 +1,22 @@
 
 var doc = document;
 
+
     var casing = 0;
+
+$("#Namber").on("keypress", function(e){
+    var char = /["a-zA-Z]/;
+    var val = String.fromCharCode(e.which);
+    var test = char.test(val);
+    if (!test) return false;
+});
 
     
   function verify(n) {
       
 casing = n;
-
+      
+      
       var wrappedP = doc.getElementById("Wrap");
       var elem = doc.createElement("div");
       elem.id = "Wrap";
@@ -22,6 +31,7 @@ casing = n;
             
             content = doc.createElement("input");
             content.type = "text";
+            content.id="diam";
             elem.appendChild(content);
             //wrappedP.parentNode.appendChild(elem, wrappedP);
             console.log(elem);
@@ -29,6 +39,7 @@ casing = n;
             elem.appendChild(content);
             
             wrappedP.parentNode.replaceChild(elem, wrappedP);
+            doc.getElementById("diam").onkeypress = function(e){return !(/[А-Яа-яA-Za-z]/.test(String.fromCharCode(e.charCode)))}
             
         } else if (n==1) {
              content = doc.createTextNode(" X, mm: ");
@@ -88,20 +99,3 @@ casing = n;
         }
     }
 
-function subm(){
-    
-     /* var Namber = doc.getElementById("Namber").value;
-      var Customer = doc.getElementById("Customer").value;
-      var Raport = doc.getElementById("Raport").value;
-      var Repetition = doc.getElementById("Repetition").value;
-      var Streams = doc.getElementById("Streams").value;
-      var GAP = doc.getElementById("GAP").value;
-      */
-      //alert("Namber "+Namber+"\nCustomer "+Customer+"\nRaport "+Raport+"\nRepetition "+Repetition+"\nStreams "+Streams+"\nGAP "+GAP);
-    
-     //var csInterface = new CSInterface();  
-  
-  //csInterface.evalScript(sayHello());
-   // jsx.evalscript(hostscript());
-    //flabel(casing);
-}
