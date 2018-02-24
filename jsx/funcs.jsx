@@ -3,6 +3,7 @@ var doc = document;
 
 
     var casing = 0;
+    var Forms ='';
 
 $("#Namber").on("keypress", function(e){
     var char = /["a-zA-Z]/;

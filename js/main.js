@@ -16,11 +16,11 @@
       var Repetition = doc.getElementById("Repetition").value;
       var Streams = doc.getElementById("Streams").value;
       var GAP = doc.getElementById("GAP").value;
-      
+      if (casing==0) Forms = doc.getElementById("diam").value;
 
       //alert("Namber "+casing+"\nCustomer "+Customer+"\nRaport "+Raport+"\nRepetition "+Repetition+"\nStreams "+Streams+"\nGAP "+GAP);
           
-            csInterface.evalScript('sayHello("'+Namber+', '+Customer+', '+Raport+', '+Repetition+', '+Streams+', '+GAP+', '+casing+'")');
+            csInterface.evalScript('sayHello("'+Namber+','+Customer+','+Raport+','+Repetition+','+Streams+','+GAP+','+casing+','+Forms+'")');
     });
   }
     init();
