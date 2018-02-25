@@ -58,7 +58,7 @@ docRef.rulerOrigin = Array (0,0);
     
 var wi= docRef.width;
 var hi = docRef.height;
-var WidthForm = (form[7]*form[4])+(form[5]*form[4]);    
+var WidthForm = (form[7]*form[4])+(form[5]*form[4])+28;  
     
 Gabarit = newLayer.pathItems.rectangle( -10*mm, -15*mm, form[2]*mm+45*mm, -WidthForm*mm-50*mm);
 //Oporka.setEntirePath( Array( Array(0, 0), Array(0, hi), Array(5*mm, hi), Array(5*mm, 0) ) );
@@ -110,7 +110,7 @@ Oporka.strokeDashes = [2,2,2,2];
     if (gor>20) gor=20;
    var ver=parseInt((WidthForm+5*mm)/10);
     if (ver>20) ver=20;
-    alert('gor '+gor+"\n ver "+ver);
+    //alert('gor '+gor+"\n ver "+ver);
     
 for (s=0; s<gor; s++) {
     countLabel++;
@@ -119,7 +119,7 @@ var LTest = newLayer.groupItems.add();
     newPath.setEntirePath( Array( Array(5*mm+i, 6*mm), Array(5*mm+i, 0), Array(8.5*mm+i, 0) ) );
     newPath.stroked = true;
     newPath.strokeColor = PFull;
-    //newPath.strokeCap = strokeCap.ROUNDENDCAP;
+    newPath.strokeCap = StrokeCap.ROUNDENDCAP;
     newPath.strokeWidth = 0.45*mm;
     newPath.filled = false;
 var LText = LTest.textFrames.add();
@@ -141,17 +141,87 @@ var LTest = newLayer.groupItems.add();
     newPath.setEntirePath( Array( Array(-8*mm, 6*mm+i), Array(-8*mm, i), Array(-4.5*mm, i) ) );
     newPath.stroked = true;
     newPath.strokeColor = PFull;
-    //newPath.strokeCap = strokeCap.ROUNDENDCAP;
+    newPath.strokeCap = StrokeCap.ROUNDENDCAP;
     newPath.strokeWidth = 0.45*mm;
     newPath.filled = false;
 var LText = LTest.textFrames.add();
     LText.position = [-5*mm,6*mm+i];
     LText.contents = countLabel;
     LText.textRange.characterAttributes.size = 11;
-    //LText.textRange.characterAttributes.textFont = "Arial";
+    //LText.textRange.characterAttributes.textFont = app.textFonts.getByName("Arial");;
     LText.textRange.characterAttributes.fillColor = PLabel;
     i+=10*mm;
 
     }
     
+var WidthLab = 29*mm; 
+var i = 0;
+    iv=(form[7]*mm+form[5]*mm);
+    //alert('gor '+form[7]+"\n ver "+iv);
+for (s1=0; s1<=form[4]; s1++) {
+    LabelSw1 = newLayer.pathItems.add();
+    LabelSw1.setEntirePath( Array( Array(10*mm, WidthLab+i), Array(15*mm, WidthLab+i)) );
+    LabelSw1.stroked = true;
+    LabelSw1.strokeColor = PCyan;
+    LabelSw1.strokeWidth = 0.1*mm;
+    LabelSw1.filled = false;
+    
+    LabelSw2 = newLayer.pathItems.add();
+    LabelSw2.setEntirePath( Array( Array(form[2]*mm+10*mm, WidthLab+i), Array(form[2]*mm+5*mm, WidthLab+i)) );
+    LabelSw2.stroked = true;
+    LabelSw2.strokeColor = PCyan;
+    LabelSw2.strokeWidth = 0.1*mm;
+    LabelSw2.filled = false;
+    i+=iv;
+}
+    
+var LVector1 = newLayer.groupItems.add();
+    LV1 = LVector1.pathItems.add();
+    LV1.setEntirePath( Array( Array(15*mm, WidthLab-5*mm), Array(35*mm, WidthLab-5*mm)) );
+    LV1.stroked = true;
+    LV1.strokeColor = PLabel;
+    LV1.strokeWidth = 0.1*mm;
+    LV1.filled = false;
+    LV2 = LVector1.pathItems.add();
+    LV2.setEntirePath( Array( Array(30*mm, WidthLab-6*mm), Array(35*mm, WidthLab-5*mm), Array(30*mm, WidthLab-4*mm)) );
+    LV2.stroked = true;
+    LV2.strokeColor = PLabel;
+    LV2.strokeWidth = 0.1*mm;
+    LV2.filled = false;
+
+var LVector2 = LVector1.duplicate();
+    LVector2.top = WidthLab+i-iv+6*mm;
+    
+var LVector3 = LVector1.duplicate();
+    LVector3.rotate(180);
+    LVector3.left = form[2]*mm-15*mm;
+    
+var LVector4 = LVector1.duplicate();
+    LVector4.rotate(180);
+    LVector4.left = form[2]*mm-15*mm;
+    LVector4.top = WidthLab+i-iv+6*mm;
+    
+var Llog = newLayer.textFrames.add();
+    Llog.position = [(form[2]*mm)/2-30*mm,WidthLab+i-iv+10*mm];
+    Llog.contents = "www.justcut.ru +7(495)155-62-73";
+    Llog.textRange.characterAttributes.size = 17;
+    //Llog.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
+    //LText.textRange.characterAttributes.textFont = app.textFonts.getByName("Arial");
+    Llog.textRange.characterAttributes.fillColor = PLabel;
+    
+var LPod = newLayer.textFrames.add();
+    LPod.position = [(form[2]*mm)/2-30*mm, 21*mm];
+    LPod.contents = "специнфа/ "+form[1]+" / "+form[7]+"x"+form[7]+" / ВАЛ "+parseInt(form[2]/3.175)+"("+form[2]+")"+" / "+form[0];
+    LPod.textRange.characterAttributes.size = 12;
+    LPod.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
+    //LText.textRange.characterAttributes.textFont = app.textFonts.getByName("Arial");
+    LPod.textRange.characterAttributes.fillColor = PLabel;
+    
+var LPod2 = newLayer.textFrames.add();
+    LPod2.position = [(form[2]*mm)/2-12*mm, 13*mm];
+    LPod2.contents = "0,99536975% - 0.440 - 70°";
+    LPod2.textRange.characterAttributes.size = 12;
+    LPod2.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
+    //LText.textRange.characterAttributes.textFont = app.textFonts.getByName("Arial");
+    LPod2.textRange.characterAttributes.fillColor = PLabel;
 };

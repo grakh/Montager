@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ExtensionManifest Version="7.0" ExtensionBundleId="ru.list.don" ExtensionBundleVersion="1.0.7" Author name="S.Klimov"
+<ExtensionManifest Version="7.0" ExtensionBundleId="ru.list.don" ExtensionBundleVersion="1.0.9" AuthorName="S.Klimov"
 		ExtensionBundleName="Montager" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<ExtensionList>
-		<Extension Id="ru.list.don" Version="1.1" Author name="S.Klimov" />
+		<Extension Id="ru.list.don" Version="1.1" Author="S.Klimov" />
 	</ExtensionList>
 	<ExecutionEnvironment>
 		<HostList>
