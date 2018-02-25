@@ -26,13 +26,22 @@ casing = n;
       
         if (n==0) {
             
-             content = doc.createTextNode("Diameter:");
+             content = doc.createTextNode("Diameter:  ");
             elem.appendChild(content);
              //wrappedP.parentNode.replaceChild(elem, wrappedP);
             
+             content = doc.createTextNode(" X, mm: ");
+            elem.appendChild(content);
+            
             content = doc.createElement("input");
-            content.type = "text";
-            content.id="diam";
+            content.id = "diam1";
+            elem.appendChild(content);
+            
+            content = doc.createTextNode(" Y, mm: ");
+            elem.appendChild(content);
+            
+            content = doc.createElement("input");
+            content.id = "diam2";
             elem.appendChild(content);
             //wrappedP.parentNode.appendChild(elem, wrappedP);
             console.log(elem);
@@ -40,34 +49,43 @@ casing = n;
             elem.appendChild(content);
             
             wrappedP.parentNode.replaceChild(elem, wrappedP);
-            doc.getElementById("diam").onkeypress = function(e){return !(/[А-Яа-яA-Za-z]/.test(String.fromCharCode(e.charCode)))}
+            doc.getElementById("diam1").onkeypress = function(e){return !(/[А-Яа-яA-Za-z]/.test(String.fromCharCode(e.charCode)));}
+            doc.getElementById("diam2").onmouseover = function(e){doc.getElementById("diam2").value = doc.getElementById("diam1").value;};
+            doc.getElementById("diam2").onkeypress = function(e){return !(/[А-Яа-яA-Za-z]/.test(String.fromCharCode(e.charCode)))};
             
         } else if (n==1) {
              content = doc.createTextNode(" X, mm: ");
             elem.appendChild(content);
             
             content = doc.createElement("input");
-            content.id = "XYR";
+            content.name = "XYR";
+            content.id = "X";
             elem.appendChild(content);
             
             content = doc.createTextNode(" Y, mm: ");
             elem.appendChild(content);
             
             content = doc.createElement("input");
-            content.id = "XYR";
+            content.name= "XYR";
+            content.id = "Y";
             elem.appendChild(content);
             
             content = doc.createTextNode(" R, mm: ");
             elem.appendChild(content);
             
             content = doc.createElement("input");
-            content.id = "XYR";
+            content.name = "XYR";
+            content.id = "R";
             elem.appendChild(content);
             console.log(elem);
             content = doc.createElement("br");
             elem.appendChild(content);
             
             wrappedP.parentNode.replaceChild(elem, wrappedP);
+            
+            doc.getElementById("X").onkeypress = function(e){return !(/[А-Яа-яA-Za-z]/.test(String.fromCharCode(e.charCode)));}
+            doc.getElementById("Y").onkeypress = function(e){return !(/[А-Яа-яA-Za-z]/.test(String.fromCharCode(e.charCode)));}
+            doc.getElementById("R").onkeypress = function(e){return !(/[А-Яа-яA-Za-z]/.test(String.fromCharCode(e.charCode)));}
             
         } else if (n==2 || n==3) {
         
@@ -85,11 +103,14 @@ casing = n;
             contd.appendChild(content);
             
             content = doc.createElement("label");
+             content.id="checkLabel";
              elem.appendChild(content);
             content.setAttribute("for", "check");
            
             cont = doc.createTextNode("Select All");
             content.appendChild(cont);
+            
+            contd.appendChild(content);
             
             console.log(elem);
             content = doc.createElement("br");

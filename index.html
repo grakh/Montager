@@ -87,20 +87,39 @@ G A P, mm:
 
 </div>
 
-<hr>
+
 
 <div id="Wrap">
-<label>
+<label></label>
 Diameter:
-<input type="text" id="diam" value="25"><br>
-</label>
+X, mm: 
+<input id="diam1" value="25">
+Y, mm: 
+<input id="diam2" value="25">
+<br>
+
 </div>
     
     <script>
-        doc.getElementById("diam").onkeypress = function(e){return !(/[А-Яа-яA-Za-z]/.test(String.fromCharCode(e.charCode)))}
+            doc.getElementById("diam1").onkeypress = function(e){return !(/[А-Яа-яA-Za-z]/.test(String.fromCharCode(e.charCode)));}
+            doc.getElementById("diam2").onmouseover = function(e){doc.getElementById("diam2").value = doc.getElementById("diam1").value;};
+            doc.getElementById("diam2").onkeypress = function(e){return !(/[А-Яа-яA-Za-z]/.test(String.fromCharCode(e.charCode)))};
     </script>
 
     <hr>
+<div id="LabelTextbox">
+<label>
+ Distortion: <input type="checkbox" id = "disa" name="ch" class="chk" value="1" checked="checked" />
+<input id="Dist" type="text" value="0,99536975"><br>
+</label>
+</div>   
+    <hr>
+    
+   <script>
+        doc.getElementById("disa").onchange = function(e){
+            if (doc.getElementById("disa").value=='0') {doc.getElementById("Dist").value='0,99536975'; doc.getElementById("disa").value='1'}
+            else {doc.getElementById("Dist").value='0'; doc.getElementById("disa").value='0'}}
+    </script>
 <!-----------------****------------------>
 <div id="button">
 <button class="button" id="button" onClick="subm()">Run code</button>

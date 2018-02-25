@@ -4,13 +4,15 @@
 
 function sayHello(sp) {
     
-    var form=sp.split(',');
+    var form=sp.split(';');
 
   //alert("Namber "+form[0]+"\nCustomer "+form[1]+"\nRaport "+form[2]+"\nRepetition "+form[3]+"\nStreams "+form[4]+"\nGAP "+form[5]+"\ncasing "+form[6]+"\ndiam "+form[7]);  
     //@target illustrator
 //app.bringToFront();
+    alert("Namber "+form[8]);
     
-    
+ if  (form[6]=0){ x = form[8]} ;
+ if  (form[6]=1){ x = form[8], y= form[9], r=form[10]};
     //alert (WidthForm);
     
 mm = 72.0/25.4;
@@ -58,7 +60,7 @@ docRef.rulerOrigin = Array (0,0);
     
 var wi= docRef.width;
 var hi = docRef.height;
-var WidthForm = (form[7]*form[4])+(form[5]*form[4])+28;  
+var WidthForm = (x*form[4])+(form[5]*form[4])+28;  
     
 Gabarit = newLayer.pathItems.rectangle( -10*mm, -15*mm, form[2]*mm+45*mm, -WidthForm*mm-50*mm);
 //Oporka.setEntirePath( Array( Array(0, 0), Array(0, hi), Array(5*mm, hi), Array(5*mm, 0) ) );
@@ -156,7 +158,7 @@ var LText = LTest.textFrames.add();
     
 var WidthLab = 29*mm; 
 var i = 0;
-    iv=(form[7]*mm+form[5]*mm);
+    iv=(x*mm+form[5]*mm);
     //alert('gor '+form[7]+"\n ver "+iv);
 for (s1=0; s1<=form[4]; s1++) {
     LabelSw1 = newLayer.pathItems.add();
@@ -211,7 +213,7 @@ var Llog = newLayer.textFrames.add();
     
 var LPod = newLayer.textFrames.add();
     LPod.position = [(form[2]*mm)/2-30*mm, 21*mm];
-    LPod.contents = "специнфа/ "+form[1]+" / "+form[7]+"x"+form[7]+" / ВАЛ "+parseInt(form[2]/3.175)+"("+form[2]+")"+" / "+form[0];
+    LPod.contents = "специнфа/ "+form[1]+" / "+x+"x"+x+" / ВАЛ "+parseInt(form[2]/3.175)+"("+form[2]+")"+" / "+form[0];
     LPod.textRange.characterAttributes.size = 12;
     LPod.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
     //LText.textRange.characterAttributes.textFont = app.textFonts.getByName("Arial");
