@@ -49,8 +49,13 @@ casing = n;
             elem.appendChild(content);
             
             wrappedP.parentNode.replaceChild(elem, wrappedP);
+            
+            $('#Repetition').removeAttr('disabled');
+            $('#Streams').removeAttr('disabled');
+            $('#GAP').removeAttr('disabled');
+            
             doc.getElementById("diam1").onkeypress = function(e){return !(/[А-Яа-яA-Za-z]/.test(String.fromCharCode(e.charCode)));}
-            doc.getElementById("diam2").onmouseover = function(e){doc.getElementById("diam2").value = doc.getElementById("diam1").value;};
+            doc.getElementById("diam2").onclick = function(e){doc.getElementById("diam2").value = doc.getElementById("diam1").value;};
             doc.getElementById("diam2").onkeypress = function(e){return !(/[А-Яа-яA-Za-z]/.test(String.fromCharCode(e.charCode)))};
             
         } else if (n==1) {
@@ -83,11 +88,25 @@ casing = n;
             
             wrappedP.parentNode.replaceChild(elem, wrappedP);
             
+            $('#Repetition').removeAttr('disabled');
+            $('#Streams').removeAttr('disabled');
+            $('#GAP').removeAttr('disabled');
+            
             doc.getElementById("X").onkeypress = function(e){return !(/[А-Яа-яA-Za-z]/.test(String.fromCharCode(e.charCode)));}
             doc.getElementById("Y").onkeypress = function(e){return !(/[А-Яа-яA-Za-z]/.test(String.fromCharCode(e.charCode)));}
             doc.getElementById("R").onkeypress = function(e){return !(/[А-Яа-яA-Za-z]/.test(String.fromCharCode(e.charCode)));}
             
         } else if (n==2 || n==3) {
+            
+            if(n==2){$('#Repetition').removeAttr('disabled');
+                     $('#Streams').removeAttr('disabled');
+                     $('#GAP').removeAttr('disabled');
+                    };
+            
+            if(n==3){$('#Repetition').attr('disabled','disabled');
+                     $('#Streams').attr('disabled','disabled');
+                     $('#GAP').attr('disabled','disabled');
+                    };
         
             contd = doc.createElement("div");
             contd.setAttribute("class", "checkboxFour");

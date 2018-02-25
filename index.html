@@ -102,7 +102,7 @@ Y, mm:
     
     <script>
             doc.getElementById("diam1").onkeypress = function(e){return !(/[А-Яа-яA-Za-z]/.test(String.fromCharCode(e.charCode)));}
-            doc.getElementById("diam2").onmouseover = function(e){doc.getElementById("diam2").value = doc.getElementById("diam1").value;};
+            doc.getElementById("diam2").onclick = function(e){doc.getElementById("diam2").value = doc.getElementById("diam1").value;};
             doc.getElementById("diam2").onkeypress = function(e){return !(/[А-Яа-яA-Za-z]/.test(String.fromCharCode(e.charCode)))};
     </script>
 

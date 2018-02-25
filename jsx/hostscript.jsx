@@ -4,20 +4,40 @@
 
 function sayHello(sp) {
     
+var docRef = app.activeDocument;
+var newLayer=docRef.activeLayer;
+//newLayer = docRef.layers.add();
+//newLayer.zOrder(ZOrderMethod.BRINGTOFRONT);
+newLayer.name="Cut";
+docRef.rulerOrigin = Array (0,0);
+    var units = 1; // 2-inches, 1-milllimeters, 0-points
+    app.preferences.setIntegerPreference("rulerType", units);
+    app.preferences.setIntegerPreference("strokeUnits", units);
+    
+var wi= docRef.width;
+var hi = docRef.height;
+    
+    
     var form=sp.split(';');
 
   //alert("Namber "+form[0]+"\nCustomer "+form[1]+"\nRaport "+form[2]+"\nRepetition "+form[3]+"\nStreams "+form[4]+"\nGAP "+form[5]+"\ncasing "+form[6]+"\ndiam "+form[7]);  
     //@target illustrator
 //app.bringToFront();
-    alert("Namber "+form[8]);
+    //alert("Namber "+form[8]);
     
- if  (form[6]=0){ x = form[8]} ;
- if  (form[6]=1){ x = form[8], y= form[9], r=form[10]};
-    //alert (WidthForm);
+    
     
 mm = 72.0/25.4;
 mms= mm/2.0;
-
+    
+var elem = newLayer.groupItems.add();  
+var elis = newLayer.groupItems.add(); 
+var elm = newLayer.groupItems.add();
+var elm1 = newLayer.groupItems.add();
+var elm2 = newLayer.groupItems.add();
+var alls = newLayer.groupItems.add();
+    
+    var docSelection = new Array();
     
     
 var PLabel = new CMYKColor();
@@ -47,20 +67,11 @@ var PFull = new CMYKColor();
     PFull.cyan = 100; 
     PFull.magenta = 100; 
     PFull.yellow = 100;
+     
+ if  (form[6]==2){el(); elSelect();};
+ if  (form[6]==3){el(); fullSelect();}; 
     
-var docRef = app.activeDocument;
-var newLayer=docRef.activeLayer;
-//newLayer = docRef.layers.add();
-//newLayer.zOrder(ZOrderMethod.BRINGTOFRONT);
-newLayer.name="Cut";
-docRef.rulerOrigin = Array (0,0);
-    var units = 1; // 2-inches, 1-milllimeters, 0-points
-    app.preferences.setIntegerPreference("rulerType", units);
-    app.preferences.setIntegerPreference("strokeUnits", units);
-    
-var wi= docRef.width;
-var hi = docRef.height;
-var WidthForm = (x*form[4])+(form[5]*form[4])+28;  
+var WidthForm = (form[8]*form[4])+(form[5]*form[4])+28;  
     
 Gabarit = newLayer.pathItems.rectangle( -10*mm, -15*mm, form[2]*mm+45*mm, -WidthForm*mm-50*mm);
 //Oporka.setEntirePath( Array( Array(0, 0), Array(0, hi), Array(5*mm, hi), Array(5*mm, 0) ) );
@@ -158,7 +169,7 @@ var LText = LTest.textFrames.add();
     
 var WidthLab = 29*mm; 
 var i = 0;
-    iv=(x*mm+form[5]*mm);
+    iv=(form[8]*mm+form[5]*mm);
     //alert('gor '+form[7]+"\n ver "+iv);
 for (s1=0; s1<=form[4]; s1++) {
     LabelSw1 = newLayer.pathItems.add();
@@ -205,7 +216,7 @@ var LVector4 = LVector1.duplicate();
     
 var Llog = newLayer.textFrames.add();
     Llog.position = [(form[2]*mm)/2-30*mm,WidthLab+i-iv+10*mm];
-    Llog.contents = "www.justcut.ru +7(495)155-62-73";
+    Llog.contents = "www.justcut.ru   +7(495) 155-62-73";
     Llog.textRange.characterAttributes.size = 17;
     //Llog.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
     //LText.textRange.characterAttributes.textFont = app.textFonts.getByName("Arial");
@@ -213,7 +224,7 @@ var Llog = newLayer.textFrames.add();
     
 var LPod = newLayer.textFrames.add();
     LPod.position = [(form[2]*mm)/2-30*mm, 21*mm];
-    LPod.contents = "специнфа/ "+form[1]+" / "+x+"x"+x+" / ВАЛ "+parseInt(form[2]/3.175)+"("+form[2]+")"+" / "+form[0];
+    LPod.contents = "специнфа/ "+form[1]+" / "+Math.round(form[8])+"x"+Math.round(form[9])+" / ВАЛ "+parseInt(form[2]/3.175)+"("+form[2]+")"+" / "+form[0];
     LPod.textRange.characterAttributes.size = 12;
     LPod.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
     //LText.textRange.characterAttributes.textFont = app.textFonts.getByName("Arial");
@@ -226,4 +237,158 @@ var LPod2 = newLayer.textFrames.add();
     LPod2.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
     //LText.textRange.characterAttributes.textFont = app.textFonts.getByName("Arial");
     LPod2.textRange.characterAttributes.fillColor = PLabel;
+    
+ 
+ if  (form[6]==0){circ();};
+ if  (form[6]==1){rect();};
+    
+   
+if (form[7]!=0){   
+ for(var i = 0; i < documents[0].pathItems.length; i++){
+    docSelection  = documents[0].pathItems[i]; 
+    docSelection.moveToBeginning(alls); 
+  
+     } 
+    
+    alls.width *= form[7];
+    alert(alls.width);
+  }
+    
+function circ(){
+    var i =0;
+    var j =0;
+
+for (w=0; w<form[4]; w++){    
+    elip = elem.pathItems.ellipse(0, 0, 70, 70, false, false );
+    elip.stroked = true;
+    elip.filled = false;
+    elip.strokeColor = PFull;
+    elip.strokeWidth = 0.4*mm;
+    elip.width=form[9]*mm;
+    elip.height=form[8]*mm;
+    elip.top = WidthLab+i+elip.height+form[5]*mm/2+elip.strokeWidth/2;
+    elip.left = (10*mm-elip.strokeWidth/2)+((form[2]/form[3]-form[9])*mm/2);
+    i+=(form[8]*mm+form[5]*mm);
+    
+            }
+    
+for (q=1; q<form[3]; q++){    
+    elis = elem.duplicate();
+    j+=form[2]/form[3]*mm;
+    elis.left= (10*mm-elip.strokeWidth/2)+((form[2]/form[3]-form[9])*mm/2) + j;
+
+        }
+    }
+    
+    
+function rect(){
+    
+     var i =0;
+    var j =0;
+    var corn = form[8]/form[9];
+
+for (w=0; w<form[4]; w++){    
+    elip = elem.pathItems.roundedRectangle(0, 0, 70, 70, form[10]*mm, form[10]*mm/corn, false );
+    elip.stroked = true;
+    elip.filled = false;
+    elip.strokeColor = PFull;
+    elip.strokeWidth = 0.4*mm;
+    elip.width=form[9]*mm;
+    elip.height=form[8]*mm;
+    elip.top = WidthLab+i+elip.height+form[5]*mm/2+elip.strokeWidth/2;
+    elip.left = (10*mm-elip.strokeWidth/2)+((form[2]/form[3]-form[9])*mm/2);
+    i+=(form[8]*mm+form[5]*mm);
+    
+            }
+    
+for (q=1; q<form[3]; q++){    
+    elis = elem.duplicate();
+    j+=form[2]/form[3]*mm;
+    elis.left= (10*mm-elip.strokeWidth/2)+((form[2]/form[3]-form[9])*mm/2) + j;
+
+        }
+        //roundedRectangle (top: number, left: number, width: number, height: number[, horizontalRadius: number=15][, verticalRadius: number=20][, reversed: bool=false])
+    
+}
+    
+ function el(){
+
+     if (form[8]) selAll(); else {
+         if (app.documents.length >0){
+             docSelection = docRef.selection;
+                if (docSelection.length>0){
+                        for (i=0; i<docSelection.length; i++){
+                                docSelection.strokeColor = PFull;
+                                docSelection.strokeWidth = 0.4*mm;
+                                elem = docSelection.moveToBeginning(docSelection);
+       }
+     }
+   }
+                                 }
+//alert ('x '+form[8]+'\ny '+form[9]);
+     
+ } 
+    
+function selAll(){
+ for(var i = 0; i < documents[0].pathItems.length; i++){
+    docSelection  = documents[0].pathItems[i]; 
+     docSelection.strokeColor = PFull;
+     docSelection.strokeWidth = 0.4*mm;
+    docSelection.moveToBeginning(elm); 
+     
+ }
+   form[8]=elm.width/mm; form[9]=elm.height/mm;  
+ 
+ }
+    
+function elSelect(){
+    elm.rotate(-90);
+    var i =0;
+    var j =0;
+
+    var WidthLab = 29*mm; 
+
+for (q=0; q<form[3]; q++){      
+for (w=0; w<form[4]; w++){ 
+     
+    elm.strokeColor = PFull;
+    elm.strokeWidth = 0.4*mm;
+    elm.top = WidthLab+i+elm.height+form[5]*mm/2+elm.strokeWidth/2;
+    elm.left = (10*mm-elm.strokeWidth/2)+((form[2]/form[3]-form[9])*mm/2)+ j;
+    i+=(form[8]*mm+form[5]*mm);
+    elm1 = elm.duplicate();
+    elm.moveToBeginning(elm1);
+
+    
+            }
+ 
+  
+    //elm2 = elm1.duplicate();
+    //elm1.moveToBeginning(elm2);
+    j+=form[2]/form[3]*mm;
+    i=0;
+    //elm.left= (10*mm-elm.strokeWidth/2)+((form[2]/form[3]-form[9])*mm/2) + j;
+
+        }
+   
+    
+    }
+    
+    
+function fullSelect(){
+    elm.rotate(-90);
+
+    var WidthLab = 29*mm; 
+
+    elm.strokeColor = PFull;
+    elm.strokeWidth = 0.4*mm;
+    elm.top = WidthLab+elm.height+elm.strokeWidth/2;
+    elm.left = (10*mm-elm.strokeWidth/2)+((form[2]-form[9])*mm/2);
+    
+    form[3]=1;
+    form[4]=1;
+
+    }
+    
+    
 };
