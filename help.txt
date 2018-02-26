@@ -1,7 +1,0 @@
-Открываем терминал и получаем сертификат командой
-
-ZXPSignCmd -selfSignedCert RU RU No SKlimov focus myCertificate.p12
-
-пакуем наше расширение в ZXP с использованием этого сертификата
-
-ZXPSignCmd -sign SR sr.zxp myCertificate.p12 focus
