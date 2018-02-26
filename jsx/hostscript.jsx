@@ -244,14 +244,21 @@ var LPod2 = newLayer.textFrames.add();
     
    
 if (form[7]!=0){   
- for(var i = 0; i < documents[0].pathItems.length; i++){
-    docSelection  = documents[0].pathItems[i]; 
-    docSelection.moveToBeginning(alls); 
-  
-     } 
-    
-    alls.width *= form[7];
-    alert(alls.width);
+
+app.executeMenuCommand('selectall');
+//app.executeMenuCommand('transformscale');
+
+var newGroup = docRef.groupItems.add();
+
+for(var i=0;i<docRef.pathItems.length;i++){
+    var a = docRef.pathItems[i];
+a.moveToBeginning(newGroup);
+         }
+for(var i=0;i<docRef.textFrames.length;i++){
+    var a = docRef.textFrames[i];
+a.moveToBeginning(newGroup);
+         }
+    newGroup.width *= form[7];
   }
     
 function circ(){
