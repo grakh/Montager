@@ -270,7 +270,7 @@ for (w=0; w<form[4]; w++){
     elip.stroked = true;
     elip.filled = false;
     elip.strokeColor = PFull;
-    elip.strokeWidth = 0.4*mm;
+    elip.strokeWidth = 0.5*mm;
     elip.width=form[9]*mm;
     elip.height=form[8]*mm;
     elip.top = WidthLab+i+elip.height+form[5]*mm/2+elip.strokeWidth/2;
@@ -299,7 +299,7 @@ for (w=0; w<form[4]; w++){
     elip.stroked = true;
     elip.filled = false;
     elip.strokeColor = PFull;
-    elip.strokeWidth = 0.4*mm;
+    elip.strokeWidth = 0.5*mm;
     elip.width=form[9]*mm;
     elip.height=form[8]*mm;
     elip.top = WidthLab+i+elip.height+form[5]*mm/2+elip.strokeWidth/2;
@@ -326,7 +326,7 @@ for (q=1; q<form[3]; q++){
                 if (docSelection.length>0){
                         for (i=0; i<docSelection.length; i++){
                                 docSelection.strokeColor = PFull;
-                                docSelection.strokeWidth = 0.4*mm;
+                                docSelection.strokeWidth = 0.5*mm;
                                 elem = docSelection.moveToBeginning(docSelection);
        }
      }
@@ -340,7 +340,7 @@ function selAll(){
  for(var i = 0; i < documents[0].pathItems.length; i++){
     docSelection  = documents[0].pathItems[i]; 
      docSelection.strokeColor = PFull;
-     docSelection.strokeWidth = 0.4*mm;
+     docSelection.strokeWidth = 0.5*mm;
     docSelection.moveToBeginning(elm); 
      
  }
@@ -359,7 +359,7 @@ for (q=0; q<form[3]; q++){
 for (w=0; w<form[4]; w++){ 
      
     elm.strokeColor = PFull;
-    elm.strokeWidth = 0.4*mm;
+    elm.strokeWidth = 0.5*mm;
     elm.top = WidthLab+i+elm.height+form[5]*mm/2+elm.strokeWidth/2;
     elm.left = (10*mm-elm.strokeWidth/2)+((form[2]/form[3]-form[9])*mm/2)+ j;
     i+=(form[8]*mm+form[5]*mm);
@@ -388,7 +388,7 @@ function fullSelect(){
     var WidthLab = 29*mm; 
 
     elm.strokeColor = PFull;
-    elm.strokeWidth = 0.4*mm;
+    elm.strokeWidth = 0.5*mm;
     elm.top = WidthLab+elm.height+elm.strokeWidth/2;
     elm.left = (10*mm-elm.strokeWidth/2)+((form[2]-form[9])*mm/2);
     
