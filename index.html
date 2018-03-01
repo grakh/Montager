@@ -35,7 +35,7 @@ Customer:
 <div id="LabelTextbox">
 <label>
 Raport, mm:
-<input id="Raport" type="text" value="304.8"><br>
+<input id="Raport" type="text" value="304.8" OnChange="di()"><br>
 </label>
 </div>
 
@@ -61,11 +61,11 @@ G A P, mm:
 </div>
 
     <script>
-        doc.getElementById("Namber").onkeypress = function(e){return !(/[А-Яа-яA-Za-z]/.test(String.fromCharCode(e.charCode)))}
-        doc.getElementById("Raport").onkeypress = function(e){return !(/[А-Яа-яA-Za-z]/.test(String.fromCharCode(e.charCode)))}
-        doc.getElementById("Repetition").onkeypress = function(e){return !(/[А-Яа-яA-Za-z]/.test(String.fromCharCode(e.charCode)))}
-        doc.getElementById("Streams").onkeypress = function(e){return !(/[А-Яа-яA-Za-z]/.test(String.fromCharCode(e.charCode)))}
-        doc.getElementById("GAP").onkeypress = function(e){return !(/[А-Яа-яA-Za-z]/.test(String.fromCharCode(e.charCode)))}
+        //doc.getElementById("Namber").onkeypress = function(e){return (/\d+(\.\d)?/.test(String.fromCharCode(e.charCode)))}
+        doc.getElementById("Raport").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))}
+        doc.getElementById("Repetition").onkeypress = function(e){return !(/[^\d]/.test(String.fromCharCode(e.charCode)))}
+        doc.getElementById("Streams").onkeypress = function(e){return !(/[^\d]/.test(String.fromCharCode(e.charCode)))}
+        doc.getElementById("GAP").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))}
     </script>
     
 <hr>
@@ -101,24 +101,25 @@ Y, mm:
 </div>
     
     <script>
-            doc.getElementById("diam1").onkeypress = function(e){return !(/[А-Яа-яA-Za-z]/.test(String.fromCharCode(e.charCode)));}
+            doc.getElementById("diam1").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)));}
             doc.getElementById("diam2").onclick = function(e){doc.getElementById("diam2").value = doc.getElementById("diam1").value;};
-            doc.getElementById("diam2").onkeypress = function(e){return !(/[А-Яа-яA-Za-z]/.test(String.fromCharCode(e.charCode)))};
+            doc.getElementById("diam2").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))};
     </script>
 
     <hr>
 <div id="LabelTextbox">
 <label>
  Distortion: <input type="checkbox" id = "disa" name="ch" class="chk" value="1" checked="checked" />
-<input id="Dist" type="text" value="0.99536975"><br>
+<input id="Dist" type="text" value="0.9924346161163553"><br>
 </label>
 </div>   
     <hr>
     
    <script>
+
         doc.getElementById("disa").onchange = function(e){
-            if (doc.getElementById("disa").value=='0') {doc.getElementById("Dist").value='0.99536975'; doc.getElementById("disa").value='1'}
-            else {doc.getElementById("Dist").value='0'; doc.getElementById("disa").value='0'}}
+            if (doc.getElementById("disa").value=='0') {di(); doc.getElementById("disa").value='1'}
+            else {doc.getElementById("Dist").value='0'; doc.getElementById("disa").value='0';}}
     </script>
 <!-----------------****------------------>
 <div id="button">
