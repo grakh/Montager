@@ -9,8 +9,16 @@ var newLayer=docRef.activeLayer;
 //newLayer = docRef.layers.add();
 //newLayer.zOrder(ZOrderMethod.BRINGTOFRONT);
 newLayer.name="Cut";
+L_Test = docRef.layers.add();
+L_Test.zOrder(ZOrderMethod.SENDTOBACK);
+L_Test.name="L-Test";
+    
+Linfo = docRef.layers.add();
+Linfo .zOrder(ZOrderMethod.BRINGTOFRONT);
+Linfo .name="info";
+    
 docRef.rulerOrigin = Array (0,0);
-    var units = 1; // 2-inches, 1-milllimeters, 0-points
+    var units = 3; // 2-inches, 3-milllimeters, 0-points
     app.preferences.setIntegerPreference("rulerType", units);
     app.preferences.setIntegerPreference("strokeUnits", units);
     
@@ -29,7 +37,7 @@ var hi = docRef.height;
     
 mm = 72.0/25.4;
 mms= mm/2.0;
-var WidthLab = 29*mm; 
+var WidthLab = 22*mm; 
  
     
 var elem = newLayer.groupItems.add();  
@@ -75,9 +83,22 @@ var PFull = new CMYKColor();
  if  (form[6]==0){circ();};
  if  (form[6]==1){rect();};
     
- var WidthForm = (form[8]*form[4])+(form[5]*form[4])+28; 
+var newGroup = newLayer.groupItems.add();
     
-Oporka = newLayer.pathItems.rectangle( 15*mm, 10*mm, form[2]*mm, -WidthForm*mm);
+for(var i=0;i<docRef.pathItems.length;i++){
+    var a = docRef.pathItems[i];
+a.moveToBeginning(newGroup);
+         }
+for(var i=0;i<docRef.textFrames.length;i++){
+    var a = docRef.textFrames[i];
+a.moveToBeginning(newGroup);
+         }
+    
+ var WidthForm = (form[8]*form[4])+(form[5]*form[4])+20; 
+    
+var LI = Linfo.groupItems.add();
+    
+Oporka = LI.pathItems.rectangle( 12*mm, 5*mm, form[2]*mm, -WidthForm*mm);
 //Oporka.setEntirePath( Array( Array(0, 0), Array(0, hi), Array(5*mm, hi), Array(5*mm, 0) ) );
 Oporka.closed = true;
 Oporka.filled = false;
@@ -93,15 +114,15 @@ var i = 0;
     iv=(form[8]*mm+form[5]*mm);
     //alert('gor '+form[7]+"\n ver "+iv);
 for (s1=0; s1<=form[4]; s1++) {
-    LabelSw1 = newLayer.pathItems.add();
-    LabelSw1.setEntirePath( Array( Array(10*mm, WidthLab+i), Array(15*mm, WidthLab+i)) );
+    LabelSw1 = LI.pathItems.add();
+    LabelSw1.setEntirePath( Array( Array(5*mm, WidthLab+i), Array(10*mm, WidthLab+i)) );
     LabelSw1.stroked = true;
     LabelSw1.strokeColor = PCyan;
     LabelSw1.strokeWidth = 0.1*mm;
     LabelSw1.filled = false;
     
-    LabelSw2 = newLayer.pathItems.add();
-    LabelSw2.setEntirePath( Array( Array(form[2]*mm+10*mm, WidthLab+i), Array(form[2]*mm+5*mm, WidthLab+i)) );
+    LabelSw2 = LI.pathItems.add();
+    LabelSw2.setEntirePath( Array( Array(form[2]*mm+5*mm, WidthLab+i), Array(form[2]*mm, WidthLab+i)) );
     LabelSw2.stroked = true;
     LabelSw2.strokeColor = PCyan;
     LabelSw2.strokeWidth = 0.1*mm;
@@ -109,15 +130,15 @@ for (s1=0; s1<=form[4]; s1++) {
     i+=iv;
 }
     
-var LVector1 = newLayer.groupItems.add();
+var LVector1 = LI.groupItems.add();
     LV1 = LVector1.pathItems.add();
-    LV1.setEntirePath( Array( Array(15*mm, WidthLab-5*mm), Array(35*mm, WidthLab-5*mm)) );
+    LV1.setEntirePath( Array( Array(10*mm, WidthLab-5*mm), Array(30*mm, WidthLab-5*mm)) );
     LV1.stroked = true;
     LV1.strokeColor = PLabel;
     LV1.strokeWidth = 0.1*mm;
     LV1.filled = false;
     LV2 = LVector1.pathItems.add();
-    LV2.setEntirePath( Array( Array(30*mm, WidthLab-6*mm), Array(35*mm, WidthLab-5*mm), Array(30*mm, WidthLab-4*mm)) );
+    LV2.setEntirePath( Array( Array(25*mm, WidthLab-6*mm), Array(30*mm, WidthLab-5*mm), Array(25*mm, WidthLab-4*mm)) );
     LV2.stroked = true;
     LV2.strokeColor = PLabel;
     LV2.strokeWidth = 0.1*mm;
@@ -128,31 +149,31 @@ var LVector2 = LVector1.duplicate();
     
 var LVector3 = LVector1.duplicate();
     LVector3.rotate(180);
-    LVector3.left = form[2]*mm-15*mm;
+    LVector3.left = form[2]*mm-20*mm;
     
 var LVector4 = LVector1.duplicate();
     LVector4.rotate(180);
-    LVector4.left = form[2]*mm-15*mm;
+    LVector4.left = form[2]*mm-20*mm;
     LVector4.top = WidthLab+i-iv+6*mm;
     
-var Llog = newLayer.textFrames.add();
-    Llog.position = [(form[2]*mm)/2-45*mm,WidthLab+i-iv+10*mm];
+var Llog = LI.textFrames.add();
+    Llog.position = [(form[2]*mm)/2-40*mm,WidthLab+i-iv+7*mm];
     Llog.contents = "www.justcut.ru  +7(495) 155-62-73";
     Llog.textRange.characterAttributes.size = 16;
     //Llog.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
     Llog.textRange.characterAttributes.textFont = app.textFonts.getByName("CourierNewPSMT");
     Llog.textRange.characterAttributes.fillColor = PLabel;
     
-var LPod = newLayer.textFrames.add();
+var LPod = LI.textFrames.add();
     LPod.contents = ""+form[1]+" / "+parseFloat(parseFloat(form[8]).toFixed(3))+"x"+parseFloat(parseFloat(form[9]).toFixed(3))+" / ВАЛ "+parseInt(form[2]/3.175)+"("+form[2]+")"+" / "+form[0];
     LPod.textRange.characterAttributes.size = 12;
     //LPod.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
     LPod.textRange.characterAttributes.textFont = app.textFonts.getByName("CourierNewPSMT");
     LPod.textRange.characterAttributes.fillColor = PLabel;
-    LPod.position = [(form[2]*mm)/2-(LPod.width/2)+8*mm, 21*mm];
+    LPod.position = [(form[2]*mm)/2-(LPod.width/2)+3*mm, 17*mm];
     
-var LPod2 = newLayer.textFrames.add();
-    LPod2.position = [(form[2]*mm)/2-25*mm, 13*mm];
+var LPod2 = LI.textFrames.add();
+    LPod2.position = [(form[2]*mm)/2-(LPod2.width/2)-30*mm, 11*mm];
     LPod2.contents = form[7]+" - 0.442 - 70°";
     LPod2.textRange.characterAttributes.size = 12;
     LPod2.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
@@ -161,28 +182,32 @@ var LPod2 = newLayer.textFrames.add();
     
     
 if (form[7]!=0){   
-
+    
+    LI.width *= form[7];
+    //docRef.layers["info"].locked = true;
+    newGroup.width *= form[7];
+    newGroup.left = 5*mm +(LI.width-newGroup.width)/2-0.25*mm;
+/*    
 app.executeMenuCommand('selectall');
 //app.executeMenuCommand('transformscale');
+ var docSel=[];   
+for (var i=0; i<docRef.selection.length;i++){
+    docSel.push(docRef.selection[i]);
+}    
+ docSel.moveToBeginning(newGroup); 
+  */  
 
-var newGroup = docRef.groupItems.add();
-
-for(var i=0;i<docRef.pathItems.length;i++){
-    var a = docRef.pathItems[i];
-a.moveToBeginning(newGroup);
-         }
-for(var i=0;i<docRef.textFrames.length;i++){
-    var a = docRef.textFrames[i];
-a.moveToBeginning(newGroup);
-         }
-    newGroup.width *= form[7];
+    //newGroup.width *= form[7];
+   // LI.moveToBeginning(Linfo);
+   
   }
     
 
+    
 //----------------------------------------------------------    
     
     
-var Point0 = newLayer.groupItems.add();
+var Point0 = L_Test.groupItems.add();
     
 var P0K = Point0.pathItems.ellipse(2.0/2, -2.0/2, 2.0, 2.0, false, false );
     P0K.stroked = false;
@@ -210,7 +235,7 @@ var P1K = Point0.duplicate();
     
 for (s=0; s<gor; s++) {
     countLabel++;
-var LTest = newLayer.groupItems.add();
+var LTest = L_Test.groupItems.add();
     newPath = LTest.pathItems.add();
     newPath.setEntirePath( Array( Array(5*mm+i, 6*mm), Array(5*mm+i, 0), Array(8.5*mm+i, 0) ) );
     newPath.stroked = true;
@@ -232,7 +257,7 @@ var LText = LTest.textFrames.add();
    var i = 0;
 for (s=0; s<ver; s++) {
     countLabel++;
-var LTest = newLayer.groupItems.add();
+var LTest = L_Test.groupItems.add();
     newPath = LTest.pathItems.add();
     newPath.setEntirePath( Array( Array(-8*mm, 6*mm+i), Array(-8*mm, i), Array(-4.5*mm, i) ) );
     newPath.stroked = true;
@@ -251,7 +276,7 @@ var LText = LTest.textFrames.add();
     }
     
     
-Gabarit = newLayer.pathItems.rectangle( -10*mm, -15*mm, form[2]*mm+45*mm, -WidthForm*mm-50*mm);
+Gabarit = L_Test.pathItems.rectangle( -5*mm, -12*mm, form[2]*mm+20*mm, -WidthForm*mm-24*mm);
 //Oporka.setEntirePath( Array( Array(0, 0), Array(0, hi), Array(5*mm, hi), Array(5*mm, 0) ) );
 Gabarit.closed = true;
 Gabarit.filled = false;
@@ -276,7 +301,7 @@ for (w=0; w<form[4]; w++){
     elip.width=form[9]*mm;
     elip.height=form[8]*mm;
     elip.top = WidthLab+i+elip.height+form[5]*mm/2+elip.strokeWidth/2;
-    elip.left = (10*mm-elip.strokeWidth/2)+((form[2]/form[3]-form[9])*mm/2);
+    elip.left = (5*mm-elip.strokeWidth/2)+((form[2]/form[3]-form[9])*mm/2);
     i+=(form[8]*mm+form[5]*mm);
     
             }
@@ -284,7 +309,7 @@ for (w=0; w<form[4]; w++){
 for (q=1; q<form[3]; q++){    
     elis = elem.duplicate();
     j+=form[2]/form[3]*mm;
-    elis.left= (10*mm-elip.strokeWidth/2)+((form[2]/form[3]-form[9])*mm/2) + j;
+    elis.left= (5*mm-elip.strokeWidth/2)+((form[2]/form[3]-form[9])*mm/2) + j;
 
         }
     }
@@ -297,15 +322,15 @@ function rect(){
     var corn = form[8]/form[9];
 
 for (w=0; w<form[4]; w++){    
-    elip = elem.pathItems.roundedRectangle(0, 0, 70, 70, form[10]*mm, form[10]*mm/corn, false );
+    elip = elem.pathItems.roundedRectangle(0, 0, form[9]*mm, form[8]*mm, form[10]*mm, form[10]*mm, false );
     elip.stroked = true;
     elip.filled = false;
     elip.strokeColor = PFull;
     elip.strokeWidth = 0.5*mm;
-    elip.width=form[9]*mm;
-    elip.height=form[8]*mm;
+    //elip.width=form[9]*mm;
+    //elip.height=form[8]*mm;
     elip.top = WidthLab+i+elip.height+form[5]*mm/2+elip.strokeWidth/2;
-    elip.left = (10*mm-elip.strokeWidth/2)+((form[2]/form[3]-form[9])*mm/2);
+    elip.left = (5*mm-elip.strokeWidth/2)+((form[2]/form[3]-form[9])*mm/2);
     i+=(form[8]*mm+form[5]*mm);
     
             }
@@ -313,7 +338,7 @@ for (w=0; w<form[4]; w++){
 for (q=1; q<form[3]; q++){    
     elis = elem.duplicate();
     j+=form[2]/form[3]*mm;
-    elis.left= (10*mm-elip.strokeWidth/2)+((form[2]/form[3]-form[9])*mm/2) + j;
+    elis.left= (5*mm-elip.strokeWidth/2)+((form[2]/form[3]-form[9])*mm/2) + j;
 
         }
         //roundedRectangle (top: number, left: number, width: number, height: number[, horizontalRadius: number=15][, verticalRadius: number=20][, reversed: bool=false])
@@ -355,7 +380,7 @@ function elSelect(){
     var i =0;
     var j =0;
 
-    var WidthLab = 29*mm; 
+   // var WidthLab = 29*mm; 
 
 for (q=0; q<form[3]; q++){      
 for (w=0; w<form[4]; w++){ 
@@ -363,7 +388,7 @@ for (w=0; w<form[4]; w++){
     elm.strokeColor = PFull;
     elm.strokeWidth = 0.5*mm;
     elm.top = WidthLab+i+elm.height+form[5]*mm/2+elm.strokeWidth/2;
-    elm.left = (10*mm-elm.strokeWidth/2)+((form[2]/form[3]-form[9])*mm/2)+ j;
+    elm.left = (5*mm-elm.strokeWidth/2)+((form[2]/form[3]-form[9])*mm/2)+ j;
     i+=(form[8]*mm+form[5]*mm);
     elm1 = elm.duplicate();
     elm.moveToBeginning(elm1);
@@ -387,12 +412,12 @@ for (w=0; w<form[4]; w++){
 function fullSelect(){
     elm.rotate(-90);
 
-    var WidthLab = 29*mm; 
+    //var WidthLab = 29*mm; 
 
     elm.strokeColor = PFull;
     elm.strokeWidth = 0.5*mm;
-    elm.top = WidthLab+elm.height+elm.strokeWidth/2;
-    elm.left = (10*mm-elm.strokeWidth/2)+((form[2]-form[9])*mm/2);
+    elm.top = WidthLab+elm.height+elm.strokeWidth/2+form[5]*mm/2;
+    elm.left = (5*mm-elm.strokeWidth/2)+((form[2]-form[9])*mm/2);
     
     form[3]=1;
     form[4]=1;
