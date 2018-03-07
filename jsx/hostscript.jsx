@@ -25,13 +25,13 @@ docRef.rulerOrigin = Array (0,0);
 var wi= docRef.width;
 var hi = docRef.height;
     
-    
+  //alert(sp);  
     var form=sp.split(';');
 
   //alert("Namber "+form[0]+"\nCustomer "+form[1]+"\nRaport "+form[2]+"\nRepetition "+form[3]+"\nStreams "+form[4]+"\nGAP "+form[5]+"\ncasing "+form[6]+"\ndiam "+form[7]);  
     //@target illustrator
 //app.bringToFront();
-    //alert("Namber "+form[8]);
+    //alert("Namber "+form[10]);
     
     
     
@@ -94,7 +94,7 @@ for(var i=0;i<docRef.textFrames.length;i++){
 a.moveToBeginning(newGroup);
          }
     
- var WidthForm = (form[8]*form[4])+(form[5]*form[4])+20; 
+ var WidthForm = (form[10]*form[4])+(form[5]*form[4])+20; 
     
 var LI = Linfo.groupItems.add();
     
@@ -111,7 +111,7 @@ Oporka.strokeDashes = [2,2,2,2];
     
 
 var i = 0;
-    iv=(form[8]*mm+form[5]*mm);
+    iv=(form[10]*mm+form[5]*mm);
     if (form[6]==3){iv/=2; form[4]+=1;};
     //alert('gor '+form[7]+"\n ver "+iv);
 for (s1=0; s1<=form[4]; s1++) {
@@ -166,7 +166,7 @@ var Llog = LI.textFrames.add();
     Llog.textRange.characterAttributes.fillColor = PLabel;
     
 var LPod = LI.textFrames.add();
-    LPod.contents = ""+form[1]+" / "+parseFloat(parseFloat(form[8]).toFixed(3))+"x"+parseFloat(parseFloat(form[9]).toFixed(3))+" / ВАЛ "+parseInt(form[2]/3.175)+"("+form[2]+")"+" / "+form[0];
+    LPod.contents = ""+form[1]+" / "+parseFloat(parseFloat(form[10]).toFixed(3))+"x"+parseFloat(parseFloat(form[11]).toFixed(3))+" / ВАЛ "+parseInt(form[2]/3.175)+"("+form[2]+")"+" / "+form[0]+" / "+form[8];
     LPod.textRange.characterAttributes.size = 12;
     //LPod.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
     LPod.textRange.characterAttributes.textFont = app.textFonts.getByName("CourierNewPSMT");
@@ -175,7 +175,7 @@ var LPod = LI.textFrames.add();
     
 var LPod2 = LI.textFrames.add();
     LPod2.position = [(form[2]*mm)/2-(LPod2.width/2)-30*mm, 11*mm];
-    LPod2.contents = form[7]+" - 0.442 - 70°";
+    LPod2.contents = form[7]+" - "+form[9]+" - 70°";
     LPod2.textRange.characterAttributes.size = 12;
     LPod2.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
     LPod2.textRange.characterAttributes.textFont = app.textFonts.getByName("CourierNewPSMT");
@@ -299,18 +299,18 @@ for (w=0; w<form[4]; w++){
     elip.filled = false;
     elip.strokeColor = PFull;
     elip.strokeWidth = 0.5*mm;
-    elip.width=form[9]*mm;
-    elip.height=form[8]*mm;
+    elip.width=form[11]*mm;
+    elip.height=form[10]*mm;
     elip.top = WidthLab+i+elip.height+form[5]*mm/2+elip.strokeWidth/2;
-    elip.left = (5*mm-elip.strokeWidth/2)+((form[2]/form[3]-form[9])*mm/2);
-    i+=(form[8]*mm+form[5]*mm);
+    elip.left = (5*mm-elip.strokeWidth/2)+((form[2]/form[3]-form[11])*mm/2);
+    i+=(form[10]*mm+form[5]*mm);
     
             }
     
 for (q=1; q<form[3]; q++){    
     elis = elem.duplicate();
     j+=form[2]/form[3]*mm;
-    elis.left= (5*mm-elip.strokeWidth/2)+((form[2]/form[3]-form[9])*mm/2) + j;
+    elis.left= (5*mm-elip.strokeWidth/2)+((form[2]/form[3]-form[11])*mm/2) + j;
 
         }
     }
@@ -320,26 +320,26 @@ function rect(){
     
      var i =0;
     var j =0;
-    var corn = form[8]/form[9];
+    var corn = form[10]/form[11];
 
 for (w=0; w<form[4]; w++){    
-    elip = elem.pathItems.roundedRectangle(0, 0, form[9]*mm, form[8]*mm, form[10]*mm, form[10]*mm, false );
+    elip = elem.pathItems.roundedRectangle(0, 0, form[11]*mm, form[10]*mm, form[12]*mm, form[12]*mm, false );
     elip.stroked = true;
     elip.filled = false;
     elip.strokeColor = PFull;
     elip.strokeWidth = 0.5*mm;
-    //elip.width=form[9]*mm;
-    //elip.height=form[8]*mm;
+    //elip.width=form[11]*mm;
+    //elip.height=form[10]*mm;
     elip.top = WidthLab+i+elip.height+form[5]*mm/2+elip.strokeWidth/2;
-    elip.left = (5*mm-elip.strokeWidth/2)+((form[2]/form[3]-form[9])*mm/2);
-    i+=(form[8]*mm+form[5]*mm);
+    elip.left = (5*mm-elip.strokeWidth/2)+((form[2]/form[3]-form[11])*mm/2);
+    i+=(form[10]*mm+form[5]*mm);
     
             }
     
 for (q=1; q<form[3]; q++){    
     elis = elem.duplicate();
     j+=form[2]/form[3]*mm;
-    elis.left= (5*mm-elip.strokeWidth/2)+((form[2]/form[3]-form[9])*mm/2) + j;
+    elis.left= (5*mm-elip.strokeWidth/2)+((form[2]/form[3]-form[11])*mm/2) + j;
 
         }
         //roundedRectangle (top: number, left: number, width: number, height: number[, horizontalRadius: number=15][, verticalRadius: number=20][, reversed: bool=false])
@@ -348,7 +348,7 @@ for (q=1; q<form[3]; q++){
     
  function el(){
 
-     if (form[8]) selAll(); else {
+     if (form[10]) selAll(); else {
          if (app.documents.length >0){
              docSelection = docRef.selection;
                 if (docSelection.length>0){
@@ -360,7 +360,7 @@ for (q=1; q<form[3]; q++){
      }
    }
                                  }
-//alert ('x '+form[8]+'\ny '+form[9]);
+//alert ('x '+form[10]+'\ny '+form[11]);
      
  } 
     
@@ -372,7 +372,7 @@ function selAll(){
     docSelection.moveToBeginning(elm); 
      
  }
-   form[8]=elm.width/mm; form[9]=elm.height/mm;  
+   form[10]=elm.width/mm; form[11]=elm.height/mm;  
  
  }
     
@@ -389,8 +389,8 @@ for (w=0; w<form[4]; w++){
     elm.strokeColor = PFull;
     elm.strokeWidth = 0.5*mm;
     elm.top = WidthLab+i+elm.height+form[5]*mm/2+elm.strokeWidth/2;
-    elm.left = (5*mm-elm.strokeWidth/2)+((form[2]/form[3]-form[9])*mm/2)+ j;
-    i+=(form[8]*mm+form[5]*mm);
+    elm.left = (5*mm-elm.strokeWidth/2)+((form[2]/form[3]-form[11])*mm/2)+ j;
+    i+=(form[10]*mm+form[5]*mm);
     elm1 = elm.duplicate();
     elm.moveToBeginning(elm1);
 
@@ -402,7 +402,7 @@ for (w=0; w<form[4]; w++){
     //elm1.moveToBeginning(elm2);
     j+=form[2]/form[3]*mm;
     i=0;
-    //elm.left= (10*mm-elm.strokeWidth/2)+((form[2]/form[3]-form[9])*mm/2) + j;
+    //elm.left= (10*mm-elm.strokeWidth/2)+((form[2]/form[3]-form[11])*mm/2) + j;
 
         }
    
@@ -418,7 +418,7 @@ function fullSelect(){
     elm.strokeColor = PFull;
     elm.strokeWidth = 0.5*mm;
     elm.top = WidthLab+elm.height+elm.strokeWidth/2+form[5]*mm/2;
-    elm.left = (5*mm-elm.strokeWidth/2)+((form[2]-form[9])*mm/2);
+    elm.left = (5*mm-elm.strokeWidth/2)+((form[2]-form[11])*mm/2);
     
     form[3]=1;
     form[4]=1;
