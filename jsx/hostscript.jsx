@@ -8,7 +8,7 @@ var docRef = app.activeDocument;
 var newLayer=docRef.activeLayer;
 //newLayer = docRef.layers.add();
 //newLayer.zOrder(ZOrderMethod.BRINGTOFRONT);
-newLayer.name="Cut";
+newLayer.name="Knife";
 L_Test = docRef.layers.add();
 L_Test.zOrder(ZOrderMethod.SENDTOBACK);
 L_Test.name="L-Test";

@@ -31,6 +31,13 @@ Customer:
 <input id="Customer" type="text"><br>
 </label>
 </div>
+    
+<div id="LabelTextbox">
+<label>
+Material:
+<input id="Material" type="text" value="PP"><br>
+</label>
+</div>
 
 <div id="LabelTextbox">
 <label>
@@ -59,6 +66,13 @@ G A P, mm:
 <input id="GAP" type="text" value="3"><br>
 </label>
 </div>
+    
+<div id="LabelTextbox">
+<label>
+Knife, mm:
+<input id="Knife" type="text" value="0.442"><br>
+</label>
+</div>
 
     <script>
         //doc.getElementById("Namber").onkeypress = function(e){return (/\d+(\.\d)?/.test(String.fromCharCode(e.charCode)))}
@@ -66,6 +80,7 @@ G A P, mm:
         doc.getElementById("Repetition").onkeypress = function(e){return !(/[^\d]/.test(String.fromCharCode(e.charCode)))}
         doc.getElementById("Streams").onkeypress = function(e){return !(/[^\d]/.test(String.fromCharCode(e.charCode)))}
         doc.getElementById("GAP").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))}
+        doc.getElementById("Knife").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))}
     </script>
     
 <hr>
