@@ -112,6 +112,7 @@ Oporka.strokeDashes = [2,2,2,2];
 
 var i = 0;
     iv=(form[8]*mm+form[5]*mm);
+    if (form[6]==3){iv/=2; form[4]+=1;};
     //alert('gor '+form[7]+"\n ver "+iv);
 for (s1=0; s1<=form[4]; s1++) {
     LabelSw1 = LI.pathItems.add();
@@ -243,7 +244,7 @@ var LTest = L_Test.groupItems.add();
     newPath.strokeCap = StrokeCap.ROUNDENDCAP;
     newPath.strokeWidth = 0.45*mm;
     newPath.filled = false;
-var LText = LTest.textFrames.add();
+var LText = Linfo.textFrames.add();
     LText.position = [8*mm+i,6*mm];
     LText.contents = countLabel;
     LText.textRange.characterAttributes.size = 11;
@@ -265,7 +266,7 @@ var LTest = L_Test.groupItems.add();
     newPath.strokeCap = StrokeCap.ROUNDENDCAP;
     newPath.strokeWidth = 0.45*mm;
     newPath.filled = false;
-var LText = LTest.textFrames.add();
+var LText = Linfo.textFrames.add();
     LText.position = [-5*mm,6*mm+i];
     LText.contents = countLabel;
     LText.textRange.characterAttributes.size = 11;
