@@ -174,8 +174,8 @@ var LPod = LI.textFrames.add();
     LPod.position = [(form[2]*mm)/2-(LPod.width/2)+3*mm, 17*mm];
     
 var LPod2 = LI.textFrames.add();
-    LPod2.position = [(form[2]*mm)/2-(LPod2.width/2)-30*mm, 11*mm];
-    LPod2.contents = form[7]+" - "+form[9]+" - 70°";
+    LPod2.position = [(form[2]*mm)/2-(LPod2.width/2)-38*mm, 11*mm];
+    LPod2.contents = form[7]+" - "+form[9]+" - 70° - Mirror";
     LPod2.textRange.characterAttributes.size = 12;
     LPod2.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
     LPod2.textRange.characterAttributes.textFont = app.textFonts.getByName("CourierNewPSMT");
@@ -377,6 +377,7 @@ function selAll(){
  }
     
 function elSelect(){
+    elm.transform(app.getScaleMatrix(-100,100));
     elm.rotate(-90);
     var i =0;
     var j =0;
@@ -411,8 +412,9 @@ for (w=0; w<form[4]; w++){
     
     
 function fullSelect(){
+    elm.transform(app.getScaleMatrix(-100,100));
     elm.rotate(-90);
-
+    
     //var WidthLab = 29*mm; 
 
     elm.strokeColor = PFull;
