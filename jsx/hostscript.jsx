@@ -108,7 +108,33 @@ Oporka.fillOverprint = false;
 Oporka.strokeWidth = 0.1*mm;
 Oporka.strokeDashes = [2,2,2,2];
     
-    
+    angleLB = LI.pathItems.add();
+    angleLB.setEntirePath( Array( Array(2*mm, 12*mm), Array(5*mm, 12*mm), Array(5*mm, 9*mm) ) );
+    angleLB.stroked = true;
+    angleLB.strokeColor = PCyan;
+    angleLB.strokeWidth = 0.1*mm;
+    angleLB.filled = false;
+  
+    angleLT = LI.pathItems.add();
+    angleLT.setEntirePath( Array( Array(2*mm, WidthForm*mm+12*mm), Array(5*mm, WidthForm*mm+12*mm), Array(5*mm, WidthForm*mm+15*mm) ) );
+    angleLT.stroked = true;
+    angleLT.strokeColor = PCyan;
+    angleLT.strokeWidth = 0.1*mm;
+    angleLT.filled = false;
+     
+    angleRT = LI.pathItems.add();
+    angleRT.setEntirePath( Array( Array(form[2]*mm+8*mm, 12*mm), Array(form[2]*mm+5*mm, 12*mm), Array(form[2]*mm+5*mm, 9*mm) ) );
+    angleRT.stroked = true;
+    angleRT.strokeColor = PCyan;
+    angleRT.strokeWidth = 0.1*mm;
+    angleRT.filled = false;
+   
+    angleRB = LI.pathItems.add();
+    angleRB.setEntirePath( Array( Array(form[2]*mm+8*mm, WidthForm*mm+12*mm), Array(form[2]*mm+5*mm, WidthForm*mm+12*mm), Array(form[2]*mm+5*mm, WidthForm*mm+15*mm) ) );
+    angleRB.stroked = true;
+    angleRB.strokeColor = PCyan;
+    angleRB.strokeWidth = 0.1*mm;
+    angleRB.filled = false;
 
 var i = 0;
     iv=(form[10]*mm+form[5]*mm);
