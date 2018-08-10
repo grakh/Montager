@@ -1,4 +1,4 @@
-html{
+﻿html{
 margin:0px;
 padding:0px;
 }
@@ -18,8 +18,16 @@ display:block;
 
 input[type="text"]{
 float:right;
-margin-right:10px;
-padding-right:50px;
+	position: absolute;
+    left: 120px;
+    width:200px;
+}
+
+input[id="Namber"]{
+	position: absolute;
+	top: 9px;
+	left: 120px;
+    width:170px;
 }
 
 input[name="XYR"]{
@@ -36,6 +44,25 @@ input[id="diam2"]{
 
 width:50px;
 }
+
+input[id="Angle"]{
+
+margin-left:65px;
+width:30px;
+}
+
+input[id="Line"]{
+
+
+width:30px;
+}
+
+input[id="Material"]{
+
+
+width:80px;
+}
+
 
 
 #check {
@@ -89,6 +116,16 @@ display:block-inline;
 width:100%;
 height:8%;
 }
+
+#LabelTextbox2{
+padding-left:7px;
+padding-top: 10px;
+position:relative;
+display:block-inline;
+width:100%;
+height:8%;
+}
+
 
 #LabelDinamics{
 padding-left:7px;
@@ -191,6 +228,8 @@ input[type="radio"]:focus + span {
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
     cursor: pointer;
+    position:relative;
+    top:-30px;
 }
 
 .button{
@@ -203,6 +242,37 @@ input[type="radio"]:focus + span {
     background-color: #008CBA;
     color: white;
 }
+
+.btnXml{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 8px;
+    margin-right:10px;
+    #margin: 0px 0px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    position:absolute;
+    left:295px;
+    top:8px;
+}
+
+.btnXml{
+    background-color: yellow; 
+    color: black; 
+    border: 2px solid #008CBA;
+}
+
+.btnXml:hover {
+    background-color: #008CBA;
+    color: white;
+}
+
 .checkboxFour{
     text-align:center;
     

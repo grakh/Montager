@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -21,7 +21,8 @@
 <div id="LabelTextbox">
 <label>
 Order number:
-<input id="Namber" type="text" value="0"><br>
+<button class="btnXml" id="xml" onClick="fxml()">:XML</button>
+<input id="Namber" type="text" value=""><br>
 </label>
 </div>
     
@@ -32,17 +33,19 @@ Customer:
 </label>
 </div>
     
-<div id="LabelTextbox">
+<div id="LabelTextbox2">
 <label>
-Material:
-<input id="Material" type="text" value="PP"><br>
+Angle:
+<input id="Angle"  value="">
+°, Material:
+<input id="Material"  value=""><br>
 </label>
 </div>
 
 <div id="LabelTextbox">
 <label>
 Raport, mm:
-<input id="Raport" type="text" value="304.8" OnChange="di()"><br>
+<input id="Raport" type="text" value="" OnChange="di()"><br>
 </label>
 </div>
 
@@ -70,17 +73,18 @@ G A P, mm:
 <div id="LabelTextbox">
 <label>
 Knife, mm:
-<input id="Knife" type="text" value="0.442"><br>
+<input id="Knife" type="text" value=""><br>
 </label>
 </div>
 
     <script>
-        //doc.getElementById("Namber").onkeypress = function(e){return (/\d+(\.\d)?/.test(String.fromCharCode(e.charCode)))}
+        doc.getElementById("Namber").onkeypress = function(e){return (/\d+(\.\d)?/.test(String.fromCharCode(e.charCode)))}
         doc.getElementById("Raport").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))}
         doc.getElementById("Repetition").onkeypress = function(e){return !(/[^\d]/.test(String.fromCharCode(e.charCode)))}
         doc.getElementById("Streams").onkeypress = function(e){return !(/[^\d]/.test(String.fromCharCode(e.charCode)))}
         doc.getElementById("GAP").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))}
         doc.getElementById("Knife").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))}
+        doc.getElementById("Angle").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))}
     </script>
     
 <hr>
@@ -125,7 +129,7 @@ Y, mm:
 <div id="LabelTextbox">
 <label>
  Distortion: <input type="checkbox" id = "disa" name="ch" class="chk" value="1" checked="checked" />
-<input id="Dist" type="text" value="0.9924346161163553"><br>
+<input id="Dist" type="text" value="0"><br>
 </label>
 </div>   
     <hr>
@@ -137,6 +141,14 @@ Y, mm:
             else {doc.getElementById("Dist").value='0'; doc.getElementById("disa").value='0';}}
     </script>
 <!-----------------****------------------>
+
+<div id="LabelTextbox">
+<label>
+ Line: 
+<input id="Line" value="0.5">
+</label>
+</div>  
+
 <div id="button">
 <button class="button" id="button" onClick="subm()">Run code</button>
 </div>

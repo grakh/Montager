@@ -1,8 +1,10 @@
-/*jslint vars: true, plusplus: true, devel: true, nomen: true, regexp: true, indent: 4, maxerr: 50 */
+﻿/*jslint vars: true, plusplus: true, devel: true, nomen: true, regexp: true, indent: 4, maxerr: 50 */
 /*global $, Folder*/
 
 
 function sayHello(sp) {
+    
+
     
 var docRef = app.activeDocument;
 var newLayer=docRef.activeLayer;
@@ -18,7 +20,7 @@ Linfo .zOrder(ZOrderMethod.BRINGTOFRONT);
 Linfo .name="info";
     
 docRef.rulerOrigin = Array (0,0);
-    var units = 3; // 2-inches, 3-milllimeters, 0-points
+    var units = 1; // 2-inches, 3-milllimeters, 0-points
     app.preferences.setIntegerPreference("rulerType", units);
     app.preferences.setIntegerPreference("strokeUnits", units);
     
@@ -28,12 +30,22 @@ var hi = docRef.height;
   //alert(sp);  
     var form=sp.split(';');
 
-  //alert("Namber "+form[0]+"\nCustomer "+form[1]+"\nRaport "+form[2]+"\nRepetition "+form[3]+"\nStreams "+form[4]+"\nGAP "+form[5]+"\ncasing "+form[6]+"\ndiam "+form[7]);  
+  //alert("Namber "+form[0]+"\nCustomer "+form[1]+"\nRaport "+form[2]+"\nRepetition "+form[3]+"\nStreams "+form[4]+"\nGAP "+form[5]+"\ncasing "+form[6]+"\ndist "+form[7]);  
     //@target illustrator
 //app.bringToFront();
     //alert("Namber "+form[10]);
+    var Nam = form[0];
+    var Cust = form[1];
+    var Rap = form[2];
+    var Rep = form[3];
+    var Stre = form[4];
+    var Gapp = form[5];
+    var casi = form[6];
+    var Distor = form[7];
+    var Mate = form[8];
+    var Kni = form[9];
     
-    
+   var lineOb = parseFloat(form[8].substring(form[8].lastIndexOf(" ")));   
     
 mm = 72.0/25.4;
 mms= mm/2.0;
@@ -63,6 +75,12 @@ var PCyan = new CMYKColor();
     PCyan.cyan = 100; 
     PCyan.magenta = 0; 
     PCyan.yellow = 0;
+var PRisk= new CMYKColor();
+    PRisk.name = 'labelColor';
+    PRisk.black =100; 
+    PRisk.cyan = 100; 
+    PRisk.magenta = 0; 
+    PRisk.yellow = 0;
     
 var PWhite = new CMYKColor();
     PWhite.name = 'WhiteColor';
@@ -144,15 +162,15 @@ for (s1=0; s1<=form[4]; s1++) {
     LabelSw1 = LI.pathItems.add();
     LabelSw1.setEntirePath( Array( Array(5*mm, WidthLab+i), Array(10*mm, WidthLab+i)) );
     LabelSw1.stroked = true;
-    LabelSw1.strokeColor = PCyan;
-    LabelSw1.strokeWidth = 0.1*mm;
+    LabelSw1.strokeColor = PRisk;
+    LabelSw1.strokeWidth = 0.15*mm;
     LabelSw1.filled = false;
     
     LabelSw2 = LI.pathItems.add();
     LabelSw2.setEntirePath( Array( Array(form[2]*mm+5*mm, WidthLab+i), Array(form[2]*mm, WidthLab+i)) );
     LabelSw2.stroked = true;
-    LabelSw2.strokeColor = PCyan;
-    LabelSw2.strokeWidth = 0.1*mm;
+    LabelSw2.strokeColor = PRisk;
+    LabelSw2.strokeWidth = 0.15*mm;
     LabelSw2.filled = false;
     i+=iv;
 }
@@ -192,7 +210,7 @@ var Llog = LI.textFrames.add();
     Llog.textRange.characterAttributes.fillColor = PLabel;
     
 var LPod = LI.textFrames.add();
-    LPod.contents = ""+form[1]+" / "+parseFloat(parseFloat(form[10]).toFixed(3))+"x"+parseFloat(parseFloat(form[11]).toFixed(3))+" / ВАЛ "+parseInt(form[2]/3.175)+"("+form[2]+")"+" / "+form[0]+" / "+form[8];
+    LPod.contents = ""+form[1]+" / "+parseFloat(parseFloat(form[10]).toFixed(3))+"x"+parseFloat(parseFloat(form[11]).toFixed(3))+" / ВАЛ "+parseInt(form[2]/3.175)+"("+form[2]+")"+" / "+form[0]+" / "+form[8].substring(0, form[8].lastIndexOf(" "));
     LPod.textRange.characterAttributes.size = 12;
     //LPod.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
     LPod.textRange.characterAttributes.textFont = app.textFonts.getByName("CourierNewPSMT");
@@ -201,7 +219,7 @@ var LPod = LI.textFrames.add();
     
 var LPod2 = LI.textFrames.add();
     LPod2.position = [(form[2]*mm)/2-(LPod2.width/2)-38*mm, 11*mm];
-    LPod2.contents = form[7]+" - "+form[9]+" - 70° - Mirror";
+    LPod2.contents = form[7]+" - "+form[9]+" - "+form[8].substring(0, form[8].indexOf(" "))+" - Mirror";
     LPod2.textRange.characterAttributes.size = 12;
     LPod2.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
     LPod2.textRange.characterAttributes.textFont = app.textFonts.getByName("CourierNewPSMT");
@@ -213,7 +231,7 @@ if (form[7]!=0){
     LI.width *= form[7];
     //docRef.layers["info"].locked = true;
     newGroup.width *= form[7];
-    newGroup.left = 5*mm +(LI.width-newGroup.width)/2-0.25*mm;
+    newGroup.left = 5*mm +(LI.width-newGroup.width-6*mm)/2-0.25*mm;
 /*    
 app.executeMenuCommand('selectall');
 //app.executeMenuCommand('transformscale');
@@ -268,7 +286,7 @@ var LTest = L_Test.groupItems.add();
     newPath.stroked = true;
     newPath.strokeColor = PFull;
     newPath.strokeCap = StrokeCap.ROUNDENDCAP;
-    newPath.strokeWidth = 0.45*mm;
+    newPath.strokeWidth = lineOb*mm;
     newPath.filled = false;
 var LText = Linfo.textFrames.add();
     LText.position = [8*mm+i,6*mm];
@@ -290,7 +308,7 @@ var LTest = L_Test.groupItems.add();
     newPath.stroked = true;
     newPath.strokeColor = PFull;
     newPath.strokeCap = StrokeCap.ROUNDENDCAP;
-    newPath.strokeWidth = 0.45*mm;
+    newPath.strokeWidth = lineOb*mm;
     newPath.filled = false;
 var LText = Linfo.textFrames.add();
     LText.position = [-5*mm,6*mm+i];
@@ -324,7 +342,7 @@ for (w=0; w<form[4]; w++){
     elip.stroked = true;
     elip.filled = false;
     elip.strokeColor = PFull;
-    elip.strokeWidth = 0.5*mm;
+    elip.strokeWidth = lineOb*mm;
     elip.width=form[11]*mm;
     elip.height=form[10]*mm;
     elip.top = WidthLab+i+elip.height+form[5]*mm/2+elip.strokeWidth/2;
@@ -353,7 +371,7 @@ for (w=0; w<form[4]; w++){
     elip.stroked = true;
     elip.filled = false;
     elip.strokeColor = PFull;
-    elip.strokeWidth = 0.5*mm;
+    elip.strokeWidth = lineOb*mm;
     //elip.width=form[11]*mm;
     //elip.height=form[10]*mm;
     elip.top = WidthLab+i+elip.height+form[5]*mm/2+elip.strokeWidth/2;
@@ -380,7 +398,7 @@ for (q=1; q<form[3]; q++){
                 if (docSelection.length>0){
                         for (i=0; i<docSelection.length; i++){
                                 docSelection.strokeColor = PFull;
-                                docSelection.strokeWidth = 0.5*mm;
+                                docSelection.strokeWidth = lineOb*mm;
                                 elem = docSelection.moveToBeginning(docSelection);
        }
      }
@@ -394,7 +412,7 @@ function selAll(){
  for(var i = 0; i < documents[0].pathItems.length; i++){
     docSelection  = documents[0].pathItems[i]; 
      docSelection.strokeColor = PFull;
-     docSelection.strokeWidth = 0.5*mm;
+     docSelection.strokeWidth = lineOb*mm;
     docSelection.moveToBeginning(elm); 
      
  }

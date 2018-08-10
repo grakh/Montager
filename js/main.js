@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
 'use strict';
 
     var csInterface = new CSInterface();
@@ -16,7 +16,7 @@
       var Repetition = doc.getElementById("Repetition").value;
       var Streams = doc.getElementById("Streams").value;
       var GAP = doc.getElementById("GAP").value;
-      var Material = doc.getElementById("Material").value;
+      var Material = doc.getElementById("Angle").value+'° '+doc.getElementById("Material").value+' '+doc.getElementById("Line").value;
       var Knife = doc.getElementById("Knife").value;
             
       if (casing==0) Forms = doc.getElementById("diam1").value+';'+doc.getElementById("diam2").value;
