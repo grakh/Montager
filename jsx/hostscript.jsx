@@ -29,7 +29,11 @@ var hi = docRef.height;
     
   //alert(sp);  
     var form=sp.split(';');
+ var Da= new Date ();
 
+//Dat=Da.toLocaleString();
+
+var Dat= String (''+Da.getDate() +'.'+ (Da.getMonth()+1)+'.'+  Da.getFullYear());
   //alert("Namber "+form[0]+"\nCustomer "+form[1]+"\nRaport "+form[2]+"\nRepetition "+form[3]+"\nStreams "+form[4]+"\nGAP "+form[5]+"\ncasing "+form[6]+"\ndist "+form[7]);  
     //@target illustrator
 //app.bringToFront();
@@ -42,8 +46,11 @@ var hi = docRef.height;
     var Gapp = form[5];
     var casi = form[6];
     var Distor = form[7];
-    var Mate = form[8];
+    var Ang = form[8].substring(0, form[8].indexOf(" "));
+    var Mate = form[8].substring(form[8].indexOf(" "), form[8].lastIndexOf(" "));
     var Kni = form[9];
+    
+    if (~Mate.indexOf("Ротация")) Mate='';
     
    var lineOb = parseFloat(form[8].substring(form[8].lastIndexOf(" ")));   
     
@@ -210,7 +217,7 @@ var Llog = LI.textFrames.add();
     Llog.textRange.characterAttributes.fillColor = PLabel;
     
 var LPod = LI.textFrames.add();
-    LPod.contents = ""+form[1]+" / "+parseFloat(parseFloat(form[10]).toFixed(3))+"x"+parseFloat(parseFloat(form[11]).toFixed(3))+" / ВАЛ "+parseInt(form[2]/3.175)+"("+form[2]+")"+" / "+form[0]+" / "+form[8].substring(0, form[8].lastIndexOf(" "));
+    LPod.contents = ""+Dat+" / "+form[1]+" / "+parseFloat(parseFloat(form[10]).toFixed(3))+"x"+parseFloat(parseFloat(form[11]).toFixed(3))+" / ВАЛ "+parseInt(form[2]/3.175)+"("+form[2]+")"+" / "+form[0]+" / "+Ang+Mate;
     LPod.textRange.characterAttributes.size = 12;
     //LPod.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
     LPod.textRange.characterAttributes.textFont = app.textFonts.getByName("CourierNewPSMT");
@@ -219,7 +226,7 @@ var LPod = LI.textFrames.add();
     
 var LPod2 = LI.textFrames.add();
     LPod2.position = [(form[2]*mm)/2-(LPod2.width/2)-38*mm, 11*mm];
-    LPod2.contents = form[7]+" - "+form[9]+" - "+form[8].substring(0, form[8].indexOf(" "))+" - Mirror";
+    LPod2.contents = form[7]+" - "+form[9]+" - "+Ang+" - Mirror";
     LPod2.textRange.characterAttributes.size = 12;
     LPod2.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
     LPod2.textRange.characterAttributes.textFont = app.textFonts.getByName("CourierNewPSMT");

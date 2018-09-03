@@ -16,14 +16,15 @@ $("#Namber").on("keypress", function(e){
 function fxml(){
 var x = doc.getElementById("Namber").value;
 
-var path = '\\\\storage\\zakaz\\'+x.substr (0, x.length-2)+'00-'+x.substr (0, x.length-3)+'999\\'+x+'\\XML\\specification_'+x+'.xml';
+var path = '\\\\storage\\zakaz\\'+x.substr (0, x.length-3)+'000-'+x.substr (0, x.length-3)+'999\\'+x+'\\XML\\specification_'+x+'.xml';
+//alert(path);
 doc.getElementById("Material").value = '';
 
 function parseXML() {
 //alert(path);
 	if (window.XMLHttpRequest) {
 		xmlDoc = new window.XMLHttpRequest();
-		xmlDoc.open("GET",path,false);
+		xmlDoc.open("GET", path, false);
 		xmlDoc.send("");
 		xmlDoc = xmlDoc.responseXML;
 	} else if (ActiveXObject("Microsoft.XMLDOM")) { // IE5, IE6
@@ -47,6 +48,7 @@ function parseXML() {
     //alert (xmlDoc.documentElement.nodeName+' <'+xmlDoc.documentElement.attributes[0].name+' = '+xmlDoc.documentElement.attributes[0].value+'>');
     doc.getElementById("Customer").value=(xmlDoc.documentElement.attributes[1].value+' / '+xmlDoc.documentElement.attributes[0].value).replace(/"/g, "'");
     doc.getElementById("Angle").value=xmlDoc.getElementsByTagName("УголЗаточкиКромки")[0] ? xmlDoc.getElementsByTagName("УголЗаточкиКромки")[0].childNodes[0].nodeValue : 'не найден';
+    doc.getElementById("Material").value=xmlDoc.getElementsByTagName("ТипВырубки")[0] ? xmlDoc.getElementsByTagName("ТипВырубки")[0].childNodes[0].nodeValue : 'не найден';
     doc.getElementById("Raport").value=xmlDoc.getElementsByTagName("ШагПечатногоВала")[0] ? xmlDoc.getElementsByTagName("ШагПечатногоВала")[0].childNodes[0].nodeValue : 'не найден';
     doc.getElementById("Repetition").value=xmlDoc.getElementsByTagName("КоличествоПовторенийНаРаппорте")[0] ? xmlDoc.getElementsByTagName("КоличествоПовторенийНаРаппорте")[0].childNodes[0].nodeValue : '1';
     doc.getElementById("Streams").value=xmlDoc.getElementsByTagName("КоличествоРучьев")[0] ? xmlDoc.getElementsByTagName("КоличествоРучьев")[0].childNodes[0].nodeValue : '1';
