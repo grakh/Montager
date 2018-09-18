@@ -9,7 +9,8 @@
                 
         $("#button").click(function () {
       
-     
+      localStorage.setItem('lineSet', doc.getElementById("Line").value);
+      
       var Namber = $('#Namber').val();
       var Customer = $('#Customer').val();
       var Raport = doc.getElementById("Raport").value;

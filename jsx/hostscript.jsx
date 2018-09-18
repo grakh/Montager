@@ -209,7 +209,7 @@ var LVector4 = LVector1.duplicate();
     LVector4.top = WidthLab+i-iv+6*mm;
     
 var Llog = LI.textFrames.add();
-    Llog.position = [(form[2]*mm)/2-40*mm,WidthLab+i-iv+7*mm];
+    Llog.position = [(form[2]*mm)/2-50*mm,WidthLab+i-iv+7*mm];
     Llog.contents = "www.justcut.ru  +7(495) 155-62-73";
     Llog.textRange.characterAttributes.size = 16;
     //Llog.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
@@ -222,7 +222,8 @@ var LPod = LI.textFrames.add();
     //LPod.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
     LPod.textRange.characterAttributes.textFont = app.textFonts.getByName("CourierNewPSMT");
     LPod.textRange.characterAttributes.fillColor = PLabel;
-    LPod.position = [(form[2]*mm)/2-(LPod.width/2)+3*mm, 17*mm];
+    if (LPod.width > Rap*mm) LPod.width = Rap*mm;
+    LPod.position = [(form[2]*mm)/2-(LPod.width/2)+5*mm, 17*mm];
     
 var LPod2 = LI.textFrames.add();
     LPod2.position = [(form[2]*mm)/2-(LPod2.width/2)-38*mm, 11*mm];

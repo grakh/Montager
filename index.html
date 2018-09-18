@@ -149,6 +149,12 @@ Y, mm:
 </label>
 </div>  
 
+   <script>
+
+        localStorage.getItem('lineSet') > 0 ? doc.getElementById("Line").value = localStorage.getItem('lineSet') : 0.5;
+
+    </script>
+
 <div id="button">
 <button class="button" id="button" onClick="subm()">Run code</button>
 </div>
