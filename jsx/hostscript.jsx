@@ -105,8 +105,8 @@ var PFull = new CMYKColor();
      
  if  (form[6]==2){el(); elSelect();};
  if  (form[6]==3){el(); fullSelect();}; 
- if  (form[6]==0){circ();};
- if  (form[6]==1){rect();};
+ if  (form[6]==0){circ();elSelect();};
+ if  (form[6]==1){rect();elSelect();};
     
 var newGroup = newLayer.groupItems.add();
     
@@ -345,26 +345,17 @@ function circ(){
     var i =0;
     var j =0;
 
-for (w=0; w<form[4]; w++){    
-    elip = elem.pathItems.ellipse(0, 0, 70, 70, false, false );
+ 
+    elip = elm.pathItems.ellipse(0, 0, 70, 70, false, false );
     elip.stroked = true;
     elip.filled = false;
     elip.strokeColor = PFull;
     elip.strokeWidth = lineOb*mm;
-    elip.width=form[11]*mm;
-    elip.height=form[10]*mm;
+    elip.width=form[10]*mm;
+    elip.height=form[11]*mm;
     elip.top = WidthLab+i+elip.height+form[5]*mm/2+elip.strokeWidth/2;
     elip.left = (5*mm-elip.strokeWidth/2)+((form[2]/form[3]-form[11])*mm/2);
-    i+=(form[10]*mm+form[5]*mm);
-    
-            }
-    
-for (q=1; q<form[3]; q++){    
-    elis = elem.duplicate();
-    j+=form[2]/form[3]*mm;
-    elis.left= (5*mm-elip.strokeWidth/2)+((form[2]/form[3]-form[11])*mm/2) + j;
 
-        }
     }
     
     
@@ -374,8 +365,8 @@ function rect(){
     var j =0;
     var corn = form[10]/form[11];
 
-for (w=0; w<form[4]; w++){    
-    elip = elem.pathItems.roundedRectangle(0, 0, form[11]*mm, form[10]*mm, form[12]*mm, form[12]*mm, false );
+ 
+    elip = elm.pathItems.roundedRectangle(0, 0, form[10]*mm, form[11]*mm, form[12]*mm, form[12]*mm, false );
     elip.stroked = true;
     elip.filled = false;
     elip.strokeColor = PFull;
@@ -384,16 +375,7 @@ for (w=0; w<form[4]; w++){
     //elip.height=form[10]*mm;
     elip.top = WidthLab+i+elip.height+form[5]*mm/2+elip.strokeWidth/2;
     elip.left = (5*mm-elip.strokeWidth/2)+((form[2]/form[3]-form[11])*mm/2);
-    i+=(form[10]*mm+form[5]*mm);
-    
-            }
-    
-for (q=1; q<form[3]; q++){    
-    elis = elem.duplicate();
-    j+=form[2]/form[3]*mm;
-    elis.left= (5*mm-elip.strokeWidth/2)+((form[2]/form[3]-form[11])*mm/2) + j;
 
-        }
         //roundedRectangle (top: number, left: number, width: number, height: number[, horizontalRadius: number=15][, verticalRadius: number=20][, reversed: bool=false])
     
 }
@@ -433,33 +415,35 @@ function elSelect(){
     elm.rotate(-90);
     var i =0;
     var j =0;
-
-   // var WidthLab = 29*mm; 
+    elm.strokeColor = PFull;
+    elm.strokeWidth = lineOb*mm;
+    elm.top = WidthLab+i+elm.height+form[5]*mm/2+elm.strokeWidth/2;
+    elm.left = (5*mm-elm.strokeWidth/2)+((form[2]/form[3]-form[11])*mm/2)+ j;
+	var kostyl = false;
 
 for (q=0; q<form[3]; q++){      
 for (w=0; w<form[4]; w++){ 
-     
+
+	if (kostyl) elm.duplicate();
     elm.strokeColor = PFull;
-    elm.strokeWidth = 0.5*mm;
+    elm.strokeWidth = lineOb*mm;
     elm.top = WidthLab+i+elm.height+form[5]*mm/2+elm.strokeWidth/2;
     elm.left = (5*mm-elm.strokeWidth/2)+((form[2]/form[3]-form[11])*mm/2)+ j;
     i+=(form[10]*mm+form[5]*mm);
-    elm1 = elm.duplicate();
-    elm.moveToBeginning(elm1);
 
-    
+    //elm.moveToBeginning(elm1);
+   //alert(w+" i="+i+"\n"+q+" j="+j);
+kostyl = true;
             }
- 
-  
+
     //elm2 = elm1.duplicate();
     //elm1.moveToBeginning(elm2);
+
     j+=form[2]/form[3]*mm;
     i=0;
     //elm.left= (10*mm-elm.strokeWidth/2)+((form[2]/form[3]-form[11])*mm/2) + j;
-
         }
-   
-    
+  
     }
     
     
@@ -470,7 +454,7 @@ function fullSelect(){
     //var WidthLab = 29*mm; 
 
     elm.strokeColor = PFull;
-    elm.strokeWidth = 0.5*mm;
+    elm.strokeWidth = lineOb*mm;
     elm.top = WidthLab+elm.height+elm.strokeWidth/2+form[5]*mm/2;
     elm.left = (5*mm-elm.strokeWidth/2)+((form[2]-form[11])*mm/2);
     
