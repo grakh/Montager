@@ -45,7 +45,9 @@ Angle:
 <div id="LabelTextbox">
 <label>
 Raport, mm:
-<input id="Raport" type="text" value="" OnChange="di()"><br>
+<input id="Raport" type="text" value="" OnChange="di()">
+
+<input id="Polurot"  value="" disabled><br>
 </label>
 </div>
 
@@ -80,6 +82,7 @@ Knife, mm:
     <script>
         doc.getElementById("Namber").onkeypress = function(e){return (/\d+(\.\d)?/.test(String.fromCharCode(e.charCode)))}
         doc.getElementById("Raport").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))}
+		doc.getElementById("Polurot").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))}
         doc.getElementById("Repetition").onkeypress = function(e){return !(/[^\d]/.test(String.fromCharCode(e.charCode)))}
         doc.getElementById("Streams").onkeypress = function(e){return !(/[^\d]/.test(String.fromCharCode(e.charCode)))}
         doc.getElementById("GAP").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))}

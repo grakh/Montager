@@ -18,7 +18,17 @@ var x = doc.getElementById("Namber").value;
 
 var path = '\\\\storage\\zakaz\\'+x.substr (0, x.length-3)+'000-'+x.substr (0, x.length-3)+'999\\'+x+'\\XML\\specification_'+x+'.xml';
 //alert(path);
+doc.getElementById("Customer").value = '';
 doc.getElementById("Material").value = '';
+doc.getElementById("Raport").value = '';
+doc.getElementById("Polurot").value = '';
+doc.getElementById("Repetition").value = '1';
+doc.getElementById("Streams").value = '1';
+doc.getElementById("GAP").value = '3';
+doc.getElementById("Knife").value = '';
+doc.getElementById("Angle").value = '';
+doc.getElementById("Dist").value = '0';
+doc.getElementById("Polurot").disabled = true;
 
 function parseXML() {
 //alert(path);
@@ -57,6 +67,9 @@ function parseXML() {
     //alert("12");    
     doc.getElementById("Knife").value=xmlDoc.getElementsByTagName("ВысотаНожа")[0] ? xmlDoc.getElementsByTagName("ВысотаНожа")[0].childNodes[0].nodeValue : 'не найден';
     di(); doc.getElementById("disa").value='1';
+	
+	if (~doc.getElementById("Material").value.indexOf("Полуротация")) $('#Polurot').removeAttr('disabled');;
+	
     //x=xmlDoc.getElementsByTagName("ШагПечатногоВала")[0];
     //alert (x.nodeName+' <'+x.childNodes[0].nodeValue+'>');
     if ( xmlDoc.getElementsByTagName("Контур")[0].childNodes[0].nodeValue==3) {doc.getElementsByName("figure")[3].checked=true;  verify(3) ;}

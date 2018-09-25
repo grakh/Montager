@@ -14,6 +14,8 @@
       var Namber = $('#Namber').val();
       var Customer = $('#Customer').val();
       var Raport = doc.getElementById("Raport").value;
+	  if ($('#Polurot').val() != '') Raport = Raport+' '+$('#Polurot').val(); else Raport += ' '+ Raport;
+	  
       var Repetition = doc.getElementById("Repetition").value;
       var Streams = doc.getElementById("Streams").value;
       var GAP = doc.getElementById("GAP").value;

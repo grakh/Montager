@@ -30,6 +30,19 @@ input[id="Namber"]{
     width:170px;
 }
 
+input[id="Raport"]{
+	position: absolute;
+
+	left: 120px;
+    width:100px;
+}
+
+input[id="Polurot"]{
+	position: absolute;
+	left: 260px;
+	width:60px;
+}
+
 input[name="XYR"]{
 /*float:left;*/
 width:50px;

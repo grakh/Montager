@@ -34,13 +34,14 @@ var hi = docRef.height;
 //Dat=Da.toLocaleString();
 
 var Dat= String (''+Da.getDate() +'.'+ (Da.getMonth()+1)+'.'+  Da.getFullYear());
-  //alert("Namber "+form[0]+"\nCustomer "+form[1]+"\nRaport "+form[2]+"\nRepetition "+form[3]+"\nStreams "+form[4]+"\nGAP "+form[5]+"\ncasing "+form[6]+"\ndist "+form[7]);  
+  //alert("Namber "+form[0]+"\nCustomer "+form[1]+"\nRap[1]ort "+form[2]+"\nRepetition "+form[3]+"\nStreams "+form[4]+"\nGAP "+form[5]+"\ncasing "+form[6]+"\ndist "+form[7]);  
     //@target illustrator
 //app.bringToFront();
     //alert("Namber "+form[10]);
     var Nam = form[0];
     var Cust = form[1];
-    var Rap = form[2];
+    var Rap = form[2].split(' ');
+	//alert (Rap[0]+' '+ Rap[1]);
     var Rep = form[3];
     var Stre = form[4];
     var Gapp = form[5];
@@ -107,6 +108,10 @@ var PFull = new CMYKColor();
  if  (form[6]==3){el(); fullSelect();}; 
  if  (form[6]==0){circ();elSelect();};
  if  (form[6]==1){rect();elSelect();};
+ 
+ if (Rap[1]==0) Rap[1] = elm.width/mm + 10;
+ 
+ //alert (Rap[1]+' '+elm.width);
     
 var newGroup = newLayer.groupItems.add();
     
@@ -123,7 +128,7 @@ a.moveToBeginning(newGroup);
     
 var LI = Linfo.groupItems.add();
     
-Oporka = LI.pathItems.rectangle( 12*mm, 5*mm, form[2]*mm, -WidthForm*mm);
+Oporka = LI.pathItems.rectangle( 12*mm, 5*mm, Rap[1]*mm, -WidthForm*mm);
 //Oporka.setEntirePath( Array( Array(0, 0), Array(0, hi), Array(5*mm, hi), Array(5*mm, 0) ) );
 Oporka.closed = true;
 Oporka.filled = false;
@@ -148,14 +153,14 @@ Oporka.strokeDashes = [2,2,2,2];
     angleLT.filled = false;
      
     angleRT = LI.pathItems.add();
-    angleRT.setEntirePath( Array( Array(form[2]*mm+8*mm, 12*mm), Array(form[2]*mm+5*mm, 12*mm), Array(form[2]*mm+5*mm, 9*mm) ) );
+    angleRT.setEntirePath( Array( Array(Rap[1]*mm+8*mm, 12*mm), Array(Rap[1]*mm+5*mm, 12*mm), Array(Rap[1]*mm+5*mm, 9*mm) ) );
     angleRT.stroked = true;
     angleRT.strokeColor = PCyan;
     angleRT.strokeWidth = 0.1*mm;
     angleRT.filled = false;
    
     angleRB = LI.pathItems.add();
-    angleRB.setEntirePath( Array( Array(form[2]*mm+8*mm, WidthForm*mm+12*mm), Array(form[2]*mm+5*mm, WidthForm*mm+12*mm), Array(form[2]*mm+5*mm, WidthForm*mm+15*mm) ) );
+    angleRB.setEntirePath( Array( Array(Rap[1]*mm+8*mm, WidthForm*mm+12*mm), Array(Rap[1]*mm+5*mm, WidthForm*mm+12*mm), Array(Rap[1]*mm+5*mm, WidthForm*mm+15*mm) ) );
     angleRB.stroked = true;
     angleRB.strokeColor = PCyan;
     angleRB.strokeWidth = 0.1*mm;
@@ -174,7 +179,7 @@ for (s1=0; s1<=form[4]; s1++) {
     LabelSw1.filled = false;
     
     LabelSw2 = LI.pathItems.add();
-    LabelSw2.setEntirePath( Array( Array(form[2]*mm+5*mm, WidthLab+i), Array(form[2]*mm, WidthLab+i)) );
+    LabelSw2.setEntirePath( Array( Array(Rap[1]*mm+5*mm, WidthLab+i), Array(Rap[1]*mm, WidthLab+i)) );
     LabelSw2.stroked = true;
     LabelSw2.strokeColor = PRisk;
     LabelSw2.strokeWidth = 0.15*mm;
@@ -201,15 +206,15 @@ var LVector2 = LVector1.duplicate();
     
 var LVector3 = LVector1.duplicate();
     LVector3.rotate(180);
-    LVector3.left = form[2]*mm-20*mm;
+    LVector3.left = Rap[1]*mm-20*mm;
     
 var LVector4 = LVector1.duplicate();
     LVector4.rotate(180);
-    LVector4.left = form[2]*mm-20*mm;
+    LVector4.left = Rap[1]*mm-20*mm;
     LVector4.top = WidthLab+i-iv+6*mm;
     
 var Llog = LI.textFrames.add();
-    Llog.position = [(form[2]*mm)/2-50*mm,WidthLab+i-iv+7*mm];
+    Llog.position = [(Rap[1]*mm)/2-50*mm,WidthLab+i-iv+7*mm];
     Llog.contents = "www.justcut.ru  +7(495) 155-62-73";
     Llog.textRange.characterAttributes.size = 16;
     //Llog.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
@@ -217,16 +222,16 @@ var Llog = LI.textFrames.add();
     Llog.textRange.characterAttributes.fillColor = PLabel;
     
 var LPod = LI.textFrames.add();
-    LPod.contents = ""+Dat+" / "+form[1]+" / "+parseFloat(parseFloat(form[10]).toFixed(3))+"x"+parseFloat(parseFloat(form[11]).toFixed(3))+" / ВАЛ "+parseInt(form[2]/3.175)+"("+form[2]+")"+" / "+form[0]+" / "+Ang+Mate;
+    LPod.contents = ""+Dat+" / "+form[1]+" / "+parseFloat(parseFloat(form[10]).toFixed(3))+"x"+parseFloat(parseFloat(form[11]).toFixed(3))+" / ВАЛ "+parseInt(Rap[0]/3.175)+"("+Rap[0]+")"+" / "+form[0]+" / "+Ang+Mate;
     LPod.textRange.characterAttributes.size = 12;
     //LPod.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
     LPod.textRange.characterAttributes.textFont = app.textFonts.getByName("CourierNewPSMT");
     LPod.textRange.characterAttributes.fillColor = PLabel;
-    if (LPod.width > Rap*mm) LPod.width = Rap*mm;
-    LPod.position = [(form[2]*mm)/2-(LPod.width/2)+5*mm, 17*mm];
+    if (LPod.width > Rap[1]*mm) LPod.width = Rap[1]*mm;
+    LPod.position = [(Rap[1]*mm)/2-(LPod.width/2)+5*mm, 17*mm];
     
 var LPod2 = LI.textFrames.add();
-    LPod2.position = [(form[2]*mm)/2-(LPod2.width/2)-38*mm, 11*mm];
+    LPod2.position = [(Rap[1]*mm)/2-(LPod2.width/2)-38*mm, 11*mm];
     LPod2.contents = form[7]+" - "+form[9]+" - "+Ang+" - Mirror";
     LPod2.textRange.characterAttributes.size = 12;
     LPod2.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
@@ -275,12 +280,12 @@ var P0W = Point0.pathItems.ellipse(2.0/8, -2.0/8, 2.0/4, 2.0/4, false, false );
     P0W.fillOverprint = false;
     
 var P1K = Point0.duplicate();
-    P1K.left += form[2]*mm;
+    P1K.left += Rap[1]*mm;
     
    var countLabel=0;
    var i = 0;
    
-   var gor=parseInt((form[2])/10);
+   var gor=parseInt((Rap[1])/10);
     if (gor>20) gor=20;
    var ver=parseInt((WidthForm+5*mm)/10);
     if (ver>20) ver=20;
@@ -329,7 +334,7 @@ var LText = Linfo.textFrames.add();
     }
     
     
-Gabarit = L_Test.pathItems.rectangle( -5*mm, -12*mm, form[2]*mm+20*mm, -WidthForm*mm-24*mm);
+Gabarit = L_Test.pathItems.rectangle( -5*mm, -12*mm, Rap[1]*mm+20*mm, -WidthForm*mm-24*mm);
 //Oporka.setEntirePath( Array( Array(0, 0), Array(0, hi), Array(5*mm, hi), Array(5*mm, 0) ) );
 Gabarit.closed = true;
 Gabarit.filled = false;
@@ -354,7 +359,7 @@ function circ(){
     elip.width=form[10]*mm;
     elip.height=form[11]*mm;
     elip.top = WidthLab+i+elip.height+form[5]*mm/2+elip.strokeWidth/2;
-    elip.left = (5*mm-elip.strokeWidth/2)+((form[2]/form[3]-form[11])*mm/2);
+    elip.left = (5*mm-elip.strokeWidth/2)+((Rap[0]/form[3]-form[11])*mm/2);
 
     }
     
@@ -374,7 +379,7 @@ function rect(){
     //elip.width=form[11]*mm;
     //elip.height=form[10]*mm;
     elip.top = WidthLab+i+elip.height+form[5]*mm/2+elip.strokeWidth/2;
-    elip.left = (5*mm-elip.strokeWidth/2)+((form[2]/form[3]-form[11])*mm/2);
+    elip.left = (5*mm-elip.strokeWidth/2)+((Rap[0]/form[3]-form[11])*mm/2);
 
         //roundedRectangle (top: number, left: number, width: number, height: number[, horizontalRadius: number=15][, verticalRadius: number=20][, reversed: bool=false])
     
@@ -390,13 +395,13 @@ function rect(){
                                 docSelection.strokeColor = PFull;
                                 docSelection.strokeWidth = lineOb*mm;
                                 elem = docSelection.moveToBeginning(docSelection);
-       }
-     }
-   }
-                                 }
+																}
+											}
+										}
+                               }
 //alert ('x '+form[10]+'\ny '+form[11]);
      
- } 
+				} 
     
 function selAll(){
  for(var i = 0; i < documents[0].pathItems.length; i++){
@@ -418,7 +423,7 @@ function elSelect(){
     elm.strokeColor = PFull;
     elm.strokeWidth = lineOb*mm;
     elm.top = WidthLab+i+elm.height+form[5]*mm/2+elm.strokeWidth/2;
-    elm.left = (5*mm-elm.strokeWidth/2)+((form[2]/form[3]-form[11])*mm/2)+ j;
+    elm.left = (5*mm-elm.strokeWidth/2)+((Rap[0]/form[3]-form[11])*mm/2)+ j;
 	var kostyl = false;
 
 for (q=0; q<form[3]; q++){      
@@ -428,7 +433,7 @@ for (w=0; w<form[4]; w++){
     elm.strokeColor = PFull;
     elm.strokeWidth = lineOb*mm;
     elm.top = WidthLab+i+elm.height+form[5]*mm/2+elm.strokeWidth/2;
-    elm.left = (5*mm-elm.strokeWidth/2)+((form[2]/form[3]-form[11])*mm/2)+ j;
+    elm.left = (5*mm-elm.strokeWidth/2)+((Rap[0]/form[3]-form[11])*mm/2)+ j;
     i+=(form[10]*mm+form[5]*mm);
 
     //elm.moveToBeginning(elm1);
@@ -439,7 +444,7 @@ kostyl = true;
     //elm2 = elm1.duplicate();
     //elm1.moveToBeginning(elm2);
 
-    j+=form[2]/form[3]*mm;
+    j+=Rap[0]/form[3]*mm;
     i=0;
     //elm.left= (10*mm-elm.strokeWidth/2)+((form[2]/form[3]-form[11])*mm/2) + j;
         }
@@ -456,7 +461,7 @@ function fullSelect(){
     elm.strokeColor = PFull;
     elm.strokeWidth = lineOb*mm;
     elm.top = WidthLab+elm.height+elm.strokeWidth/2+form[5]*mm/2;
-    elm.left = (5*mm-elm.strokeWidth/2)+((form[2]-form[11])*mm/2);
+    elm.left = (5*mm-elm.strokeWidth/2)+((Rap[0]-form[11])*mm/2);
     
     form[3]=1;
     form[4]=1;
