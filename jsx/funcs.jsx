@@ -213,9 +213,9 @@ casing = n;
             content.type="checkbox";
             content.id="check";
             content.setAttribute("value", "1");
-            //content.setAttribute("checked", "checked");
-            
-            
+            content.setAttribute("checked", "checked");
+			
+  
             contd.appendChild(content);
             
             content = doc.createElement("label");
@@ -223,10 +223,28 @@ casing = n;
              elem.appendChild(content);
             content.setAttribute("for", "check");
            
-            cont = doc.createTextNode("Close Path");
+            cont = doc.createTextNode("Select All");
             content.appendChild(cont);
             
             contd.appendChild(content);
+			
+			content2 = doc.createElement("input");
+            
+            content2.type="checkbox";
+            content2.id="check2";
+            content2.setAttribute("value", "1");
+			
+			contd.appendChild(content2);
+			
+			content2 = doc.createElement("label");
+             content2.id="checkLabel2";
+             elem.appendChild(content2);
+            content2.setAttribute("for", "check2");
+           
+            cont2 = doc.createTextNode("Close Path");
+            content2.appendChild(cont2);
+            
+            contd.appendChild(content2);
             
             console.log(elem);
             content = doc.createElement("br");

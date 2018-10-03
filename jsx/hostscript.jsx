@@ -56,7 +56,8 @@ var Dat= String (''+Da.getDate() +'.'+ (Da.getMonth()+1)+'.'+  Da.getFullYear())
     
     if (~Mate.indexOf("Ротация")) Mate='';
 	
-	var cheks = form[10];
+	var SAll = form[10];
+	var cheks = form[11];
 	//alert(cheks);
     
    var lineOb = parseFloat(form[8].substring(form[8].lastIndexOf(" ")));   
@@ -74,7 +75,7 @@ var elm2 = newLayer.groupItems.add();
 var alls = newLayer.groupItems.add();
     
     var docSelection = new Array();
-    
+    var docSelection2 = new Array();
     
 var PLabel = new CMYKColor();
     PLabel.name = 'labelColor';
@@ -110,7 +111,7 @@ var PFull = new CMYKColor();
     PFull.magenta = 100; 
     PFull.yellow = 100;
      
- if  (form[6]==2){if (cheks=='true') closePath(); el(); elSelect();};
+ if  (form[6]==2){if (cheks=='true') closePath(); el(); Gap2 = Rap[1]/Rep - form[11]; elSelect();};
  if  (form[6]==3){if (cheks=='true') closePath(); el(); fullSelect();}; 
  if  (form[6]==0){circ();elSelect();};
  if  (form[6]==1){rect();elSelect();};
@@ -397,21 +398,30 @@ function rect(){
     
  function el(){
 
-     if (form[10]) selAll(); else {
+     if (SAll=="true") selAll(); else {
          if (app.documents.length >0){
-             docSelection = docRef.selection;
-                if (docSelection.length>0){
-                        for (i=0; i<docSelection.length; i++){
-                                docSelection.strokeColor = PFull;
-                                docSelection.strokeWidth = lineOb*mm;
-                                elem = docSelection.moveToBeginning(docSelection);
-																}
-											}
-										}
-                               }
-//alert ('x '+form[10]+'\ny '+form[11]);
+			 docSelection2 = docRef.selection;
+			 
+			 if (docSelection2.length>0){
+ for(var i = 0; i < docSelection2.length; i++){
+    docSelection  = docSelection2[i]; 
+     docSelection.strokeColor = PFull;
+     docSelection.strokeWidth = lineOb*mm;
+    docSelection.moveToBeginning(elm); 
      
-				} 
+ }
+				   form[10]=elm.width/mm; form[11]=elm.height/mm;
+				   //Gap2 = Rap[1]/Rep - form[11];
+				   //alert(Gap2);
+//alert(form[10]+"--"+form[11]);
+  
+			   
+			 } else alert("No selection");
+     
+
+										}
+											}
+ } 
     
 function selAll(){
  for(var i = 0; i < documents[0].pathItems.length; i++){
@@ -422,7 +432,7 @@ function selAll(){
      
  }
    form[10]=elm.width/mm; form[11]=elm.height/mm;  
-   //Gap2 = Gap2-form[11];
+   //Gap2 = Rap[1]/Rep - form[11];
  
  }
     

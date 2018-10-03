@@ -94,9 +94,14 @@ width:80px;
 #check {
 	width: 20px;
     height:20px;
+	margin-left:25px;
 }
 
-
+#check2 {
+	width: 20px;
+    height:20px;
+	margin-left:45px;
+}
 
 input[type="radio"]{
 float:right;
@@ -172,7 +177,11 @@ height:8%;
 }
 
 #checkLabel{
-margin-left: 30px;
+margin-left: 50px;
+}
+
+#checkLabel2{
+margin-left: 70px;
 }
 
 
@@ -300,8 +309,8 @@ input[type="radio"]:focus + span {
 }
 
 .checkboxFour{
-    text-align:center;
-    
+    #text-align:center;
+    margin-left: 30px;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
