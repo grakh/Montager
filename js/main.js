@@ -10,6 +10,7 @@
         $("#button").click(function () {
       
       localStorage.setItem('lineSet', doc.getElementById("Line").value);
+	  
       
       var Namber = $('#Namber').val();
       var Customer = $('#Customer').val();
@@ -18,7 +19,7 @@
 	  
       var Repetition = doc.getElementById("Repetition").value;
       var Streams = doc.getElementById("Streams").value;
-      var GAP = doc.getElementById("GAP").value;
+      var GAP = doc.getElementById("GAP").value +' '+ doc.getElementById("GAP2").value;
       var Material = doc.getElementById("Angle").value+'° '+doc.getElementById("Material").value+' '+doc.getElementById("Line").value;
       var Knife = doc.getElementById("Knife").value;
             

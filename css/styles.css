@@ -43,6 +43,19 @@ input[id="Polurot"]{
 	width:60px;
 }
 
+input[id="GAP"]{
+	position: absolute;
+
+	left: 120px;
+    width:100px;
+}
+
+input[id="GAP2"]{
+	position: absolute;
+	left: 260px;
+	width:60px;
+}
+
 input[name="XYR"]{
 /*float:left;*/
 width:50px;

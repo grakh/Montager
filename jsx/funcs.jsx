@@ -4,6 +4,7 @@ var doc = document;
 
     var casing = 0;
     var Forms ='';
+	var PL=false;
 
 $("#Namber").on("keypress", function(e){
     var char = /["a-zA-Z]/;
@@ -25,10 +26,12 @@ doc.getElementById("Polurot").value = '';
 doc.getElementById("Repetition").value = '1';
 doc.getElementById("Streams").value = '1';
 doc.getElementById("GAP").value = '3';
+doc.getElementById("GAP2").value = '';
 doc.getElementById("Knife").value = '';
 doc.getElementById("Angle").value = '';
 doc.getElementById("Dist").value = '0';
 doc.getElementById("Polurot").disabled = true;
+doc.getElementById("GAP2").disabled = true;
 
 function parseXML() {
 //alert(path);
@@ -64,11 +67,15 @@ function parseXML() {
     doc.getElementById("Streams").value=xmlDoc.getElementsByTagName("КоличествоРучьев")[0] ? xmlDoc.getElementsByTagName("КоличествоРучьев")[0].childNodes[0].nodeValue : '1';
 
     doc.getElementById("GAP").value = xmlDoc.getElementsByTagName("РасстояниеМеждуРучьями")[0] ? (xmlDoc.getElementsByTagName("РасстояниеМеждуРучьями")[0].childNodes[0].nodeValue > 0 ? xmlDoc.getElementsByTagName("РасстояниеМеждуРучьями")[0].childNodes[0].nodeValue : '3' )  : '3';
-    //alert("12");    
+    doc.getElementById("GAP2").value=xmlDoc.getElementsByTagName("РасстояниеМеждуПовторениями")[0] ? xmlDoc.getElementsByTagName("РасстояниеМеждуПовторениями")[0].childNodes[0].nodeValue : doc.getElementById("Raport").value / doc.getElementById("Repetition").value;    
     doc.getElementById("Knife").value=xmlDoc.getElementsByTagName("ВысотаНожа")[0] ? xmlDoc.getElementsByTagName("ВысотаНожа")[0].childNodes[0].nodeValue : 'не найден';
     di(); doc.getElementById("disa").value='1';
 	
-	if (~doc.getElementById("Material").value.indexOf("Полуротация")) $('#Polurot').removeAttr('disabled');;
+	if (~doc.getElementById("Material").value.indexOf("Полуротация")) {
+		$('#Polurot').removeAttr('disabled'); 
+		$('#GAP2').removeAttr('disabled');
+		PL=true;
+		};
 	
     //x=xmlDoc.getElementsByTagName("ШагПечатногоВала")[0];
     //alert (x.nodeName+' <'+x.childNodes[0].nodeValue+'>');
@@ -139,6 +146,9 @@ casing = n;
             doc.getElementById("diam1").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)));}
             doc.getElementById("diam2").onclick = function(e){doc.getElementById("diam2").value = doc.getElementById("diam1").value;};
             doc.getElementById("diam2").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))};
+			if (!PL) doc.getElementById("diam2").onchange = function(e){doc.getElementById("GAP2").value = doc.getElementById("Raport").value / doc.getElementById("Repetition").value-doc.getElementById("diam2").value}
+			if (!PL) doc.getElementById("Raport").onchange = function(e){doc.getElementById("GAP2").value = doc.getElementById("Raport").value / doc.getElementById("Repetition").value-doc.getElementById("diam2").value}
+			if (!PL) doc.getElementById("Repetition").onchange = function(e){doc.getElementById("GAP2").value = doc.getElementById("Raport").value / doc.getElementById("Repetition").value-doc.getElementById("diam2").value}
             
         } else if (n==1) {
              content = doc.createTextNode(" X, mm: ");
@@ -177,12 +187,17 @@ casing = n;
             doc.getElementById("X").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)));}
             doc.getElementById("Y").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)));}
             doc.getElementById("R").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)));}
-            
+			if (!PL) doc.getElementById("Y").onchange = function(e){doc.getElementById("GAP2").value = doc.getElementById("Raport").value / doc.getElementById("Repetition").value-doc.getElementById("Y").value}
+            if (!PL) doc.getElementById("Raport").onchange = function(e){doc.getElementById("GAP2").value = doc.getElementById("Raport").value / doc.getElementById("Repetition").value-doc.getElementById("Y").value}
+			if (!PL) doc.getElementById("Repetition").onchange = function(e){doc.getElementById("GAP2").value = doc.getElementById("Raport").value / doc.getElementById("Repetition").value-doc.getElementById("Y").value}
+			
         } else if (n==2 || n==3) {
             
             if(n==2){$('#Repetition').removeAttr('disabled');
                      $('#Streams').removeAttr('disabled');
                     // $('#GAP').removeAttr('disabled');
+					if (!PL) doc.getElementById("Raport").onchange = function(e){doc.getElementById("GAP2").value = doc.getElementById("Raport").value / doc.getElementById("Repetition").value}
+					if (!PL) doc.getElementById("Repetition").onchange = function(e){doc.getElementById("GAP2").value = doc.getElementById("Raport").value / doc.getElementById("Repetition").value}
                     };
             
             if(n==3){$('#Repetition').attr('disabled','disabled');
@@ -198,7 +213,7 @@ casing = n;
             content.type="checkbox";
             content.id="check";
             content.setAttribute("value", "1");
-            content.setAttribute("checked", "checked");
+            //content.setAttribute("checked", "checked");
             
             
             contd.appendChild(content);
@@ -208,7 +223,7 @@ casing = n;
              elem.appendChild(content);
             content.setAttribute("for", "check");
            
-            cont = doc.createTextNode("Select All");
+            cont = doc.createTextNode("Close Path");
             content.appendChild(cont);
             
             contd.appendChild(content);
@@ -218,6 +233,8 @@ casing = n;
             elem.appendChild(content);
             
             wrappedP.parentNode.replaceChild(elem, wrappedP);
+			
+			
             
         }
     }

@@ -34,7 +34,7 @@ var hi = docRef.height;
 //Dat=Da.toLocaleString();
 
 var Dat= String (''+Da.getDate() +'.'+ (Da.getMonth()+1)+'.'+  Da.getFullYear());
-  //alert("Namber "+form[0]+"\nCustomer "+form[1]+"\nRap[1]ort "+form[2]+"\nRepetition "+form[3]+"\nStreams "+form[4]+"\nGAP "+form[5]+"\ncasing "+form[6]+"\ndist "+form[7]);  
+  //alert("Namber "+form[0]+"\nCustomer "+form[1]+"\nRap[1]ort "+form[2]+"\nRepetition "+form[3]+"\nStreams "+form[4]+"\nGAP "+Gapp[0]+"\ncasing "+form[6]+"\ndist "+form[7]);  
     //@target illustrator
 //app.bringToFront();
     //alert("Namber "+form[10]);
@@ -44,7 +44,10 @@ var Dat= String (''+Da.getDate() +'.'+ (Da.getMonth()+1)+'.'+  Da.getFullYear())
 	//alert (Rap[0]+' '+ Rap[1]);
     var Rep = form[3];
     var Stre = form[4];
-    var Gapp = form[5];
+    var Gapp = form[5].split(' ');
+
+	var Gap2 = Gapp[1]*1.0;
+	//alert (Rap[0]/Rep+'\n'+Gap2);
     var casi = form[6];
     var Distor = form[7];
     var Ang = form[8].substring(0, form[8].indexOf(" "));
@@ -52,6 +55,9 @@ var Dat= String (''+Da.getDate() +'.'+ (Da.getMonth()+1)+'.'+  Da.getFullYear())
     var Kni = form[9];
     
     if (~Mate.indexOf("Ротация")) Mate='';
+	
+	var cheks = form[10];
+	//alert(cheks);
     
    var lineOb = parseFloat(form[8].substring(form[8].lastIndexOf(" ")));   
     
@@ -104,13 +110,14 @@ var PFull = new CMYKColor();
     PFull.magenta = 100; 
     PFull.yellow = 100;
      
- if  (form[6]==2){el(); elSelect();};
- if  (form[6]==3){el(); fullSelect();}; 
+ if  (form[6]==2){if (cheks=='true') closePath(); el(); elSelect();};
+ if  (form[6]==3){if (cheks=='true') closePath(); el(); fullSelect();}; 
  if  (form[6]==0){circ();elSelect();};
  if  (form[6]==1){rect();elSelect();};
  
- if (Rap[1]==0) Rap[1] = elm.width/mm + 10;
- 
+ if (Rap[1]==0) if (form[6]==3) Rap[1] = elm.width/mm + 10; else Rap[1] = (elm.width/mm+Gap2)*Rep-Gap2 + 10;
+
+ //if (Rap[1]==0 & form[6]==2) alert (); 
  //alert (Rap[1]+' '+elm.width);
     
 var newGroup = newLayer.groupItems.add();
@@ -124,7 +131,7 @@ for(var i=0;i<docRef.textFrames.length;i++){
 a.moveToBeginning(newGroup);
          }
     
- var WidthForm = (form[10]*form[4])+(form[5]*form[4])+20; 
+ var WidthForm = (form[10]*form[4])+(Gapp[0]*form[4])+20; 
     
 var LI = Linfo.groupItems.add();
     
@@ -167,7 +174,7 @@ Oporka.strokeDashes = [2,2,2,2];
     angleRB.filled = false;
 
 var i = 0;
-    iv=(form[10]*mm+form[5]*mm);
+    iv=(form[10]*mm+Gapp[0]*mm);
     if (form[6]==3){iv/=2; form[4]+=1;};
     //alert('gor '+form[7]+"\n ver "+iv);
 for (s1=0; s1<=form[4]; s1++) {
@@ -220,6 +227,8 @@ var Llog = LI.textFrames.add();
     //Llog.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
     Llog.textRange.characterAttributes.textFont = app.textFonts.getByName("CourierNewPSMT");
     Llog.textRange.characterAttributes.fillColor = PLabel;
+	if (Llog.width > Rap[1]*mm) Llog.width = Rap[1]*mm;
+	Llog.position = [(Rap[1]*mm)/2-(Llog.width/2)+5*mm, WidthLab+i-iv+7*mm];
     
 var LPod = LI.textFrames.add();
     LPod.contents = ""+Dat+" / "+form[1]+" / "+parseFloat(parseFloat(form[10]).toFixed(3))+"x"+parseFloat(parseFloat(form[11]).toFixed(3))+" / ВАЛ "+parseInt(Rap[0]/3.175)+"("+Rap[0]+")"+" / "+form[0]+" / "+Ang+Mate;
@@ -237,7 +246,8 @@ var LPod2 = LI.textFrames.add();
     LPod2.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
     LPod2.textRange.characterAttributes.textFont = app.textFonts.getByName("CourierNewPSMT");
     LPod2.textRange.characterAttributes.fillColor = PLabel;
-    
+	if (LPod2.width > Rap[1]*mm) LPod2.width = Rap[1]*mm;
+    LPod2.position = [(Rap[1]*mm)/2-(LPod2.width/2)+5*mm, 11*mm];
     
 if (form[7]!=0){   
     
@@ -358,8 +368,8 @@ function circ(){
     elip.strokeWidth = lineOb*mm;
     elip.width=form[10]*mm;
     elip.height=form[11]*mm;
-    elip.top = WidthLab+i+elip.height+form[5]*mm/2+elip.strokeWidth/2;
-    elip.left = (5*mm-elip.strokeWidth/2)+((Rap[0]/form[3]-form[11])*mm/2);
+    elip.top = WidthLab+i+elip.height+Gapp[0]*mm/2+elip.strokeWidth/2;
+    elip.left = (5*mm-elip.strokeWidth/2)+((Gap2)*mm/2);
 
     }
     
@@ -378,8 +388,8 @@ function rect(){
     elip.strokeWidth = lineOb*mm;
     //elip.width=form[11]*mm;
     //elip.height=form[10]*mm;
-    elip.top = WidthLab+i+elip.height+form[5]*mm/2+elip.strokeWidth/2;
-    elip.left = (5*mm-elip.strokeWidth/2)+((Rap[0]/form[3]-form[11])*mm/2);
+    elip.top = WidthLab+i+elip.height+Gapp[0]*mm/2+elip.strokeWidth/2;
+    elip.left = (5*mm-elip.strokeWidth/2)+((Gap2)*mm/2);
 
         //roundedRectangle (top: number, left: number, width: number, height: number[, horizontalRadius: number=15][, verticalRadius: number=20][, reversed: bool=false])
     
@@ -412,6 +422,7 @@ function selAll(){
      
  }
    form[10]=elm.width/mm; form[11]=elm.height/mm;  
+   //Gap2 = Gap2-form[11];
  
  }
     
@@ -422,9 +433,11 @@ function elSelect(){
     var j =0;
     elm.strokeColor = PFull;
     elm.strokeWidth = lineOb*mm;
-    elm.top = WidthLab+i+elm.height+form[5]*mm/2+elm.strokeWidth/2;
-    elm.left = (5*mm-elm.strokeWidth/2)+((Rap[0]/form[3]-form[11])*mm/2)+ j;
+    elm.top = WidthLab+i+elm.height+Gapp[0]*mm/2+elm.strokeWidth/2;
+    elm.left = (5*mm-elm.strokeWidth/2)+((Gap2)*mm/2)+ j;
 	var kostyl = false;
+	
+	var tr=Gap2*mm+form[11]*mm;
 
 for (q=0; q<form[3]; q++){      
 for (w=0; w<form[4]; w++){ 
@@ -432,9 +445,9 @@ for (w=0; w<form[4]; w++){
 	if (kostyl) elm.duplicate();
     elm.strokeColor = PFull;
     elm.strokeWidth = lineOb*mm;
-    elm.top = WidthLab+i+elm.height+form[5]*mm/2+elm.strokeWidth/2;
-    elm.left = (5*mm-elm.strokeWidth/2)+((Rap[0]/form[3]-form[11])*mm/2)+ j;
-    i+=(form[10]*mm+form[5]*mm);
+    elm.top = WidthLab+i+elm.height+Gapp[0]*mm/2+elm.strokeWidth/2;
+    elm.left = (5*mm-elm.strokeWidth/2)+((Gap2)*mm/2)+ j;
+    i+=(form[10]*mm+Gapp[0]*mm);
 
     //elm.moveToBeginning(elm1);
    //alert(w+" i="+i+"\n"+q+" j="+j);
@@ -444,7 +457,8 @@ kostyl = true;
     //elm2 = elm1.duplicate();
     //elm1.moveToBeginning(elm2);
 
-    j+=Rap[0]/form[3]*mm;
+    j+= tr;
+	//alert(Rap[0]/form[3]*mm+'\n'+tr);
     i=0;
     //elm.left= (10*mm-elm.strokeWidth/2)+((form[2]/form[3]-form[11])*mm/2) + j;
         }
@@ -460,13 +474,123 @@ function fullSelect(){
 
     elm.strokeColor = PFull;
     elm.strokeWidth = lineOb*mm;
-    elm.top = WidthLab+elm.height+elm.strokeWidth/2+form[5]*mm/2;
+    elm.top = WidthLab+elm.height+elm.strokeWidth/2+Gapp[0]*mm/2;
     elm.left = (5*mm-elm.strokeWidth/2)+((Rap[0]-form[11])*mm/2);
     
     form[3]=1;
     form[4]=1;
 
     }
-    
+
+function closePath(){
+	
+// -------------------------------------------------------------------
+
+var warning_limit = 400;
+
+// -------------------------------------------------------------------
+
+var X="Close All Paths\n\n"; {
+
+  var MSG_asksel = X+"Close all selected open path-items?";
+  var MSG_ask = X+"Close all open path-items in this document.";
+  var MSG_allclosed = X+"There are no open path-items in this document.";
+  var MSG_allselclosed = X+"The selection does not contain any open path-item.";
+  var MSG_nopath = X+"You have not selected any path-item.";
+  var MSG_nodocs = X+"You have no open document."
+  var MSG_warning = X+"The document will be analyzed for open path-items ...";
+  var MSG_status = X+"Closed path-items: ";
+
+}
+
+var error=0;
+var locked = false;
+var proccessedItems = 0;
+
+if (documents.length<1) {
+  error++;
+  alert(MSG_nodocs);
+} else {
+  {
+    var allPaths = activeDocument.pathItems;
+    if (selection.length > 0) {
+      var onlySelection = 1;
+      var selcount = 0;
+      for (var i = 0; i < selection.lenght; i++)
+      {
+        if (selection[i].typename == "PathItem") { selcount++; }
+      }
+      if (selcount == selection.lenght)
+      {
+        var allPaths = selection;
+      }
+    } else {
+      var onlySelection = 0;
+    }
+    if (allPaths.length > warning_limit ) { alert (MSG_warning+ " ("+allPaths.length+")"); }
+    var count=0;
+    for (var i=0; i < allPaths.length; i++) {
+      locked = false;
+      isLocked(allPaths[i]);
+      if ((allPaths[i].selected == true || onlySelection == 0) && !locked && !allPaths[i].layer.locked )
+      {
+        if( !allPaths[i].closed) { count++; }
+      }
+    }
+    if (count == 0) {
+      error++;
+      if (selection.length > 0) { alert(MSG_allselclosed); } else { alert(MSG_allclosed); }
+    }
+
+    if (allPaths.length < 0) { error++; alert(MSG_nopath); }
+    if (error < 1) {
+      if (selection.length > 0) {
+        var confirmed = confirm(MSG_asksel + " ("+count+")" );
+      } else {
+        var confirmed = confirm(MSG_ask + " ("+count+")");
+      }
+      if (confirmed) {
+        close(allPaths);
+        if (proccessedItems != count) {
+          alert(MSG_status+proccessedItems+"/"+count);
+        } else {
+          alert(MSG_status+proccessedItems);
+        }
+      }
+    }
+  }
+}
+
+
+function close(thePaths) {
+  for (var i = 0; i < thePaths.length; i++) {
+
+    if ((thePaths[i].selected == true || onlySelection == 0) && !thePaths[i].closed  )
+    {
+      try
+      {
+        thePaths[i].closed=true;
+        proccessedItems++;
+      } catch (e) { }
+    }
+  }
+}
+
+function isLocked (test) {
+  if (test.typename == "Layer")
+  {
+    if (!locked) { locked = test.locked; }
+    if (!locked) { locked = test.hidden; }
+  } else {
+    if (test.typename != "Layer" && test.locked == true)
+    {
+      if (!locked) { locked = test.locked; }
+      if (!locked) { locked = test.hidden; }
+    } else {
+      isLocked(test.parent);
+    }
+  }
+}
+	}    
     
 };
