@@ -111,7 +111,7 @@ var PFull = new CMYKColor();
     PFull.magenta = 100; 
     PFull.yellow = 100;
      
- if  (form[6]==2){if (cheks=='true') closePath(); el(); Gap2 = Rap[1]/Rep - form[11]; elSelect();};
+ if  (form[6]==2){if (cheks=='true') closePath(); el();  if (Rap[1]=='') Gap2 = Rap[0]/Rep - form[11]; elSelect();};
  if  (form[6]==3){if (cheks=='true') closePath(); el(); fullSelect();}; 
  if  (form[6]==0){circ();elSelect();};
  if  (form[6]==1){rect();elSelect();};
