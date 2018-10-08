@@ -33,7 +33,7 @@ var hi = docRef.height;
 
 //Dat=Da.toLocaleString();
 
-var Dat= String (''+Da.getDate() +'.'+ (Da.getMonth()+1)+'.'+  Da.getFullYear());
+var Dat= String (''+Da.getDate() +'-'+ (Da.getMonth()+1)+'-'+  Da.getFullYear());
   //alert("Namber "+form[0]+"\nCustomer "+form[1]+"\nRap[1]ort "+form[2]+"\nRepetition "+form[3]+"\nStreams "+form[4]+"\nGAP "+Gapp[0]+"\ncasing "+form[6]+"\ndist "+form[7]);  
     //@target illustrator
 //app.bringToFront();
@@ -197,7 +197,7 @@ for (s1=0; s1<=form[4]; s1++) {
     
 var LVector1 = LI.groupItems.add();
     LV1 = LVector1.pathItems.add();
-    LV1.setEntirePath( Array( Array(10*mm, WidthLab-5*mm), Array(30*mm, WidthLab-5*mm)) );
+    LV1.setEntirePath( Array( Array(10*mm, WidthLab-5*mm), Array(28*mm, WidthLab-5*mm)) );
     LV1.stroked = true;
     LV1.strokeColor = PLabel;
     LV1.strokeWidth = 0.1*mm;
@@ -223,7 +223,7 @@ var LVector4 = LVector1.duplicate();
     
 var Llog = LI.textFrames.add();
     Llog.position = [(Rap[1]*mm)/2-50*mm,WidthLab+i-iv+7*mm];
-    Llog.contents = "www.justcut.ru  +7(495) 155-62-73";
+    Llog.contents = "www justcut ru  +7(495) 155-62-73";
     Llog.textRange.characterAttributes.size = 16;
     //Llog.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
     Llog.textRange.characterAttributes.textFont = app.textFonts.getByName("CourierNewPSMT");
@@ -232,7 +232,7 @@ var Llog = LI.textFrames.add();
 	Llog.position = [(Rap[1]*mm)/2-(Llog.width/2)+5*mm, WidthLab+i-iv+7*mm];
     
 var LPod = LI.textFrames.add();
-    LPod.contents = ""+Dat+" / "+form[1]+" / "+parseFloat(parseFloat(form[10]).toFixed(3))+"x"+parseFloat(parseFloat(form[11]).toFixed(3))+" / ВАЛ "+parseInt(Rap[0]/3.175)+"("+Rap[0]+")"+" / "+form[0]+" / "+Ang+Mate;
+    LPod.contents = (""+Dat+" / "+form[1]+" / "+parseFloat(parseFloat(form[10]).toFixed(3))+"x"+parseFloat(parseFloat(form[11]).toFixed(3))+" / ВАЛ "+parseInt(Rap[0]/3.175)+"("+Rap[0]+")"+" / "+form[0]+" / "+Ang+Mate).split(".").join(" ");
     LPod.textRange.characterAttributes.size = 12;
     //LPod.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
     LPod.textRange.characterAttributes.textFont = app.textFonts.getByName("CourierNewPSMT");
@@ -242,7 +242,7 @@ var LPod = LI.textFrames.add();
     
 var LPod2 = LI.textFrames.add();
     LPod2.position = [(Rap[1]*mm)/2-(LPod2.width/2)-38*mm, 11*mm];
-    LPod2.contents = form[7]+" - "+form[9]+" - "+Ang+" - Mirror";
+    LPod2.contents = (form[7]+" - "+form[9]+" - "+Ang+" - Mirror").split(".").join(" ");
     LPod2.textRange.characterAttributes.size = 12;
     LPod2.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
     LPod2.textRange.characterAttributes.textFont = app.textFonts.getByName("CourierNewPSMT");
