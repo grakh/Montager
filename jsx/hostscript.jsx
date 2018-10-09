@@ -173,6 +173,34 @@ Oporka.strokeDashes = [2,2,2,2];
     angleRB.strokeColor = PCyan;
     angleRB.strokeWidth = 0.1*mm;
     angleRB.filled = false;
+	
+	    LabelW2 = LI.pathItems.add();
+		LabelW2.setEntirePath( Array( Array(11*mm, 12*mm), Array(11*mm, 17*mm)) );
+		LabelW2.stroked = true;
+		LabelW2.strokeColor = PRisk;
+		LabelW2.strokeWidth = 0.15*mm;
+		LabelW2.filled = false;
+		
+		LabelW2 = LI.pathItems.add();
+		LabelW2.setEntirePath( Array( Array(Rap[1]*mm-1*mm, 12*mm), Array(Rap[1]*mm-1*mm, 17*mm)) );
+		LabelW2.stroked = true;
+		LabelW2.strokeColor = PRisk;
+		LabelW2.strokeWidth = 0.15*mm;
+		LabelW2.filled = false;
+		
+		LabelW2 = LI.pathItems.add();
+		LabelW2.setEntirePath( Array( Array(11*mm, WidthForm*mm+12*mm), Array(11*mm, WidthForm*mm+7*mm)) );
+		LabelW2.stroked = true;
+		LabelW2.strokeColor = PRisk;
+		LabelW2.strokeWidth = 0.15*mm;
+		LabelW2.filled = false;
+		
+		LabelW2 = LI.pathItems.add();
+		LabelW2.setEntirePath( Array( Array(Rap[1]*mm-1*mm, WidthForm*mm+12*mm), Array(Rap[1]*mm-1*mm, WidthForm*mm+7*mm)) );
+		LabelW2.stroked = true;
+		LabelW2.strokeColor = PRisk;
+		LabelW2.strokeWidth = 0.15*mm;
+		LabelW2.filled = false;
 
 var i = 0;
     iv=(form[10]*mm+Gapp[0]*mm);
@@ -255,7 +283,7 @@ if (form[7]!=0){
     LI.width *= form[7];
     //docRef.layers["info"].locked = true;
     newGroup.width *= form[7];
-    newGroup.left = 5*mm +(LI.width-newGroup.width-6*mm)/2-0.25*mm;
+    newGroup.left = 5*mm +(LI.width-newGroup.width-6*mm)/2-lineOb*mm/2.0;
 /*    
 app.executeMenuCommand('selectall');
 //app.executeMenuCommand('transformscale');
@@ -369,8 +397,8 @@ function circ(){
     elip.strokeWidth = lineOb*mm;
     elip.width=form[10]*mm;
     elip.height=form[11]*mm;
-    elip.top = WidthLab+i+elip.height+Gapp[0]*mm/2+elip.strokeWidth/2;
-    elip.left = (5*mm-elip.strokeWidth/2)+((Gap2)*mm/2);
+    elip.top = WidthLab+i+elip.height+Gapp[0]*mm/2+lineOb*mm/2.0;
+    elip.left = (5*mm-lineOb*mm/2.0)+((Gap2)*mm/2);
 
     }
     
@@ -389,8 +417,8 @@ function rect(){
     elip.strokeWidth = lineOb*mm;
     //elip.width=form[11]*mm;
     //elip.height=form[10]*mm;
-    elip.top = WidthLab+i+elip.height+Gapp[0]*mm/2+elip.strokeWidth/2;
-    elip.left = (5*mm-elip.strokeWidth/2)+((Gap2)*mm/2);
+    elip.top = WidthLab+i+elip.height+Gapp[0]*mm/2+lineOb*mm/2;
+    elip.left = (5*mm-lineOb*mm/2)+((Gap2)*mm/2);
 
         //roundedRectangle (top: number, left: number, width: number, height: number[, horizontalRadius: number=15][, verticalRadius: number=20][, reversed: bool=false])
     
@@ -443,8 +471,8 @@ function elSelect(){
     var j =0;
     elm.strokeColor = PFull;
     elm.strokeWidth = lineOb*mm;
-    elm.top = WidthLab+i+elm.height+Gapp[0]*mm/2+elm.strokeWidth/2;
-    elm.left = (5*mm-elm.strokeWidth/2)+((Gap2)*mm/2)+ j;
+    elm.top = WidthLab+i+elm.height+Gapp[0]*mm/2+lineOb*mm/2;
+    elm.left = (5*mm-lineOb*mm/2)+((Gap2)*mm/2)+ j;
 	var kostyl = false;
 	
 	var tr=Gap2*mm+form[11]*mm;
@@ -455,8 +483,8 @@ for (w=0; w<form[4]; w++){
 	if (kostyl) elm.duplicate();
     elm.strokeColor = PFull;
     elm.strokeWidth = lineOb*mm;
-    elm.top = WidthLab+i+elm.height+Gapp[0]*mm/2+elm.strokeWidth/2;
-    elm.left = (5*mm-elm.strokeWidth/2)+((Gap2)*mm/2)+ j;
+    elm.top = WidthLab+i+elm.height+Gapp[0]*mm/2+lineOb*mm/2;
+    elm.left = (5*mm-lineOb*mm/2)+((Gap2)*mm/2)+ j;
     i+=(form[10]*mm+Gapp[0]*mm);
 
     //elm.moveToBeginning(elm1);
@@ -484,8 +512,8 @@ function fullSelect(){
 
     elm.strokeColor = PFull;
     elm.strokeWidth = lineOb*mm;
-    elm.top = WidthLab+elm.height+elm.strokeWidth/2+Gapp[0]*mm/2;
-    elm.left = (5*mm-elm.strokeWidth/2)+((Rap[0]-form[11])*mm/2);
+    elm.top = WidthLab+elm.height+lineOb*mm/2+Gapp[0]*mm/2;
+    elm.left = (5*mm-lineOb*mm/2)+((Rap[0]-form[11])*mm/2);
     
     form[3]=1;
     form[4]=1;
