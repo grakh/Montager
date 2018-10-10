@@ -4,7 +4,7 @@
 
 function sayHello(sp) {
     
-
+var fonts="MagistralTT";
     
 var docRef = app.activeDocument;
 var newLayer=docRef.activeLayer;
@@ -251,29 +251,32 @@ var LVector4 = LVector1.duplicate();
     
 var Llog = LI.textFrames.add();
     Llog.position = [(Rap[1]*mm)/2-50*mm,WidthLab+i-iv+7*mm];
-    Llog.contents = "www justcut ru  +7(495) 155-62-73";
+    Llog.contents = "www.justcut.ru  +7(495) 155-62-73";
     Llog.textRange.characterAttributes.size = 16;
+	Llog.textRange.characterAttributes.tracking = 30;
     //Llog.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
-    Llog.textRange.characterAttributes.textFont = app.textFonts.getByName("CourierNewPSMT");
+    Llog.textRange.characterAttributes.textFont = app.textFonts.getByName(fonts);
     Llog.textRange.characterAttributes.fillColor = PLabel;
 	if (Llog.width > Rap[1]*mm) Llog.width = Rap[1]*mm;
 	Llog.position = [(Rap[1]*mm)/2-(Llog.width/2)+5*mm, WidthLab+i-iv+7*mm];
     
 var LPod = LI.textFrames.add();
-    LPod.contents = (""+Dat+" / "+form[1]+" / "+parseFloat(parseFloat(form[10]).toFixed(3))+"x"+parseFloat(parseFloat(form[11]).toFixed(3))+" / ВАЛ "+parseInt(Rap[0]/3.175)+"("+Rap[0]+")"+" / "+form[0]+" / "+Ang+Mate).split(".").join(" ");
+    LPod.contents = (""+Dat+" / "+form[1]+" / "+parseFloat(parseFloat(form[10]).toFixed(3))+"x"+parseFloat(parseFloat(form[11]).toFixed(3))+" / ВАЛ "+parseInt(Rap[0]/3.175)+"("+Rap[0]+")"+" / "+form[0]+" / "+Ang+Mate); //.split(".").join(" ");
     LPod.textRange.characterAttributes.size = 12;
+	LPod.textRange.characterAttributes.tracking = 30;
     //LPod.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
-    LPod.textRange.characterAttributes.textFont = app.textFonts.getByName("CourierNewPSMT");
+    LPod.textRange.characterAttributes.textFont = app.textFonts.getByName(fonts);
     LPod.textRange.characterAttributes.fillColor = PLabel;
     if (LPod.width > Rap[1]*mm) LPod.width = Rap[1]*mm;
     LPod.position = [(Rap[1]*mm)/2-(LPod.width/2)+5*mm, 17*mm];
     
 var LPod2 = LI.textFrames.add();
     LPod2.position = [(Rap[1]*mm)/2-(LPod2.width/2)-38*mm, 11*mm];
-    LPod2.contents = (form[7]+" - "+form[9]+" - "+Ang+" - Mirror").split(".").join(" ");
+    LPod2.contents = (form[7]+" - "+form[9]+" - "+Ang+" - Mirror"); //.split(".").join(" ");
     LPod2.textRange.characterAttributes.size = 12;
+	LPod2.textRange.characterAttributes.tracking = 30;
     LPod2.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
-    LPod2.textRange.characterAttributes.textFont = app.textFonts.getByName("CourierNewPSMT");
+    LPod2.textRange.characterAttributes.textFont = app.textFonts.getByName(fonts);
     LPod2.textRange.characterAttributes.fillColor = PLabel;
 	if (LPod2.width > Rap[1]*mm) LPod2.width = Rap[1]*mm;
     LPod2.position = [(Rap[1]*mm)/2-(LPod2.width/2)+5*mm, 11*mm];
@@ -341,10 +344,10 @@ var LTest = L_Test.groupItems.add();
     newPath.strokeWidth = lineOb*mm;
     newPath.filled = false;
 var LText = Linfo.textFrames.add();
-    LText.position = [8*mm+i,6*mm];
+    LText.position = [7*mm+i,6*mm];
     LText.contents = countLabel;
     LText.textRange.characterAttributes.size = 11;
-    //LText.textRange.characterAttributes.textFont = "Arial";
+    LText.textRange.characterAttributes.textFont = app.textFonts.getByName(fonts);
     LText.textRange.characterAttributes.fillColor = PLabel;
     i+=10*mm;
 
@@ -363,10 +366,10 @@ var LTest = L_Test.groupItems.add();
     newPath.strokeWidth = lineOb*mm;
     newPath.filled = false;
 var LText = Linfo.textFrames.add();
-    LText.position = [-5*mm,6*mm+i];
+    LText.position = [-6*mm,6*mm+i];
     LText.contents = countLabel;
     LText.textRange.characterAttributes.size = 11;
-    //LText.textRange.characterAttributes.textFont = app.textFonts.getByName("Arial");;
+    LText.textRange.characterAttributes.textFont = app.textFonts.getByName(fonts);
     LText.textRange.characterAttributes.fillColor = PLabel;
     i+=10*mm;
 
