@@ -201,6 +201,20 @@ Oporka.strokeDashes = [2,2,2,2];
 		LabelW2.strokeColor = PRisk;
 		LabelW2.strokeWidth = 0.15*mm;
 		LabelW2.filled = false;
+		
+		riskCenter = LI.pathItems.add();
+		riskCenter.setEntirePath( Array( Array(5*mm, WidthForm*mm/2+12*mm), Array(10*mm, WidthForm*mm/2+12*mm)) );
+		riskCenter.stroked = true;
+		riskCenter.strokeColor = PRisk;
+		riskCenter.strokeWidth = 0.15*mm;
+		riskCenter.filled = false;
+		
+		riskCenter = LI.pathItems.add();
+		riskCenter.setEntirePath( Array( Array(Rap[1]*mm+5*mm, WidthForm*mm/2+12*mm), Array(Rap[1]*mm, WidthForm*mm/2+12*mm)) );
+		riskCenter.stroked = true;
+		riskCenter.strokeColor = PRisk;
+		riskCenter.strokeWidth = 0.15*mm;
+		riskCenter.filled = false;
 
 var i = 0;
     iv=(form[10]*mm+Gapp[0]*mm);
