@@ -390,7 +390,7 @@ var LText = Linfo.textFrames.add();
     }
     
     
-Gabarit = L_Test.pathItems.rectangle( -5*mm, -12*mm, Rap[1]*mm+20*mm, -WidthForm*mm-24*mm);
+Gabarit = L_Test.pathItems.rectangle( -5*mm, -12*mm, Rap[1]*mm+23*mm, -WidthForm*mm-27*mm);
 //Oporka.setEntirePath( Array( Array(0, 0), Array(0, hi), Array(5*mm, hi), Array(5*mm, 0) ) );
 Gabarit.closed = true;
 Gabarit.filled = false;
