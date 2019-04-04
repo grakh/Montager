@@ -32,6 +32,7 @@ doc.getElementById("Angle").value = '';
 doc.getElementById("Dist").value = '0';
 doc.getElementById("Polurot").disabled = true;
 doc.getElementById("GAP2").disabled = true;
+doc.getElementById("disa").checked = true;
 
 function parseXML() {
 //alert(path);
@@ -71,7 +72,7 @@ function parseXML() {
     doc.getElementById("Knife").value=xmlDoc.getElementsByTagName("ВысотаНожа")[0] ? xmlDoc.getElementsByTagName("ВысотаНожа")[0].childNodes[0].nodeValue : 'не найден';
     di(); doc.getElementById("disa").value='1';
 	
-	if (~doc.getElementById("Material").value.indexOf("Полуротация")) {
+	if (~doc.getElementById("Material").value.indexOf("Полуротация") || ~doc.getElementById("Material").value.indexOf("Плоская")) {
 		$('#Polurot').removeAttr('disabled'); 
 		$('#GAP2').removeAttr('disabled');
 		PL=true;
@@ -98,7 +99,8 @@ parseXML();
 function di(){
     d=$('#Raport').val();
     //alert(((d/Math.PI)-0.734)*Math.PI/d);
-    doc.getElementById("Dist").value = ((d/Math.PI)-0.734)*Math.PI/d;
+	if (doc.getElementById("disa").checked != false)
+		doc.getElementById("Dist").value = ((d/Math.PI)-0.734)*Math.PI/d;
 
 }
     

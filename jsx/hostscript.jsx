@@ -45,6 +45,8 @@ var Dat= String (''+Da.getDate() +'-'+ (Da.getMonth()+1)+'-'+  Da.getFullYear())
     var Rep = form[3];
     var Stre = form[4];
     var Gapp = form[5].split(' ');
+	var Plosk = Rap[1];
+	
 
 	var Gap2 = Gapp[1]*1.0;
 	//alert (Rap[0]/Rep+'\n'+Gap2);
@@ -53,7 +55,7 @@ var Dat= String (''+Da.getDate() +'-'+ (Da.getMonth()+1)+'-'+  Da.getFullYear())
     var Ang = form[8].substring(0, form[8].indexOf(" "));
     var Mate = form[8].substring(form[8].indexOf(" "), form[8].lastIndexOf(" "));
     var Kni = form[9];
-    
+    if (~Mate.indexOf("Плоская")) {Rap[1]=Rap[0]; Rap[0]= Plosk;}
     if (~Mate.indexOf("Ротация")) Mate='';
 	
 	var SAll = form[10];
@@ -133,8 +135,10 @@ a.moveToBeginning(newGroup);
          }
     
  var WidthForm = (form[10]*form[4])+(Gapp[0]*form[4])+20; 
+ if (~Mate.indexOf("Плоская")) {WidthForm = Plosk; }
     
 var LI = Linfo.groupItems.add();
+var RiskGorizont = LI.groupItems.add();
     
 Oporka = LI.pathItems.rectangle( 12*mm, 5*mm, Rap[1]*mm, -WidthForm*mm);
 //Oporka.setEntirePath( Array( Array(0, 0), Array(0, hi), Array(5*mm, hi), Array(5*mm, 0) ) );
@@ -221,14 +225,14 @@ var i = 0;
     if (form[6]==3){iv/=2; form[4]+=1;};
     //alert('gor '+form[7]+"\n ver "+iv);
 for (s1=0; s1<=form[4]; s1++) {
-    LabelSw1 = LI.pathItems.add();
+    LabelSw1 = RiskGorizont.pathItems.add();
     LabelSw1.setEntirePath( Array( Array(5*mm, WidthLab+i), Array(10*mm, WidthLab+i)) );
     LabelSw1.stroked = true;
     LabelSw1.strokeColor = PRisk;
     LabelSw1.strokeWidth = 0.15*mm;
     LabelSw1.filled = false;
     
-    LabelSw2 = LI.pathItems.add();
+    LabelSw2 = RiskGorizont.pathItems.add();
     LabelSw2.setEntirePath( Array( Array(Rap[1]*mm+5*mm, WidthLab+i), Array(Rap[1]*mm, WidthLab+i)) );
     LabelSw2.stroked = true;
     LabelSw2.strokeColor = PRisk;
@@ -286,7 +290,7 @@ var LPod = LI.textFrames.add();
     
 var LPod2 = LI.textFrames.add();
     LPod2.position = [(Rap[1]*mm)/2-(LPod2.width/2)-38*mm, 11*mm];
-    LPod2.contents = (form[7]+" - "+form[9]+" - "+Ang+" - Mirror"); //.split(".").join(" ");
+    LPod2.contents = (form[7]+" - "+form[9]+" - "+Ang+" - Mirror, L"+lineOb); //.split(".").join(" ");
     LPod2.textRange.characterAttributes.size = 12;
 	LPod2.textRange.characterAttributes.tracking = 30;
     LPod2.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
@@ -313,6 +317,20 @@ for (var i=0; i<docRef.selection.length;i++){
 
     //newGroup.width *= form[7];
    // LI.moveToBeginning(Linfo);
+   
+  }
+  
+  if (~Mate.indexOf("Плоская")){   
+    
+    //docRef.layers["info"].locked = true;
+	
+	newGroup.top = WidthForm*mm/2.0 + newGroup.height/2.0 + lineOb*mm/2.0 + 12*mm;
+	RiskGorizont.top = WidthForm*mm/2.0 + RiskGorizont.height/2.0 + 0.15*mm/2.0 + 12*mm;
+	Llog.top = WidthForm*mm + 10*mm;
+	LVector2.top = WidthForm*mm + 8*mm;
+	LVector4.top = WidthForm*mm + 8*mm;
+    newGroup.left = 5*mm +(LI.width-newGroup.width-6*mm)/2-lineOb*mm/2.0;
+
    
   }
     
