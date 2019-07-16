@@ -7,13 +7,21 @@ body{
 margin:0px;
 padding:0px;
 width:350px;
-height:400px;
+height:350px;
 }
 
 div{
 border-top:0px;
 position:relative;
 display:block;
+}
+
+#comm{
+#padding:7px;
+margin:7px;
+display:block-inline;
+width:320px;
+color: red;
 }
 
 input[type="text"]{
@@ -259,7 +267,7 @@ input[type="radio"]:focus + span {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
+    #margin: 4px 0px 0px 0px;
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
     cursor: pointer;

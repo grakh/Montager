@@ -47,7 +47,8 @@ Angle:
 Raport, mm:
 <input id="Raport" type="text" value="" OnChange="di()">
 
-<input id="Polurot"  value="" disabled><br>
+<input id="Polurot"  value=""><br>
+<!-- <input id="Polurot"  value="" disabled><br> -->
 </label>
 </div>
 
@@ -147,10 +148,15 @@ Y, mm:
     </script>
 <!-----------------****------------------>
 
+<div id="comment">
+<textarea class="comm" id="comm" rows = "3" placeholder="Нет комментария" readonly>
+</textarea>
+</div>
+
 <div id="LabelTextbox">
 <label>
  Line: 
-<input id="Line" value="0.5">
+<input id="Line" value="0.7">
 </label>
 </div>  
 
@@ -163,6 +169,7 @@ Y, mm:
 <div id="button">
 <button class="button" id="button" onClick="subm()">Run code</button>
 </div>
+
 
 </div>
 

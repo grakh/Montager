@@ -30,7 +30,7 @@ doc.getElementById("GAP2").value = '';
 doc.getElementById("Knife").value = '';
 doc.getElementById("Angle").value = '';
 doc.getElementById("Dist").value = '0';
-doc.getElementById("Polurot").disabled = true;
+//doc.getElementById("Polurot").disabled = true;
 doc.getElementById("GAP2").disabled = true;
 doc.getElementById("disa").checked = true;
 
@@ -61,6 +61,7 @@ function parseXML() {
 
     //alert (xmlDoc.documentElement.nodeName+' <'+xmlDoc.documentElement.attributes[0].name+' = '+xmlDoc.documentElement.attributes[0].value+'>');
     doc.getElementById("Customer").value=(xmlDoc.documentElement.attributes[1].value+' / '+xmlDoc.documentElement.attributes[0].value).replace(/"/g, "'");
+	doc.getElementById("comm").value=(xmlDoc.documentElement.attributes[4].value).replace(/"/g, "'");
     doc.getElementById("Angle").value=xmlDoc.getElementsByTagName("УголЗаточкиКромки")[0] ? xmlDoc.getElementsByTagName("УголЗаточкиКромки")[0].childNodes[0].nodeValue : 'не найден';
     doc.getElementById("Material").value=xmlDoc.getElementsByTagName("ТипВырубки")[0] ? xmlDoc.getElementsByTagName("ТипВырубки")[0].childNodes[0].nodeValue : 'не найден';
     doc.getElementById("Raport").value=xmlDoc.getElementsByTagName("ШагПечатногоВала")[0] ? xmlDoc.getElementsByTagName("ШагПечатногоВала")[0].childNodes[0].nodeValue : 'не найден';

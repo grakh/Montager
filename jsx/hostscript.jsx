@@ -46,7 +46,8 @@ var Dat= String (''+Da.getDate() +'-'+ (Da.getMonth()+1)+'-'+  Da.getFullYear())
     var Stre = form[4];
     var Gapp = form[5].split(' ');
 	var Plosk = Rap[1];
-	
+	var Rap0 = Rap[0];
+	var PlTrue= true;
 
 	var Gap2 = Gapp[1]*1.0;
 	//alert (Rap[0]/Rep+'\n'+Gap2);
@@ -56,7 +57,8 @@ var Dat= String (''+Da.getDate() +'-'+ (Da.getMonth()+1)+'-'+  Da.getFullYear())
     var Mate = form[8].substring(form[8].indexOf(" "), form[8].lastIndexOf(" "));
     var Kni = form[9];
     if (~Mate.indexOf("Плоская")) {Rap[1]=Rap[0]; Rap[0]= Plosk;}
-    if (~Mate.indexOf("Ротация")) Mate='';
+    if (~Mate.indexOf("Ротация")) {Mate=''; Rap[1]=Rap[0]; Rap[0]= Plosk;}
+	if (~Mate.indexOf("Полуротация")) PlTrue = false;
 	
 	var SAll = form[10];
 	var cheks = form[11];
@@ -67,6 +69,7 @@ var Dat= String (''+Da.getDate() +'-'+ (Da.getMonth()+1)+'-'+  Da.getFullYear())
 mm = 72.0/25.4;
 mms= mm/2.0;
 var WidthLab = 22*mm; 
+var xEl=0, yEl=0;
  
     
 var elem = newLayer.groupItems.add();  
@@ -82,15 +85,15 @@ var alls = newLayer.groupItems.add();
 var PLabel = new CMYKColor();
     PLabel.name = 'labelColor';
     PLabel.black =0; 
-    PLabel.cyan = 70; 
-    PLabel.magenta = 0; 
+    PLabel.cyan = 0; 
+    PLabel.magenta = 100; 
     PLabel.yellow = 0;
     
 var PCyan = new CMYKColor();
     PCyan.name = 'labelColor';
     PCyan.black =0; 
     PCyan.cyan = 100; 
-    PCyan.magenta = 0; 
+    PCyan.magenta = 100; 
     PCyan.yellow = 0;
 var PRisk= new CMYKColor();
     PRisk.name = 'labelColor';
@@ -113,12 +116,14 @@ var PFull = new CMYKColor();
     PFull.magenta = 100; 
     PFull.yellow = 100;
      
- if  (form[6]==2){if (cheks=='true') closePath(); el();  if (Rap[1]=='') Gap2 = Rap[0]/Rep - form[11]; elSelect();};
- if  (form[6]==3){if (cheks=='true') closePath(); el(); fullSelect();}; 
+ if  (form[6]==2){if (cheks=='true') {closePath();} el();  Gap2 = Rap[1]/Rep - form[11]; elSelect();};
+ if  (form[6]==3){if (cheks=='true') {closePath();} el(); fullSelect();}; 
  if  (form[6]==0){circ();elSelect();};
  if  (form[6]==1){rect();elSelect();};
  
- if (Rap[1]==0) if (form[6]==3) Rap[1] = elm.width/mm + 10; else Rap[1] = (elm.width/mm+Gap2)*Rep-Gap2 + 10;
+ if (Rap[1]==0)
+	 if (form[6]==3) Rap[1] = elm.width/mm + 10;
+		else Rap[1] = (elm.width/mm+Gap2)*Rep-Gap2 + 10;
 
  //if (Rap[1]==0 & form[6]==2) alert (); 
  //alert (Rap[1]+' '+elm.width);
@@ -135,7 +140,7 @@ a.moveToBeginning(newGroup);
          }
     
  var WidthForm = (form[10]*form[4])+(Gapp[0]*form[4])+20; 
- if (~Mate.indexOf("Плоская")) {WidthForm = Plosk; }
+ if ((Rap[0]!=Rap[1]) && PlTrue) {WidthForm = Plosk; }
     
 var LI = Linfo.groupItems.add();
 var RiskGorizont = LI.groupItems.add();
@@ -278,8 +283,11 @@ var Llog = LI.textFrames.add();
 	if (Llog.width > Rap[1]*mm) Llog.width = Rap[1]*mm;
 	Llog.position = [(Rap[1]*mm)/2-(Llog.width/2)+5*mm, WidthLab+i-iv+7*mm];
     
+	
+	 if  (form[6]!=3) {xEl = form[10]; yEl = form[11];}
+	
 var LPod = LI.textFrames.add();
-    LPod.contents = (""+Dat+" / "+form[1]+" / "+parseFloat(parseFloat(form[10]).toFixed(3))+"x"+parseFloat(parseFloat(form[11]).toFixed(3))+" / ВАЛ "+parseInt(Rap[0]/3.175)+"("+Rap[0]+")"+" / "+form[0]+" / "+Ang+Mate); //.split(".").join(" ");
+    LPod.contents = (""+Dat+" / "+form[1]+" / "+parseFloat(parseFloat(xEl).toFixed(3))+"x"+parseFloat(parseFloat(yEl).toFixed(3))+" / ВАЛ "+parseInt(Rap0/3.175)+"("+Rap0+")"+" / "+form[0]+" / "+Ang+Mate); //.split(".").join(" ");
     LPod.textRange.characterAttributes.size = 12;
 	LPod.textRange.characterAttributes.tracking = 30;
     //LPod.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
@@ -320,7 +328,9 @@ for (var i=0; i<docRef.selection.length;i++){
    
   }
   
-  if (~Mate.indexOf("Плоская")){   
+  //if (~Mate.indexOf("Плоская"))
+	   if (Rap[0]!=Rap[1])
+  {   
     
     //docRef.layers["info"].locked = true;
 	
@@ -361,7 +371,7 @@ var P1K = Point0.duplicate();
    
    var gor=parseInt((Rap[1])/10);
     if (gor>20) gor=20;
-   var ver=parseInt((WidthForm+5*mm)/10);
+   var ver = parseInt(WidthForm/9);
     if (ver>20) ver=20;
     //alert('gor '+gor+"\n ver "+ver);
     
@@ -495,6 +505,7 @@ function selAll(){
      
  }
    form[10]=elm.width/mm; form[11]=elm.height/mm;  
+   xEl=documents[0].pathItems[0].width/mm; yEl=documents[0].pathItems[0].height/mm;
    //Gap2 = Rap[1]/Rep - form[11];
  
  }
@@ -552,6 +563,7 @@ function fullSelect(){
     
     form[3]=1;
     form[4]=1;
+	
 
     }
 
