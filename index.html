@@ -92,6 +92,7 @@ Knife, mm:
 		doc.getElementById("GAP2").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))}
         doc.getElementById("Knife").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))}
         doc.getElementById("Angle").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))}
+			
     </script>
     
 <hr>
@@ -141,7 +142,7 @@ Y, mm:
     <hr>
     
    <script>
-
+		
         doc.getElementById("disa").onchange = function(e){
             if (doc.getElementById("disa").value=='0') {di(); doc.getElementById("disa").value='1'}
             else {doc.getElementById("Dist").value='0'; doc.getElementById("disa").value='0';}}

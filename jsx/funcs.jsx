@@ -100,10 +100,13 @@ parseXML();
 
 function di(){
     d=$('#Raport').val();
+	var dis;
     //alert(((d/Math.PI)-0.734)*Math.PI/d);
-	if (doc.getElementById("disa").checked != false)
-		doc.getElementById("Dist").value = ((d/Math.PI)-0.734)*Math.PI/d;
-
+	if (doc.getElementById("disa").checked != false){
+		dis = ((d/Math.PI)-0.734)*Math.PI/d;
+		doc.getElementById("Dist").value = dis;
+		return dis;
+	}
 }
     
   function verify(n) {
@@ -116,6 +119,7 @@ casing = n;
       elem.id = "Wrap";
       content = doc.createElement("label");
       elem.appendChild(content);
+	  
       
         if (n==0) {
             
@@ -146,12 +150,13 @@ casing = n;
             $('#Repetition').removeAttr('disabled');
             $('#Streams').removeAttr('disabled');
             //$('#GAP').removeAttr('disabled');
+			
             
             doc.getElementById("diam1").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)));}
             doc.getElementById("diam2").onclick = function(e){doc.getElementById("diam2").value = doc.getElementById("diam1").value;};
             doc.getElementById("diam2").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))};
 			if (!PL) doc.getElementById("diam2").onchange = function(e){doc.getElementById("GAP2").value = doc.getElementById("Raport").value / doc.getElementById("Repetition").value-doc.getElementById("diam2").value}
-			if (!PL) doc.getElementById("Raport").onchange = function(e){doc.getElementById("GAP2").value = doc.getElementById("Raport").value / doc.getElementById("Repetition").value-doc.getElementById("diam2").value}
+			if (!PL) doc.getElementById("Raport").onchange = function(e){di(); doc.getElementById("GAP2").value = doc.getElementById("Raport").value / doc.getElementById("Repetition").value-doc.getElementById("diam2").value}
 			if (!PL) doc.getElementById("Repetition").onchange = function(e){doc.getElementById("GAP2").value = doc.getElementById("Raport").value / doc.getElementById("Repetition").value-doc.getElementById("diam2").value}
             
         } else if (n==1) {
@@ -192,7 +197,7 @@ casing = n;
             doc.getElementById("Y").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)));}
             doc.getElementById("R").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)));}
 			if (!PL) doc.getElementById("Y").onchange = function(e){doc.getElementById("GAP2").value = doc.getElementById("Raport").value / doc.getElementById("Repetition").value-doc.getElementById("Y").value}
-            if (!PL) doc.getElementById("Raport").onchange = function(e){doc.getElementById("GAP2").value = doc.getElementById("Raport").value / doc.getElementById("Repetition").value-doc.getElementById("Y").value}
+            if (!PL) doc.getElementById("Raport").onchange = function(e){di(); doc.getElementById("GAP2").value = doc.getElementById("Raport").value / doc.getElementById("Repetition").value-doc.getElementById("Y").value}
 			if (!PL) doc.getElementById("Repetition").onchange = function(e){doc.getElementById("GAP2").value = doc.getElementById("Raport").value / doc.getElementById("Repetition").value-doc.getElementById("Y").value}
 			
         } else if (n==2 || n==3) {
@@ -200,12 +205,13 @@ casing = n;
             if(n==2){$('#Repetition').removeAttr('disabled');
                      $('#Streams').removeAttr('disabled');
                     // $('#GAP').removeAttr('disabled');
-					if (!PL) doc.getElementById("Raport").onchange = function(e){doc.getElementById("GAP2").value = doc.getElementById("Raport").value / doc.getElementById("Repetition").value}
+					if (!PL) doc.getElementById("Raport").onchange = function(e){di(); doc.getElementById("GAP2").value = doc.getElementById("Raport").value / doc.getElementById("Repetition").value}
 					if (!PL) doc.getElementById("Repetition").onchange = function(e){doc.getElementById("GAP2").value = doc.getElementById("Raport").value / doc.getElementById("Repetition").value}
                     };
             
             if(n==3){$('#Repetition').attr('disabled','disabled');
                      $('#Streams').attr('disabled','disabled');
+					 if (!PL) doc.getElementById("Raport").onchange = function(e){di();}
                     // $('#GAP').attr('disabled','disabled');
                     };
         

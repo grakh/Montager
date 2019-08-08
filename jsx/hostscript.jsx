@@ -68,8 +68,9 @@ var Dat= String (''+Da.getDate() +'-'+ (Da.getMonth()+1)+'-'+  Da.getFullYear())
     
 mm = 72.0/25.4;
 mms= mm/2.0;
-var WidthLab = 22*mm; 
+var WidthLab = 19*mm; 
 var xEl=0, yEl=0;
+var compens = 6;
  
     
 var elem = newLayer.groupItems.add();  
@@ -86,7 +87,7 @@ var PLabel = new CMYKColor();
     PLabel.name = 'labelColor';
     PLabel.black =0; 
     PLabel.cyan = 0; 
-    PLabel.magenta = 100; 
+    PLabel.magenta = 80; 
     PLabel.yellow = 0;
     
 var PCyan = new CMYKColor();
@@ -139,7 +140,7 @@ for(var i=0;i<docRef.textFrames.length;i++){
 a.moveToBeginning(newGroup);
          }
     
- var WidthForm = (form[10]*form[4])+(Gapp[0]*form[4])+20; 
+ var WidthForm = (form[10]*form[4])+(Gapp[0]*form[4])+20 - compens; 
  if ((Rap[0]!=Rap[1]) && PlTrue) {WidthForm = Plosk; }
     
 var LI = Linfo.groupItems.add();
@@ -273,7 +274,7 @@ var LVector4 = LVector1.duplicate();
     LVector4.top = WidthLab+i-iv+6*mm;
     
 var Llog = LI.textFrames.add();
-    Llog.position = [(Rap[1]*mm)/2-50*mm,WidthLab+i-iv+7*mm];
+    Llog.position = [(Rap[1]*mm)/2-50*mm,WidthLab+i-iv+5*mm];
     Llog.contents = "www.justcut.ru  +7(495) 155-62-73";
     Llog.textRange.characterAttributes.size = 16;
 	Llog.textRange.characterAttributes.tracking = 30;
@@ -479,6 +480,7 @@ function rect(){
  for(var i = 0; i < docSelection2.length; i++){
     docSelection  = docSelection2[i]; 
      docSelection.strokeColor = PFull;
+	 docSelection.filled = false;
      docSelection.strokeWidth = lineOb*mm;
     docSelection.moveToBeginning(elm); 
      
@@ -500,6 +502,7 @@ function selAll(){
  for(var i = 0; i < documents[0].pathItems.length; i++){
     docSelection  = documents[0].pathItems[i]; 
      docSelection.strokeColor = PFull;
+	 docSelection.filled = false;
      docSelection.strokeWidth = lineOb*mm;
     docSelection.moveToBeginning(elm); 
      
@@ -516,6 +519,7 @@ function elSelect(){
     var i =0;
     var j =0;
     elm.strokeColor = PFull;
+	elm.filled = false;
     elm.strokeWidth = lineOb*mm;
     elm.top = WidthLab+i+elm.height+Gapp[0]*mm/2+lineOb*mm/2;
     elm.left = (5*mm-lineOb*mm/2)+((Gap2)*mm/2)+ j;
@@ -528,6 +532,7 @@ for (w=0; w<form[4]; w++){
 
 	if (kostyl) elm.duplicate();
     elm.strokeColor = PFull;
+	elm.filled = false;
     elm.strokeWidth = lineOb*mm;
     elm.top = WidthLab+i+elm.height+Gapp[0]*mm/2+lineOb*mm/2;
     elm.left = (5*mm-lineOb*mm/2)+((Gap2)*mm/2)+ j;
@@ -557,6 +562,7 @@ function fullSelect(){
     //var WidthLab = 29*mm; 
 
     elm.strokeColor = PFull;
+	elm.filled = false;
     elm.strokeWidth = lineOb*mm;
     elm.top = WidthLab+elm.height+lineOb*mm/2+Gapp[0]*mm/2;
     elm.left = (5*mm-lineOb*mm/2)+((Rap[0]-form[11])*mm/2);
