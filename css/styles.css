@@ -182,6 +182,25 @@ position:relative;
 display:block-inline;
 width:100%;
 height:8%;
+
+}
+#d2{
+
+	margin-left: 25px;
+}
+
+#diam1{
+
+	margin-left: 2px;
+}
+
+#diam2{
+
+	margin-left: 2px;
+}
+
+#elipse{
+	margin-left: 5px;
 }
 
 #checkLabel{

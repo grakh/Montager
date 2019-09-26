@@ -72,7 +72,9 @@ function parseXML() {
     doc.getElementById("GAP").value = xmlDoc.getElementsByTagName("РасстояниеМеждуРучьями")[0] ? (xmlDoc.getElementsByTagName("РасстояниеМеждуРучьями")[0].childNodes[0].nodeValue > 0 ? xmlDoc.getElementsByTagName("РасстояниеМеждуРучьями")[0].childNodes[0].nodeValue : '3' )  : '3';
     doc.getElementById("GAP2").value=xmlDoc.getElementsByTagName("РасстояниеМеждуПовторениями")[0] ? xmlDoc.getElementsByTagName("РасстояниеМеждуПовторениями")[0].childNodes[0].nodeValue : doc.getElementById("Raport").value / doc.getElementById("Repetition").value;    
     doc.getElementById("Knife").value=xmlDoc.getElementsByTagName("ВысотаНожа")[0] ? xmlDoc.getElementsByTagName("ВысотаНожа")[0].childNodes[0].nodeValue : 'не найден';
-    di(); doc.getElementById("disa").value='1';
+     
+	di(); doc.getElementById("disa").value='1';
+	if (~doc.getElementById("Material").value.indexOf("Плоская")) {doc.getElementById("disa").checked = false; doc.getElementById("Dist").value = "0";}
 	
 	if (~doc.getElementById("Material").value.indexOf("Полуротация") || ~doc.getElementById("Material").value.indexOf("Плоская")) {
 		$('#Polurot').removeAttr('disabled'); 
@@ -123,18 +125,26 @@ casing = n;
       
         if (n==0) {
             
-             content = doc.createTextNode("Diameter:  ");
+             content = doc.createTextNode("Diameter, mm:  D1:");
             elem.appendChild(content);
              //wrappedP.parentNode.replaceChild(elem, wrappedP);
-            
-             content = doc.createTextNode(" X, mm: ");
-            elem.appendChild(content);
+
             
             content = doc.createElement("input");
             content.id = "diam1";
             elem.appendChild(content);
+
+            content = doc.createElement("input");
+            content.type="checkbox";
+            content.id="elipse";
+            content.setAttribute("value", "1");
+            content.setAttribute("checked", "checked");
+			elem.appendChild(content);
             
-            content = doc.createTextNode(" Y, mm: ");
+            content = doc.createElement("span");
+            content.id="d2";
+            cont = doc.createTextNode(", D2:");
+            content.appendChild(cont);
             elem.appendChild(content);
             
             content = doc.createElement("input");
@@ -153,9 +163,21 @@ casing = n;
 			
             
             doc.getElementById("diam1").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)));}
-            doc.getElementById("diam2").onclick = function(e){doc.getElementById("diam2").value = doc.getElementById("diam1").value;};
+            doc.getElementById("diam1").onchange = function(e){
+                if(doc.getElementById("elipse").checked)
+                    doc.getElementById("diam2").value = doc.getElementById("diam1").value;
+                    doc.getElementById("GAP2").value = doc.getElementById("Raport").value / doc.getElementById("Repetition").value-doc.getElementById("diam2").value
+                };
             doc.getElementById("diam2").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))};
-			if (!PL) doc.getElementById("diam2").onchange = function(e){doc.getElementById("GAP2").value = doc.getElementById("Raport").value / doc.getElementById("Repetition").value-doc.getElementById("diam2").value}
+            doc.getElementById("elipse").onchange = function(e){
+                if(doc.getElementById("elipse").checked) doc.getElementById("diam2").value = doc.getElementById("diam1").value;
+                   doc.getElementById("GAP2").value = doc.getElementById("Raport").value / doc.getElementById("Repetition").value-doc.getElementById("diam2").value
+            };
+
+			if (!PL) doc.getElementById("diam2").onchange = function(e){
+                   if(doc.getElementById("elipse").checked) doc.getElementById("diam1").value = doc.getElementById("diam2").value;
+                      doc.getElementById("GAP2").value = doc.getElementById("Raport").value / doc.getElementById("Repetition").value-doc.getElementById("diam2").value
+            };
 			if (!PL) doc.getElementById("Raport").onchange = function(e){di(); doc.getElementById("GAP2").value = doc.getElementById("Raport").value / doc.getElementById("Repetition").value-doc.getElementById("diam2").value}
 			if (!PL) doc.getElementById("Repetition").onchange = function(e){doc.getElementById("GAP2").value = doc.getElementById("Raport").value / doc.getElementById("Repetition").value-doc.getElementById("diam2").value}
             

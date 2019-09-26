@@ -56,7 +56,7 @@ var Dat= String (''+Da.getDate() +'-'+ (Da.getMonth()+1)+'-'+  Da.getFullYear())
     var Ang = form[8].substring(0, form[8].indexOf(" "));
     var Mate = form[8].substring(form[8].indexOf(" "), form[8].lastIndexOf(" "));
     var Kni = form[9];
-    if (~Mate.indexOf("Плоская")) {Rap[1]=Rap[0]; Rap[0]= Plosk;}
+    if (~Mate.indexOf("Плоская")) {Rap[1]=Rap[0]; Rap[0]= Plosk+0.001;}
     if (~Mate.indexOf("Ротация")) {Mate=''; Rap[1]=Rap[0]; Rap[0]= Plosk;}
 	if (~Mate.indexOf("Полуротация")) PlTrue = false;
 	

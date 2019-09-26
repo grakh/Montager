@@ -117,18 +117,20 @@ Knife, mm:
 
 <div id="Wrap">
 <label></label>
-Diameter:
-X, mm: 
-<input id="diam1" value="25">
-Y, mm: 
-<input id="diam2" value="25">
-<br>
+Diameter, mm: D1:
+<input id="diam1" value="25"/>
+<input type="checkbox" id = "elipse" name="elip" checked>
+<span id="d2">, D2:</span>
+<input id="diam2" value="25"/>
 
 </div>
     
     <script>
+         doc.getElementById("elipse").onchange = function(e){if(doc.getElementById("elipse").checked) doc.getElementById("diam2").value = doc.getElementById("diam1").value;};
             doc.getElementById("diam1").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)));}
-            doc.getElementById("diam2").onclick = function(e){doc.getElementById("diam2").value = doc.getElementById("diam1").value;};
+            doc.getElementById("diam1").onchange = function(e){
+                if(doc.getElementById("elipse").checked)
+                    doc.getElementById("diam2").value = doc.getElementById("diam1").value;};
             doc.getElementById("diam2").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))};
     </script>
 
