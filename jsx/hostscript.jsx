@@ -86,8 +86,8 @@ var alls = newLayer.groupItems.add();
 var PLabel = new CMYKColor();
     PLabel.name = 'labelColor';
     PLabel.black =0; 
-    PLabel.cyan = 0; 
-    PLabel.magenta = 80; 
+    PLabel.cyan = 80; 
+    PLabel.magenta = 0; 
     PLabel.yellow = 0;
     
 var PCyan = new CMYKColor();

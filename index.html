@@ -152,11 +152,13 @@ Diameter, mm: D1:
 <!-----------------****------------------>
 
 <div id="comment">
-<textarea class="comm" id="comm" rows = "3" placeholder="Нет комментария" readonly>
+<textarea class="comm" id="comm" rows = "3" placeholder="Нет комментария">
 </textarea>
+<button id="comment-set" onClick="comm()"> < </button>
+
 </div>
 
-<div id="LabelTextbox">
+<div id="LabelTextbox3" class="east">
 <label>
  Line: 
 <input id="Line" value="0.7">
@@ -170,11 +172,15 @@ Diameter, mm: D1:
     </script>
 
 <div id="button">
-<button class="button" id="button" onClick="subm()">Run code</button>
+<button class="button" onClick="subm()">Run code</button>
+</div>
+
+<div id='manager' class="east">
+    Manager: 
+</div>
 </div>
 
 
-</div>
 
         <!-- These are debugging shortcuts.  Class debuglink items only appear in debug mode  -->
     

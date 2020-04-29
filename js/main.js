@@ -2,6 +2,7 @@
 'use strict';
 
     var csInterface = new CSInterface();
+	
     
     function init() {
                 
@@ -34,7 +35,11 @@
            
         csInterface.evalScript('sayHello("'+Namber+';'+Customer+';'+Raport+';'+Repetition+';'+Streams+';'+GAP+';'+casing+';'+Dis+';'+Material+';'+Knife+';'+Forms+'")');
     });
+  
+  
   }
     init();
+	
+
     
 })();

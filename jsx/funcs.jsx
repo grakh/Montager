@@ -4,7 +4,9 @@ var doc = document;
 
     var casing = 0;
     var Forms ='';
-	var PL=false;
+    var PL=false;
+    var path='';
+    var xmlDoc;
 
 $("#Namber").on("keypress", function(e){
     var char = /["a-zA-Z]/;
@@ -17,7 +19,9 @@ $("#Namber").on("keypress", function(e){
 function fxml(){
 var x = doc.getElementById("Namber").value;
 
-var path = '\\\\storage\\zakaz\\'+x.substr (0, x.length-3)+'000-'+x.substr (0, x.length-3)+'999\\'+x+'\\XML\\specification_'+x+'.xml';
+localStorage.removeItem('lineSet');
+
+path = '\\\\storage\\zakaz\\'+x.substr (0, x.length-3)+'000-'+x.substr (0, x.length-3)+'999\\'+x+'\\XML\\specification_'+x+'.xml';
 //alert(path);
 doc.getElementById("Customer").value = '';
 doc.getElementById("Material").value = '';
@@ -56,12 +60,16 @@ function parseXML() {
 		alert(i+' -> '+root.childNodes[i].nodeName+' = '+root.childNodes[i].nodeValue);
         }
    */ 
+  
 
  
 
     //alert (xmlDoc.documentElement.nodeName+' <'+xmlDoc.documentElement.attributes[0].name+' = '+xmlDoc.documentElement.attributes[0].value+'>');
-    doc.getElementById("Customer").value=(xmlDoc.documentElement.attributes[1].value+' / '+xmlDoc.documentElement.attributes[0].value).replace(/"/g, "'");
-	doc.getElementById("comm").value=(xmlDoc.documentElement.attributes[4].value).replace(/"/g, "'");
+    doc.getElementById("Customer").value=(xmlDoc.documentElement.attributes['НаименованиеЗаказа'].value+' / '+xmlDoc.documentElement.attributes['Покупатель'].value).replace(/"/g, "'");
+    //alert(xmlDoc.documentElement.attributes['КомментарийКонтрагента']);
+    doc.getElementById("comm").value = (xmlDoc.documentElement.attributes['КомментарийКонтрагента'] !== undefined) ? (xmlDoc.documentElement.attributes['КомментарийКонтрагента'].value).replace(/"/g, "'")+'\n' : '' ;
+    doc.getElementById("comm").value += (xmlDoc.documentElement.attributes['Комментарий'].value).replace(/"/g, "'")+'\n';
+    doc.getElementById("manager").innerHTML = (xmlDoc.documentElement.attributes['УтвердилСпецификацию'] !== undefined) ? ('Manager:' + (xmlDoc.documentElement.attributes['УтвердилСпецификацию'].value).replace(/"/g, "'")) : 'Manager: ';
     doc.getElementById("Angle").value=xmlDoc.getElementsByTagName("УголЗаточкиКромки")[0] ? xmlDoc.getElementsByTagName("УголЗаточкиКромки")[0].childNodes[0].nodeValue : 'не найден';
     doc.getElementById("Material").value=xmlDoc.getElementsByTagName("ТипВырубки")[0] ? xmlDoc.getElementsByTagName("ТипВырубки")[0].childNodes[0].nodeValue : 'не найден';
     doc.getElementById("Raport").value=xmlDoc.getElementsByTagName("ШагПечатногоВала")[0] ? xmlDoc.getElementsByTagName("ШагПечатногоВала")[0].childNodes[0].nodeValue : 'не найден';
@@ -98,6 +106,103 @@ function parseXML() {
 
 parseXML();
     
+}
+
+function comm(){
+
+/*
+    var parseXml;
+
+    if (typeof window.DOMParser != "undefined") {
+    
+        parseXml = function(xmlStr) {
+    
+            return ( new window.DOMParser() ).parseFromString(xmlStr, "text/xml");
+    
+        };
+    
+    } else if (typeof window.ActiveXObject != "undefined" &&
+    
+           new window.ActiveXObject("Microsoft.XMLDOM")) {
+    
+        parseXml = function(xmlStr) {
+    
+            //var xmlDoc = new window.ActiveXObject("Microsoft.XMLDOM");
+    
+            //xmlDoc.async = "false";
+    
+            xmlDoc.loadXML(xmlStr);
+    
+            return xmlDoc;
+    
+        };
+    
+    } else {
+    
+        throw new Error("No XML parser found");
+    }
+
+    var xml = parseXml("<foo>Stuff</foo>");
+    alert(xml.documentElement.nodeName);
+
+*/
+
+xmlDoc.documentElement.setAttribute("Комментарий","food");
+
+//XmlDoc.save('c:\\Temp\\test.xml');
+//----------------------------------------------------------------
+function onInitFs(fs) {
+
+    fs.root.getFile('log.txt', {create: true}, function(fileEntry) {
+  
+      fileEntry.createWriter(function(fileWriter) {
+  
+        fileWriter.onwriteend = function(e) {
+          console.log('Write completed.');
+        };
+  
+        fileWriter.onerror = function(e) {
+          console.log('Write failed: ' + e.toString());
+        };
+  
+        var bb = new BlobBuilder();
+        bb.append('Ipsum Lorem');
+        fileWriter.write(bb.getBlob('text/plain'));
+  
+      }, errorHandler);
+  
+    }, errorHandler);
+  
+  }
+  
+  window.requestFileSystem(window.PERSISTENT, 1024*1024, onInitFs, errorHandler);
+
+    alert(xmlDoc.documentElement.getAttribute("Комментарий"));
+//----------------------------------------------------------------
+}
+
+function loadXMLDoc(dname) 
+{
+try //Internet Explorer
+  {
+  xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+  }
+catch(e)
+  {
+  try //Firefox, Mozilla, Opera, etc.
+    {
+    xmlDoc=document.implementation.createDocument("","",null);
+    }
+  catch(e) {alert(e.message)}
+  }
+try 
+  {
+  xmlDoc.async=false;
+  xmlDoc.load(dname);
+  return(xmlDoc);
+  }
+catch(e) {alert(e.message)}
+return(null);
 }
 
 function di(){
