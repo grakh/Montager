@@ -371,9 +371,9 @@ var P1K = Point0.duplicate();
    var i = 0;
    
    var gor=parseInt((Rap[1])/10);
-    if (gor>20) gor=20;
-   var ver = parseInt(WidthForm/9);
-    if (ver>20) ver=20;
+    if (gor>40) gor=40;
+   var ver = parseInt(WidthForm/10);
+    if (ver>40) ver=40;
     //alert('gor '+gor+"\n ver "+ver);
     
 for (s=0; s<gor; s++) {
