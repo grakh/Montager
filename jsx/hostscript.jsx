@@ -288,7 +288,7 @@ var Llog = LI.textFrames.add();
 	 if  (form[6]!=3) {xEl = form[10]; yEl = form[11];}
 	
 var LPod = LI.textFrames.add();
-    LPod.contents = (""+Dat+" / "+form[1]+" / "+parseFloat(parseFloat(xEl).toFixed(3))+"x"+parseFloat(parseFloat(yEl).toFixed(3))+" / ВАЛ "+parseInt(Rap0/3.175)+"("+Rap0+")"+" / "+form[0]+" / "+Ang+Mate); //.split(".").join(" ");
+    LPod.contents = (""+Dat+" / "+form[1]+" / "+parseFloat(parseFloat(xEl).toFixed(3))+"x"+parseFloat(parseFloat(yEl).toFixed(3))+" / ВАЛ "+Math.round(parseFloat(Rap0/3.175))+" ("+Rap0+")"+" / "+form[0]+" / "+Ang+Mate); //.split(".").join(" ");
     LPod.textRange.characterAttributes.size = 12;
 	LPod.textRange.characterAttributes.tracking = 30;
     //LPod.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
