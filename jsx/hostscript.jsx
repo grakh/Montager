@@ -225,6 +225,7 @@ Oporka.strokeDashes = [2,2,2,2];
 		riskCenter.strokeColor = PRisk;
 		riskCenter.strokeWidth = 0.15*mm;
 		riskCenter.filled = false;
+        
 
 var i = 0;
     iv=(form[10]*mm+Gapp[0]*mm);
@@ -346,6 +347,19 @@ for (var i=0; i<docRef.selection.length;i++){
   }
     
 
+        pointCenter = LI.pathItems.add();
+        pointCenter .setEntirePath( Array( Array(Oporka.left-0.3*mm+Oporka.strokeWidth/2, WidthForm*mm/2+12*mm), Array(Oporka.left+Oporka.width+0.3*mm+Oporka.strokeWidth/2, WidthForm*mm/2+12*mm)) );
+        pointCenter .stroked = false;
+        //pointCenter .strokeColor = PWhite;
+        //pointCenter .strokeWidth = 0.1*mm;
+        pointCenter .filled = false;
+        
+        //pointCenter = LI.pathItems.add();
+        //pointCenter .setEntirePath( Array( Array(Oporka.left+Oporka.width-3*mm, WidthForm*mm/2+12*mm), Array(Oporka.left+Oporka.width+0.3*mm+Oporka.strokeWidth/2, WidthForm*mm/2+12*mm)) );
+        //pointCenter .stroked = false;
+        //pointCenter .strokeColor = PWhite;
+        //pointCenter .strokeWidth = 0.1*mm;
+        //pointCenter .filled = false;
     
 //----------------------------------------------------------    
     
