@@ -38,6 +38,9 @@ doc.getElementById("Dist").value = '0';
 doc.getElementById("GAP2").disabled = true;
 doc.getElementById("disa").checked = true;
 
+var element = doc.getElementById("comm");
+    element.scrollTop = 0;
+
 function parseXML() {
 //alert(path);
 	if (window.XMLHttpRequest) {
