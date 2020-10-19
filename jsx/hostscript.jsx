@@ -276,7 +276,7 @@ var LVector4 = LVector1.duplicate();
     
 var Llog = LI.textFrames.add();
     Llog.position = [(Rap[1]*mm)/2-50*mm,WidthLab+i-iv+5*mm];
-    Llog.contents = "www.justcut.ru  +7(495) 155-62-73";
+    Llog.contents = "www.justcut.ru  +7(495) 128-62-73";
     Llog.textRange.characterAttributes.size = 16;
 	Llog.textRange.characterAttributes.tracking = 30;
     //Llog.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;

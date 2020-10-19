@@ -76,7 +76,13 @@ function parseXML() {
     doc.getElementById("Angle").value=xmlDoc.getElementsByTagName("УголЗаточкиКромки")[0] ? xmlDoc.getElementsByTagName("УголЗаточкиКромки")[0].childNodes[0].nodeValue : 'не найден';
     doc.getElementById("Material").value=xmlDoc.getElementsByTagName("ТипВырубки")[0] ? xmlDoc.getElementsByTagName("ТипВырубки")[0].childNodes[0].nodeValue : 'не найден';
     doc.getElementById("Raport").value=xmlDoc.getElementsByTagName("ШагПечатногоВала")[0] ? xmlDoc.getElementsByTagName("ШагПечатногоВала")[0].childNodes[0].nodeValue : 'не найден';
-	doc.getElementById("Polurot").value=xmlDoc.getElementsByTagName("ДлинаНожа")[0] ? xmlDoc.getElementsByTagName("ДлинаНожа")[0].childNodes[0].nodeValue : '';
+
+~doc.getElementById("Material").value.indexOf("Полуротация")
+    ?   
+    doc.getElementById("Polurot").value=xmlDoc.getElementsByTagName("ДлинаНожа")[0] ? xmlDoc.getElementsByTagName("ДлинаНожа")[0].childNodes[0].nodeValue : ''
+    :
+    doc.getElementById("Polurot").value=xmlDoc.getElementsByTagName("ШиринаНожа")[0] ? xmlDoc.getElementsByTagName("ШиринаНожа")[0].childNodes[0].nodeValue : '';
+
     doc.getElementById("Repetition").value=xmlDoc.getElementsByTagName("КоличествоПовторенийНаРаппорте")[0] ? xmlDoc.getElementsByTagName("КоличествоПовторенийНаРаппорте")[0].childNodes[0].nodeValue : '1';
     doc.getElementById("Streams").value=xmlDoc.getElementsByTagName("КоличествоРучьев")[0] ? xmlDoc.getElementsByTagName("КоличествоРучьев")[0].childNodes[0].nodeValue : '1';
 
