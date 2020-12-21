@@ -83,25 +83,26 @@ var alls = newLayer.groupItems.add();
     var docSelection = new Array();
     var docSelection2 = new Array();
     
-var PLabel = new CMYKColor();
+var PLabel = new CMYKColor(); // text
     PLabel.name = 'labelColor';
-    PLabel.black =0; 
-    PLabel.cyan = 80; 
-    PLabel.magenta = 0; 
+    PLabel.black = 0; 
+    PLabel.cyan = 100; 
+    PLabel.magenta = 80; 
     PLabel.yellow = 0;
     
-var PCyan = new CMYKColor();
+var PCyan = new CMYKColor(); //Dashed Line
     PCyan.name = 'labelColor';
-    PCyan.black =0; 
-    PCyan.cyan = 100; 
-    PCyan.magenta = 100; 
-    PCyan.yellow = 0;
-var PRisk= new CMYKColor();
+    PCyan.black = 0; 
+    PCyan.cyan = 0; 
+    PCyan.magenta = 80; 
+    PCyan.yellow = 100;
+
+var PRisk= new CMYKColor();  //Metki
     PRisk.name = 'labelColor';
-    PRisk.black =100; 
-    PRisk.cyan = 100; 
-    PRisk.magenta = 0; 
-    PRisk.yellow = 0;
+    PRisk.black = 0; 
+    PRisk.cyan = 0; 
+    PRisk.magenta = 80; 
+    PRisk.yellow = 100;
     
 var PWhite = new CMYKColor();
     PWhite.name = 'WhiteColor';
@@ -250,20 +251,20 @@ for (s1=0; s1<=form[4]; s1++) {
     
 var LVector1 = LI.groupItems.add();
     LV1 = LVector1.pathItems.add();
-    LV1.setEntirePath( Array( Array(10*mm, WidthLab-5*mm), Array(28*mm, WidthLab-5*mm)) );
+    LV1.setEntirePath( Array( Array(10*mm, WidthLab-2*mm), Array(28*mm, WidthLab-2*mm)) );
     LV1.stroked = true;
     LV1.strokeColor = PLabel;
     LV1.strokeWidth = 0.1*mm;
     LV1.filled = false;
     LV2 = LVector1.pathItems.add();
-    LV2.setEntirePath( Array( Array(25*mm, WidthLab-6*mm), Array(30*mm, WidthLab-5*mm), Array(25*mm, WidthLab-4*mm)) );
+    LV2.setEntirePath( Array( Array(25*mm, WidthLab-3*mm), Array(30*mm, WidthLab-2*mm), Array(25*mm, WidthLab-1*mm)) );
     LV2.stroked = true;
     LV2.strokeColor = PLabel;
     LV2.strokeWidth = 0.1*mm;
     LV2.filled = false;
 
 var LVector2 = LVector1.duplicate();
-    LVector2.top = WidthLab+i-iv+6*mm;
+    LVector2.top = Oporka.top-4*mm;
     
 var LVector3 = LVector1.duplicate();
     LVector3.rotate(180);
@@ -272,10 +273,10 @@ var LVector3 = LVector1.duplicate();
 var LVector4 = LVector1.duplicate();
     LVector4.rotate(180);
     LVector4.left = Rap[1]*mm-20*mm;
-    LVector4.top = WidthLab+i-iv+6*mm;
-    
+    LVector4.top = Oporka.top-4*mm;
+
 var Llog = LI.textFrames.add();
-    Llog.position = [(Rap[1]*mm)/2-50*mm,WidthLab+i-iv+5*mm];
+    Llog.position = [(Rap[1]*mm)/2-50*mm, Oporka.top-1*mm];
     Llog.contents = "www.justcut.ru  +7(495) 128-62-73";
     Llog.textRange.characterAttributes.size = 16;
 	Llog.textRange.characterAttributes.tracking = 30;
@@ -283,8 +284,8 @@ var Llog = LI.textFrames.add();
     Llog.textRange.characterAttributes.textFont = app.textFonts.getByName(fonts);
     Llog.textRange.characterAttributes.fillColor = PLabel;
 	if (Llog.width > Rap[1]*mm) Llog.width = Rap[1]*mm;
-	Llog.position = [(Rap[1]*mm)/2-(Llog.width/2)+5*mm, WidthLab+i-iv+7*mm];
-    
+	Llog.position = [(Rap[1]*mm)/2-(Llog.width/2)+5*mm, Oporka.top-1*mm];
+
 	
 	 if  (form[6]!=3) {xEl = form[10]; yEl = form[11];}
 	
@@ -338,9 +339,9 @@ for (var i=0; i<docRef.selection.length;i++){
 	
 	newGroup.top = WidthForm*mm/2.0 + newGroup.height/2.0 + lineOb*mm/2.0 + 12*mm;
 	RiskGorizont.top = WidthForm*mm/2.0 + RiskGorizont.height/2.0 + 0.15*mm/2.0 + 12*mm;
-	Llog.top = WidthForm*mm + 10*mm;
-	LVector2.top = WidthForm*mm + 8*mm;
-	LVector4.top = WidthForm*mm + 8*mm;
+	//Llog.top = WidthForm*mm + 10*mm;
+	//LVector2.top = WidthForm*mm + 8*mm;
+	//LVector4.top = WidthForm*mm + 8*mm;
     newGroup.left = 5*mm +(LI.width-newGroup.width-6*mm)/2-lineOb*mm/2.0;
 
    
@@ -362,7 +363,7 @@ for (var i=0; i<docRef.selection.length;i++){
         //pointCenter .filled = false;
     
 //----------------------------------------------------------    
-    
+
     
 var Point0 = L_Test.groupItems.add();
     
