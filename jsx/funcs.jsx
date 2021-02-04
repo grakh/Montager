@@ -136,9 +136,9 @@ function comm(){
     
         parseXml = function(xmlStr) {
     
-            //var xmlDoc = new window.ActiveXObject("Microsoft.XMLDOM");
+            var xmlDoc = new window.ActiveXObject("Microsoft.XMLDOM");
     
-            //xmlDoc.async = "false";
+            xmlDoc.async = "false";
     
             xmlDoc.loadXML(xmlStr);
     
@@ -160,34 +160,37 @@ xmlDoc.documentElement.setAttribute("Комментарий","food");
 
 //XmlDoc.save('c:\\Temp\\test.xml');
 //----------------------------------------------------------------
-function onInitFs(fs) {
+// function onInitFs(fs) {
 
-    fs.root.getFile('log.txt', {create: true}, function(fileEntry) {
+//     fs.root.getFile('log.txt', {create: true}, function(fileEntry) {
   
-      fileEntry.createWriter(function(fileWriter) {
+//       fileEntry.createWriter(function(fileWriter) {
   
-        fileWriter.onwriteend = function(e) {
-          console.log('Write completed.');
-        };
+//         fileWriter.onwriteend = function(e) {
+//           console.log('Write completed.');
+//         };
   
-        fileWriter.onerror = function(e) {
-          console.log('Write failed: ' + e.toString());
-        };
+//         fileWriter.onerror = function(e) {
+//           console.log('Write failed: ' + e.toString());
+//         };
   
-        var bb = new BlobBuilder();
-        bb.append('Ipsum Lorem');
-        fileWriter.write(bb.getBlob('text/plain'));
+//         var bb = new BlobBuilder();
+//         bb.append('Ipsum Lorem');
+//         fileWriter.write(bb.getBlob('text/plain'));
   
-      }, errorHandler);
+//       }, errorHandler);
   
-    }, errorHandler);
+//     }, errorHandler);
   
-  }
+//   }
   
-  window.requestFileSystem(window.PERSISTENT, 1024*1024, onInitFs, errorHandler);
+//   window.requestFileSystem(window.PERSISTENT, 1024*1024, onInitFs, errorHandler);
 
-    alert(xmlDoc.documentElement.getAttribute("Комментарий"));
+//     alert(xmlDoc.documentElement.getAttribute("Комментарий"));
 //----------------------------------------------------------------
+
+var text = 'как записать строку в файл ".txt" с помощью js?';
+document.write('<a href="data:text/plain;charset=utf-8,%EF%BB%BF' + encodeURIComponent(text) + '" download="c:/temp/text.txt">text.txt</a>');
 }
 
 function loadXMLDoc(dname) 
@@ -215,12 +218,14 @@ return(null);
 }
 
 function di(){
-    d=$('#Raport').val();
+    d = $('#Raport').val();
+    H = $('#Knife').val();
 	var dis;
     //alert(((d/Math.PI)-0.734)*Math.PI/d);
 	if (doc.getElementById("disa").checked != false){
-		dis = ((d/Math.PI)-0.734)*Math.PI/d;
-		doc.getElementById("Dist").value = dis;
+        if (H <= 0.5) dis = ((d/Math.PI)-0.734)*Math.PI/d; 
+        else dis = d/(d-(0.15-2*H)*Math.PI);
+		doc.getElementById("Dist").value = parseFloat(parseFloat(dis).toFixed(5));
 		return dis;
 	}
 }

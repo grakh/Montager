@@ -86,23 +86,23 @@ var alls = newLayer.groupItems.add();
 var PLabel = new CMYKColor(); // text
     PLabel.name = 'labelColor';
     PLabel.black = 0; 
-    PLabel.cyan = 100; 
-    PLabel.magenta = 80; 
+    PLabel.cyan = 0; 
+    PLabel.magenta = 50; 
     PLabel.yellow = 0;
     
 var PCyan = new CMYKColor(); //Dashed Line
     PCyan.name = 'labelColor';
     PCyan.black = 0; 
     PCyan.cyan = 0; 
-    PCyan.magenta = 80; 
-    PCyan.yellow = 100;
+    PCyan.magenta = 70; 
+    PCyan.yellow = 0;
 
 var PRisk= new CMYKColor();  //Metki
     PRisk.name = 'labelColor';
     PRisk.black = 0; 
     PRisk.cyan = 0; 
-    PRisk.magenta = 80; 
-    PRisk.yellow = 100;
+    PRisk.magenta = 75; 
+    PRisk.yellow = 0;
     
 var PWhite = new CMYKColor();
     PWhite.name = 'WhiteColor';
@@ -113,7 +113,7 @@ var PWhite = new CMYKColor();
     
 var PFull = new CMYKColor();
     PFull.name = 'FullColor';
-    PFull.black =100; 
+    PFull.black = 100; 
     PFull.cyan = 100; 
     PFull.magenta = 100; 
     PFull.yellow = 100;
@@ -253,13 +253,13 @@ var LVector1 = LI.groupItems.add();
     LV1 = LVector1.pathItems.add();
     LV1.setEntirePath( Array( Array(10*mm, WidthLab-2*mm), Array(28*mm, WidthLab-2*mm)) );
     LV1.stroked = true;
-    LV1.strokeColor = PLabel;
+    LV1.strokeColor = PRisk;
     LV1.strokeWidth = 0.1*mm;
     LV1.filled = false;
     LV2 = LVector1.pathItems.add();
     LV2.setEntirePath( Array( Array(25*mm, WidthLab-3*mm), Array(30*mm, WidthLab-2*mm), Array(25*mm, WidthLab-1*mm)) );
     LV2.stroked = true;
-    LV2.strokeColor = PLabel;
+    LV2.strokeColor = PRisk;
     LV2.strokeWidth = 0.1*mm;
     LV2.filled = false;
 
