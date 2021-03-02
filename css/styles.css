@@ -31,6 +31,23 @@ color: red;
 	left: -5px;
 }
 
+#Dist{
+	float:right;
+		position: absolute;
+		left: 110px;
+		width:60px;
+	}
+
+#angle{
+		float:right;
+			position: absolute;
+			left: 190px;
+		}
+
+#less {
+	width:30px;
+}
+
 input[type="text"]{
 float:right;
 	position: absolute;

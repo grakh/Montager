@@ -101,7 +101,7 @@ var PRisk= new CMYKColor();  //Metki
     PRisk.name = 'labelColor';
     PRisk.black = 0; 
     PRisk.cyan = 0; 
-    PRisk.magenta = 75; 
+    PRisk.magenta = 65; 
     PRisk.yellow = 0;
     
 var PWhite = new CMYKColor();
@@ -251,20 +251,20 @@ for (s1=0; s1<=form[4]; s1++) {
     
 var LVector1 = LI.groupItems.add();
     LV1 = LVector1.pathItems.add();
-    LV1.setEntirePath( Array( Array(10*mm, WidthLab-2*mm), Array(28*mm, WidthLab-2*mm)) );
+    LV1.setEntirePath( Array( Array(10*mm, WidthLab-5*mm), Array(28*mm, WidthLab-5*mm)) );
     LV1.stroked = true;
     LV1.strokeColor = PRisk;
     LV1.strokeWidth = 0.1*mm;
     LV1.filled = false;
     LV2 = LVector1.pathItems.add();
-    LV2.setEntirePath( Array( Array(25*mm, WidthLab-3*mm), Array(30*mm, WidthLab-2*mm), Array(25*mm, WidthLab-1*mm)) );
+    LV2.setEntirePath( Array( Array(25*mm, WidthLab-6*mm), Array(30*mm, WidthLab-5*mm), Array(25*mm, WidthLab-4*mm)) );
     LV2.stroked = true;
     LV2.strokeColor = PRisk;
     LV2.strokeWidth = 0.1*mm;
     LV2.filled = false;
 
 var LVector2 = LVector1.duplicate();
-    LVector2.top = Oporka.top-4*mm;
+    LVector2.top = Oporka.top-1*mm;
     
 var LVector3 = LVector1.duplicate();
     LVector3.rotate(180);
@@ -273,7 +273,7 @@ var LVector3 = LVector1.duplicate();
 var LVector4 = LVector1.duplicate();
     LVector4.rotate(180);
     LVector4.left = Rap[1]*mm-20*mm;
-    LVector4.top = Oporka.top-4*mm;
+    LVector4.top = Oporka.top-1*mm;
 
 var Llog = LI.textFrames.add();
     Llog.position = [(Rap[1]*mm)/2-50*mm, Oporka.top-1*mm];

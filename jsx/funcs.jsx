@@ -85,7 +85,14 @@ function parseXML() {
 
     doc.getElementById("Repetition").value=xmlDoc.getElementsByTagName("КоличествоПовторенийНаРаппорте")[0] ? xmlDoc.getElementsByTagName("КоличествоПовторенийНаРаппорте")[0].childNodes[0].nodeValue : '1';
     doc.getElementById("Streams").value=xmlDoc.getElementsByTagName("КоличествоРучьев")[0] ? xmlDoc.getElementsByTagName("КоличествоРучьев")[0].childNodes[0].nodeValue : '1';
-
+    
+    les = 0;
+    less = xmlDoc.getElementsByTagName("КоличествоУгловМеньше06");
+    for ( i = 0; i < less.length; i++)
+        les += parseInt(xmlDoc.getElementsByTagName("КоличествоУгловМеньше06")[i].childNodes[0].nodeValue);
+        
+ 
+    doc.getElementById("less").value=xmlDoc.getElementsByTagName("КоличествоУгловМеньше06")[0] ? les : '0';
     doc.getElementById("GAP").value = xmlDoc.getElementsByTagName("РасстояниеМеждуРучьями")[0] ? (xmlDoc.getElementsByTagName("РасстояниеМеждуРучьями")[0].childNodes[0].nodeValue > 0 ? xmlDoc.getElementsByTagName("РасстояниеМеждуРучьями")[0].childNodes[0].nodeValue : '3' )  : '3';
     doc.getElementById("GAP2").value=xmlDoc.getElementsByTagName("РасстояниеМеждуПовторениями")[0] ? xmlDoc.getElementsByTagName("РасстояниеМеждуПовторениями")[0].childNodes[0].nodeValue : doc.getElementById("Raport").value / doc.getElementById("Repetition").value;    
     doc.getElementById("Knife").value=xmlDoc.getElementsByTagName("ВысотаНожа")[0] ? xmlDoc.getElementsByTagName("ВысотаНожа")[0].childNodes[0].nodeValue : 'не найден';
