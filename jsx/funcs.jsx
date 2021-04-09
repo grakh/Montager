@@ -96,7 +96,8 @@ function parseXML() {
     doc.getElementById("GAP").value = xmlDoc.getElementsByTagName("РасстояниеМеждуРучьями")[0] ? (xmlDoc.getElementsByTagName("РасстояниеМеждуРучьями")[0].childNodes[0].nodeValue > 0 ? xmlDoc.getElementsByTagName("РасстояниеМеждуРучьями")[0].childNodes[0].nodeValue : '3' )  : '3';
     doc.getElementById("GAP2").value=xmlDoc.getElementsByTagName("РасстояниеМеждуПовторениями")[0] ? xmlDoc.getElementsByTagName("РасстояниеМеждуПовторениями")[0].childNodes[0].nodeValue : doc.getElementById("Raport").value / doc.getElementById("Repetition").value;    
     doc.getElementById("Knife").value=xmlDoc.getElementsByTagName("ВысотаНожа")[0] ? xmlDoc.getElementsByTagName("ВысотаНожа")[0].childNodes[0].nodeValue : 'не найден';
-     
+    
+
 	di(); doc.getElementById("disa").value='1';
 	if (~doc.getElementById("Material").value.indexOf("Плоская")) {doc.getElementById("disa").checked = false; doc.getElementById("Dist").value = "0";}
 	
@@ -105,7 +106,11 @@ function parseXML() {
 		$('#GAP2').removeAttr('disabled');
 		PL=true;
 		};
-	
+
+    if (xmlDoc.getElementsByTagName("ЛазернаяЗакалка")[0].childNodes[0].nodeValue=='true') {
+            doc.getElementById("Customer").value +=' /RLL';
+            doc.getElementById("comm").value +='== RLL =='
+        };
     //x=xmlDoc.getElementsByTagName("ШагПечатногоВала")[0];
     //alert (x.nodeName+' <'+x.childNodes[0].nodeValue+'>');
     if ( xmlDoc.getElementsByTagName("Контур")[0].childNodes[0].nodeValue==3) {doc.getElementsByName("figure")[3].checked=true;  verify(3) ;}
@@ -196,8 +201,17 @@ xmlDoc.documentElement.setAttribute("Комментарий","food");
 //     alert(xmlDoc.documentElement.getAttribute("Комментарий"));
 //----------------------------------------------------------------
 
-var text = 'как записать строку в файл ".txt" с помощью js?';
+var text = "как записать строку в файл .txt с помощью js?";
 document.write('<a href="data:text/plain;charset=utf-8,%EF%BB%BF' + encodeURIComponent(text) + '" download="c:/temp/text.txt">text.txt</a>');
+var file = new File( 'C:/Temp/text.txt');
+            
+if (file.open("w")) {
+    file.write(text);
+    file.close();
+}
+else {
+    alert("Access to slected directory is denied");
+}
 }
 
 function loadXMLDoc(dname) 

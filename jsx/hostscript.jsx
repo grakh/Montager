@@ -38,8 +38,11 @@ var Dat= String (''+Da.getDate() +'-'+ (Da.getMonth()+1)+'-'+  Da.getFullYear())
     //@target illustrator
 //app.bringToFront();
     //alert("Namber "+form[10]);
+    var rll='';
     var Nam = form[0];
     var Cust = form[1];
+    if (~form[1].indexOf("RLL")) {rll = ' / RLL'; Cust = form[1].substring(0, form[1].lastIndexOf(" "));}
+    
     var Rap = form[2].split(' ');
 	//alert (Rap[0]+' '+ Rap[1]);
     var Rep = form[3];
@@ -290,7 +293,7 @@ var Llog = LI.textFrames.add();
 	 if  (form[6]!=3) {xEl = form[10]; yEl = form[11];}
 	
 var LPod = LI.textFrames.add();
-    LPod.contents = (""+Dat+" / "+form[1]+" / "+parseFloat(parseFloat(xEl).toFixed(3))+"x"+parseFloat(parseFloat(yEl).toFixed(3))+" / ВАЛ "+Math.round(parseFloat(Rap0/3.175))+" ("+Rap0+")"+" / "+form[0]+" / "+Ang+Mate); //.split(".").join(" ");
+    LPod.contents = (""+Dat+" / "+Cust+" / "+parseFloat(parseFloat(xEl).toFixed(3))+"x"+parseFloat(parseFloat(yEl).toFixed(3))+" / ВАЛ "+Math.round(parseFloat(Rap0/3.175))+" ("+Rap0+")"+" / "+form[0]+" / "+Ang+Mate + rll); //.split(".").join(" ");
     LPod.textRange.characterAttributes.size = 12;
 	LPod.textRange.characterAttributes.tracking = 30;
     //LPod.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
@@ -301,7 +304,7 @@ var LPod = LI.textFrames.add();
     
 var LPod2 = LI.textFrames.add();
     LPod2.position = [(Rap[1]*mm)/2-(LPod2.width/2)-38*mm, 11*mm];
-    LPod2.contents = (form[7]+" - "+form[9]+" - "+Ang+" - Mirror, L"+lineOb); //.split(".").join(" ");
+    LPod2.contents = (form[7]+" - "+form[9]+" - "+Ang+" - Mirror, L"+lineOb+rll); //.split(".").join(" ");
     LPod2.textRange.characterAttributes.size = 12;
 	LPod2.textRange.characterAttributes.tracking = 30;
     LPod2.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
