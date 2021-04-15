@@ -28,7 +28,7 @@ var wi= docRef.width;
 var hi = docRef.height;
     
   //alert(sp);  
-    var form=sp.split(';');
+    //var form=sp.split(';');
  var Da= new Date ();
 
 //Dat=Da.toLocaleString();
@@ -38,36 +38,40 @@ var Dat= String (''+Da.getDate() +'-'+ (Da.getMonth()+1)+'-'+  Da.getFullYear())
     //@target illustrator
 //app.bringToFront();
     //alert("Namber "+form[10]);
+    var dop='';
     var rll='';
-    var Nam = form[0];
-    var Cust = form[1];
-    if (~form[1].indexOf("RLL")) {rll = ' / RLL'; Cust = form[1].substring(0, form[1].lastIndexOf(" "));}
-    
-    var Rap = form[2].split(' ');
+    var Nam = sp.Namber;
+    var Cust = sp.Customer;
+    if (sp.rll != '') {dop = rll = ' / '+sp.rll;}
+    if (sp.perf != '') {dop += ' / '+sp.perf;}
+    if (sp.micro != '') {dop += ' / '+sp.micro;}
+    if (sp.google != '') {dop += ' / '+sp.google;}
+
+    var Rap = sp.Raport.split(' ');
 	//alert (Rap[0]+' '+ Rap[1]);
-    var Rep = form[3];
-    var Stre = form[4];
-    var Gapp = form[5].split(' ');
+    var Rep = sp.Repetition;
+    var Stre = sp.Streams;
+    var Gapp = sp.GAP.split(' ');
 	var Plosk = Rap[1];
 	var Rap0 = Rap[0];
 	var PlTrue= true;
 
 	var Gap2 = Gapp[1]*1.0;
 	//alert (Rap[0]/Rep+'\n'+Gap2);
-    var casi = form[6];
-    var Distor = form[7];
-    var Ang = form[8].substring(0, form[8].indexOf(" "));
-    var Mate = form[8].substring(form[8].indexOf(" "), form[8].lastIndexOf(" "));
-    var Kni = form[9];
+    var casi = sp.casing;
+    var Distor = sp.Dis;
+    var Ang = sp.Material.substring(0, sp.Material.indexOf(" "));
+    var Mate = sp.Material.substring(sp.Material.indexOf(" "), sp.Material.lastIndexOf(" "));
+    var Kni = sp.Knife;
     if (~Mate.indexOf("Плоская")) {Rap[1]=Rap[0]; Rap[0]= Plosk+0.001;}
     if (~Mate.indexOf("Ротация")) {Mate=''; Rap[1]=Rap[0]; Rap[0]= Plosk;}
 	if (~Mate.indexOf("Полуротация")) PlTrue = false;
 	
-	var SAll = form[10];
-	var cheks = form[11];
-	//alert(cheks);
+	var SAll = sp.Forms.split(';');
+
+	//alert(SAll);
     
-   var lineOb = parseFloat(form[8].substring(form[8].lastIndexOf(" ")));   
+   var lineOb = parseFloat(sp.Material.substring(sp.Material.lastIndexOf(" ")));   
     
 mm = 72.0/25.4;
 mms= mm/2.0;
@@ -121,13 +125,13 @@ var PFull = new CMYKColor();
     PFull.magenta = 100; 
     PFull.yellow = 100;
      
- if  (form[6]==2){if (cheks=='true') {closePath();} el();  Gap2 = Rap[1]/Rep - form[11]; elSelect();};
- if  (form[6]==3){if (cheks=='true') {closePath();} el(); fullSelect();}; 
- if  (form[6]==0){circ();elSelect();};
- if  (form[6]==1){rect();elSelect();};
+ if  (casi==2){if (SAll[1]=='true') {closePath();} el();  Gap2 = Rap[1]/Rep - SAll[1]; elSelect();};
+ if  (casi==3){if (SAll[1]=='true') {closePath();} el(); fullSelect();}; 
+ if  (casi==0){circ();elSelect();};
+ if  (casi==1){rect();elSelect();};
  
  if (Rap[1]==0)
-	 if (form[6]==3) Rap[1] = elm.width/mm + 10;
+	 if (casi==3) Rap[1] = elm.width/mm + 10;
 		else Rap[1] = (elm.width/mm+Gap2)*Rep-Gap2 + 10;
 
  //if (Rap[1]==0 & form[6]==2) alert (); 
@@ -144,7 +148,7 @@ for(var i=0;i<docRef.textFrames.length;i++){
 a.moveToBeginning(newGroup);
          }
     
- var WidthForm = (form[10]*form[4])+(Gapp[0]*form[4])+20 - compens; 
+ var WidthForm = (SAll[0]*Stre)+(Gapp[0]*Stre)+20 - compens; 
  if ((Rap[0]!=Rap[1]) && PlTrue) {WidthForm = Plosk; }
     
 var LI = Linfo.groupItems.add();
@@ -232,10 +236,10 @@ Oporka.strokeDashes = [2,2,2,2];
         
 
 var i = 0;
-    iv=(form[10]*mm+Gapp[0]*mm);
-    if (form[6]==3){iv/=2; form[4]+=1;};
+    iv=(SAll[0]*mm+Gapp[0]*mm);
+    if (casi==3){iv/=2; Stre+=1;};
     //alert('gor '+form[7]+"\n ver "+iv);
-for (s1=0; s1<=form[4]; s1++) {
+for (s1=0; s1<=Stre; s1++) {
     LabelSw1 = RiskGorizont.pathItems.add();
     LabelSw1.setEntirePath( Array( Array(5*mm, WidthLab+i), Array(10*mm, WidthLab+i)) );
     LabelSw1.stroked = true;
@@ -289,11 +293,11 @@ var Llog = LI.textFrames.add();
 	if (Llog.width > Rap[1]*mm) Llog.width = Rap[1]*mm;
 	Llog.position = [(Rap[1]*mm)/2-(Llog.width/2)+5*mm, Oporka.top-1*mm];
 
-	
-	 if  (form[6]!=3) {xEl = form[10]; yEl = form[11];}
+	//alert(SAll[0],SAll[1]);
+	 if  (casi!=3) {xEl = SAll[0]; yEl = SAll[1];}
 	
 var LPod = LI.textFrames.add();
-    LPod.contents = (""+Dat+" / "+Cust+" / "+parseFloat(parseFloat(xEl).toFixed(3))+"x"+parseFloat(parseFloat(yEl).toFixed(3))+" / ВАЛ "+Math.round(parseFloat(Rap0/3.175))+" ("+Rap0+")"+" / "+form[0]+" / "+Ang+Mate + rll); //.split(".").join(" ");
+    LPod.contents = (""+Dat+" / "+Cust+" / "+parseFloat(parseFloat(xEl).toFixed(2))+"x"+parseFloat(parseFloat(yEl).toFixed(2))+" / ВАЛ "+Math.round(parseFloat(Rap0/3.175))+" ("+Rap0+")"+" / "+Nam+" / "+Ang+Mate + rll); //.split(".").join(" ");
     LPod.textRange.characterAttributes.size = 12;
 	LPod.textRange.characterAttributes.tracking = 30;
     //LPod.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
@@ -304,7 +308,7 @@ var LPod = LI.textFrames.add();
     
 var LPod2 = LI.textFrames.add();
     LPod2.position = [(Rap[1]*mm)/2-(LPod2.width/2)-38*mm, 11*mm];
-    LPod2.contents = (form[7]+" - "+form[9]+" - "+Ang+" - Mirror, L"+lineOb+rll); //.split(".").join(" ");
+    LPod2.contents = (Distor+" - "+Kni+" - "+Ang+" - Mirror, L"+lineOb+dop); //.split(".").join(" ");
     LPod2.textRange.characterAttributes.size = 12;
 	LPod2.textRange.characterAttributes.tracking = 30;
     LPod2.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
@@ -313,11 +317,11 @@ var LPod2 = LI.textFrames.add();
 	if (LPod2.width > Rap[1]*mm) LPod2.width = Rap[1]*mm;
     LPod2.position = [(Rap[1]*mm)/2-(LPod2.width/2)+5*mm, 11*mm];
     
-if (form[7]!=0){   
+if (Distor!=0){   
     
-    LI.width *= form[7];
+    LI.width *= Distor;
     //docRef.layers["info"].locked = true;
-    newGroup.width *= form[7];
+    newGroup.width *= Distor;
     newGroup.left = 5*mm +(LI.width-newGroup.width-6*mm)/2-lineOb*mm/2.0;
 /*    
 app.executeMenuCommand('selectall');
@@ -452,15 +456,15 @@ Gabarit.strokeWidth = 1.5*mm;
 function circ(){
     var i =0;
     var j =0;
-
+ // alert(SAll[0],SAll[1]);
  
     elip = elm.pathItems.ellipse(0, 0, 70, 70, false, false );
     elip.stroked = true;
     elip.filled = false;
     elip.strokeColor = PFull;
     elip.strokeWidth = lineOb*mm;
-    elip.width=form[10]*mm;
-    elip.height=form[11]*mm;
+    elip.width=SAll[0]*mm;
+    elip.height=SAll[1]*mm;
     elip.top = WidthLab+i+elip.height+Gapp[0]*mm/2+lineOb*mm/2.0;
     elip.left = (5*mm-lineOb*mm/2.0)+((Gap2)*mm/2);
 
@@ -471,10 +475,10 @@ function rect(){
     
      var i =0;
     var j =0;
-    var corn = form[10]/form[11];
+    var corn = SAll[0]/SAll[1];
 
  
-    elip = elm.pathItems.roundedRectangle(0, 0, form[10]*mm, form[11]*mm, form[12]*mm, form[12]*mm, false );
+    elip = elm.pathItems.roundedRectangle(0, 0, SAll[0]*mm, SAll[1]*mm, SAll[2]*mm, SAll[2]*mm, false );
     elip.stroked = true;
     elip.filled = false;
     elip.strokeColor = PFull;
@@ -490,7 +494,7 @@ function rect(){
     
  function el(){
 
-     if (SAll=="true") selAll(); else {
+     if (SAll[0]=="true") selAll(); else {
          if (app.documents.length >0){
 			 docSelection2 = docRef.selection;
 			 
@@ -503,7 +507,7 @@ function rect(){
     docSelection.moveToBeginning(elm); 
      
  }
-				   form[10]=elm.width/mm; form[11]=elm.height/mm;
+ SAll[0]=elm.width/mm; SAll[1]=elm.height/mm;
 				   //Gap2 = Rap[1]/Rep - form[11];
 				   //alert(Gap2);
 //alert(form[10]+"--"+form[11]);
@@ -525,7 +529,7 @@ function selAll(){
     docSelection.moveToBeginning(elm); 
      
  }
-   form[10]=elm.width/mm; form[11]=elm.height/mm;  
+ SAll[0]=elm.width/mm; SAll[1]=elm.height/mm;  
    xEl=documents[0].pathItems[0].width/mm; yEl=documents[0].pathItems[0].height/mm;
    //Gap2 = Rap[1]/Rep - form[11];
  
@@ -543,10 +547,10 @@ function elSelect(){
     elm.left = (5*mm-lineOb*mm/2)+((Gap2)*mm/2)+ j;
 	var kostyl = false;
 	
-	var tr=Gap2*mm+form[11]*mm;
+	var tr=Gap2*mm+SAll[1]*mm;
 
-for (q=0; q<form[3]; q++){      
-for (w=0; w<form[4]; w++){ 
+for (q=0; q<Rep; q++){      
+for (w=0; w<Stre; w++){ 
 
 	if (kostyl) elm.duplicate();
     elm.strokeColor = PFull;
@@ -554,7 +558,7 @@ for (w=0; w<form[4]; w++){
     elm.strokeWidth = lineOb*mm;
     elm.top = WidthLab+i+elm.height+Gapp[0]*mm/2+lineOb*mm/2;
     elm.left = (5*mm-lineOb*mm/2)+((Gap2)*mm/2)+ j;
-    i+=(form[10]*mm+Gapp[0]*mm);
+    i+=(SAll[0]*mm+Gapp[0]*mm);
 
     //elm.moveToBeginning(elm1);
    //alert(w+" i="+i+"\n"+q+" j="+j);
@@ -583,10 +587,10 @@ function fullSelect(){
 	elm.filled = false;
     elm.strokeWidth = lineOb*mm;
     elm.top = WidthLab+elm.height+lineOb*mm/2+Gapp[0]*mm/2;
-    elm.left = (5*mm-lineOb*mm/2)+((Rap[0]-form[11])*mm/2);
+    elm.left = (5*mm-lineOb*mm/2)+((Rap[0]-SAll[1])*mm/2);
     
-    form[3]=1;
-    form[4]=1;
+    Rep=1;
+    Stre=1;
 	
 
     }

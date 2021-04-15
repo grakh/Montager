@@ -37,6 +37,10 @@ doc.getElementById("Dist").value = '0';
 //doc.getElementById("Polurot").disabled = true;
 doc.getElementById("GAP2").disabled = true;
 doc.getElementById("disa").checked = true;
+doc.getElementById("Customer").setAttribute('rll', '');
+doc.getElementById("Customer").setAttribute('perf', '');
+doc.getElementById("Customer").setAttribute('micro', '');
+doc.getElementById("Customer").setAttribute('google', '');
 
 var element = doc.getElementById("comm");
     element.scrollTop = 0;
@@ -107,10 +111,27 @@ function parseXML() {
 		PL=true;
 		};
 
-    if (xmlDoc.getElementsByTagName("ЛазернаяЗакалка")[0].childNodes[0].nodeValue=='true') {
-            doc.getElementById("Customer").value +=' /RLL';
+    if (xmlDoc.getElementsByTagName("ЛазернаяЗакалка")[0].childNodes[0].nodeValue =='true') {
+            //doc.getElementById("Customer").value +=' /RLL';
+            doc.getElementById("Customer").setAttribute('rll', 'RLL');
             doc.getElementById("comm").value +='== RLL =='
         };
+if ( xmlDoc.getElementsByTagName("Контур")[0].childNodes[0].nodeValue==3) {
+        if (xmlDoc.getElementsByTagName("Перфорация")[0].childNodes[0].nodeValue =='true') {
+            doc.getElementById("Customer").setAttribute('perf', 'Перфорация: '+ xmlDoc.getElementsByTagName("ВысотаПерфорации")[0].childNodes[0].nodeValue);
+            doc.getElementById("comm").value += '\n'+doc.getElementById('Customer').getAttribute('perf');
+        };
+
+        if (xmlDoc.getElementsByTagName("Микроперфорация")[0].childNodes[0].nodeValue =='true') {
+            doc.getElementById("Customer").setAttribute('micro', 'Есть Микроперфорация!!');
+            doc.getElementById("comm").value +='\nЕсть Микроперфорация!!';
+        };
+
+        if (xmlDoc.getElementsByTagName("БесконечныйНож")[0].childNodes[0].nodeValue =='true') {
+            doc.getElementById("Customer").setAttribute('google', 'Нож бесконечный. Режем пилой!');
+            doc.getElementById("comm").value +='\nНож бесконечный. Режем пилой!';
+        };
+    }
     //x=xmlDoc.getElementsByTagName("ШагПечатногоВала")[0];
     //alert (x.nodeName+' <'+x.childNodes[0].nodeValue+'>');
     if ( xmlDoc.getElementsByTagName("Контур")[0].childNodes[0].nodeValue==3) {doc.getElementsByName("figure")[3].checked=true;  verify(3) ;}
