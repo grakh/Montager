@@ -19,7 +19,10 @@ $("#Namber").on("keypress", function(e){
 function fxml(){
 var x = doc.getElementById("Namber").value;
 
-localStorage.removeItem('lineSet');
+doc.getElementById("gross").checked = false;
+localStorage.getItem('lineSet') > 0 ? doc.getElementById("Line").value = localStorage.getItem('lineSet') : 0.7;
+          
+//localStorage.removeItem('lineSet');
 
 path = '\\\\storage\\zakaz\\'+x.substr (0, x.length-3)+'000-'+x.substr (0, x.length-3)+'999\\'+x+'\\XML\\specification_'+x+'.xml';
 //alert(path);
@@ -266,7 +269,7 @@ function di(){
     //alert(((d/Math.PI)-0.734)*Math.PI/d);
 	if (doc.getElementById("disa").checked != false){
         if (H <= 0.5) dis = ((d/Math.PI)-0.734)*Math.PI/d; 
-        else dis = d/(d-(0.15-2*H)*Math.PI);
+        else dis = d/(d-(0.5-2*H)*Math.PI);
 		doc.getElementById("Dist").value = parseFloat(parseFloat(dis).toFixed(5));
 		return dis;
 	}

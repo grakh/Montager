@@ -135,6 +135,14 @@ width:80px;
 	margin-left:45px;
 }
 
+#knife1 {
+
+	margin-top: 5px;
+}
+#gross{
+	margin-left: 15px;
+}
+
 input[type="radio"]{
 float:right;
 width:34px;
@@ -190,7 +198,7 @@ height:8%;
 }
 
 #manager{
-	margin-top: -25px;
+	margin-top: -15px;
 	}
 
 .east{
@@ -411,4 +419,7 @@ padding-left:44px;
 	transition: all 0.4s;
 	-webkit-transition: all 0.4s;
 }
-    
+ 
+#button{
+	margin-top: -17px;
+}

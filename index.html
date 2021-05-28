@@ -163,25 +163,31 @@ Diameter, mm: D1:
 <div id="LabelTextbox3" class="east">
 <label>
  Line: 
-<input id="Line" value="0.7">
+<input id="Line" onloadstart="doc.getElementById('Line').value = localStorage.getItem('lineSet')" value="">
 </label>
 </div>  
+<div id ="knife1" class="east">
+    <label>1 mm: </label>
+    <input type="checkbox" id = "gross" name="gross">
+</div>
 
    <script>
-
-        localStorage.getItem('lineSet') > 0 ? doc.getElementById("Line").value = localStorage.getItem('lineSet') : 0.5;
-
+       doc.getElementById("gross").onchange = function(e){
+ if(doc.getElementById("gross").checked) localStorage.getItem('lineGross') > 0 ? doc.getElementById("Line").value = localStorage.getItem('lineGross') : 1.1
+    else localStorage.getItem('lineSet') > 0 ? doc.getElementById("Line").value = localStorage.getItem('lineSet') : 0.7;
+       }
     </script>
 
 <div id="button">
-<button class="button" onClick="subm()">Run code</button>
+    <button class="button" onClick="subm()">Run code</button>
 </div>
+
+
 
 <div id='manager' class="east">
     Manager: 
 </div>
 </div>
-
 
 
         <!-- These are debugging shortcuts.  Class debuglink items only appear in debug mode  -->

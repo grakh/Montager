@@ -9,8 +9,9 @@
         themeManager.init();
                 
         $("#button").click(function () {
-      
-      localStorage.setItem('lineSet', doc.getElementById("Line").value);
+      if (doc.getElementById("gross").checked) localStorage.setItem('lineGross', doc.getElementById("Line").value)
+          else localStorage.setItem('lineSet', doc.getElementById("Line").value);
+
       var dict ={};
       
       var Namber = $('#Namber').val();
@@ -47,7 +48,8 @@
         'rll': doc.getElementById('Customer').getAttribute('rll'),
         'perf': doc.getElementById('Customer').getAttribute('perf'),
         'micro': doc.getElementById('Customer').getAttribute('micro'),
-        'google': doc.getElementById('Customer').getAttribute('google')
+        'google': doc.getElementById('Customer').getAttribute('google'),
+        'gross': doc.getElementById("gross").checked
         };   
         //alert(dict.Customer);  
  

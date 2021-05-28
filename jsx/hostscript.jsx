@@ -48,7 +48,7 @@ var Dat= String (''+Da.getDate() +'-'+ (Da.getMonth()+1)+'-'+  Da.getFullYear())
     if (sp.google != '') {dop += ' / '+sp.google;}
 
     var Rap = sp.Raport.split(' ');
-	//alert (Rap[0]+' '+ Rap[1]);
+	//alert (sp.gross);
     var Rep = sp.Repetition;
     var Stre = sp.Streams;
     var Gapp = sp.GAP.split(' ');
@@ -89,26 +89,34 @@ var alls = newLayer.groupItems.add();
     
     var docSelection = new Array();
     var docSelection2 = new Array();
+
+    var procLabel = 50, procCyan = 70, procRisk = 70;
+
+    if(sp.gross){
+      procLabel = 100;
+      procCyan = 100;
+      procRisk = 100;
+    }
     
 var PLabel = new CMYKColor(); // text
     PLabel.name = 'labelColor';
     PLabel.black = 0; 
     PLabel.cyan = 0; 
-    PLabel.magenta = 50; 
+    PLabel.magenta = procLabel; 
     PLabel.yellow = 0;
     
 var PCyan = new CMYKColor(); //Dashed Line
     PCyan.name = 'labelColor';
     PCyan.black = 0; 
     PCyan.cyan = 0; 
-    PCyan.magenta = 70; 
+    PCyan.magenta = procCyan; 
     PCyan.yellow = 0;
 
 var PRisk= new CMYKColor();  //Metki
     PRisk.name = 'labelColor';
     PRisk.black = 0; 
     PRisk.cyan = 0; 
-    PRisk.magenta = 65; 
+    PRisk.magenta = procRisk; 
     PRisk.yellow = 0;
     
 var PWhite = new CMYKColor();
@@ -356,7 +364,7 @@ for (var i=0; i<docRef.selection.length;i++){
     
 
         pointCenter = LI.pathItems.add();
-        pointCenter .setEntirePath( Array( Array(Oporka.left-0.3*mm+Oporka.strokeWidth/2, WidthForm*mm/2+12*mm), Array(Oporka.left+Oporka.width+0.3*mm+Oporka.strokeWidth/2, WidthForm*mm/2+12*mm)) );
+        pointCenter .setEntirePath( Array( Array(Oporka.left-0.5*mm+Oporka.strokeWidth/2, WidthForm*mm/2+12*mm), Array(Oporka.left+Oporka.width+0.5*mm+Oporka.strokeWidth/2, WidthForm*mm/2+12*mm)) );
         pointCenter .stroked = false;
         //pointCenter .strokeColor = PWhite;
         //pointCenter .strokeWidth = 0.1*mm;
