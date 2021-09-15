@@ -11,13 +11,15 @@ var newLayer=docRef.activeLayer;
 //newLayer = docRef.layers.add();
 //newLayer.zOrder(ZOrderMethod.BRINGTOFRONT);
 newLayer.name="Knife";
+
+Linfo = docRef.layers.add();
+//Linfo .zOrder(ZOrderMethod.BRINGTOFRONT);
+Linfo .zOrder(ZOrderMethod.SENDTOBACK);
+Linfo .name="info";
+
 L_Test = docRef.layers.add();
 L_Test.zOrder(ZOrderMethod.SENDTOBACK);
 L_Test.name="L-Test";
-    
-Linfo = docRef.layers.add();
-Linfo .zOrder(ZOrderMethod.BRINGTOFRONT);
-Linfo .name="info";
     
 docRef.rulerOrigin = Array (0,0);
     var units = 1; // 2-inches, 3-milllimeters, 0-points
@@ -34,7 +36,7 @@ var hi = docRef.height;
 //Dat=Da.toLocaleString();
 
 var Dat= String (''+Da.getDate() +'-'+ (Da.getMonth()+1)+'-'+  Da.getFullYear());
-  //alert("Namber "+form[0]+"\nCustomer "+form[1]+"\nRap[1]ort "+form[2]+"\nRepetition "+form[3]+"\nStreams "+form[4]+"\nGAP "+Gapp[0]+"\ncasing "+form[6]+"\ndist "+form[7]);  
+  //alert("Namber "+form[0]+"\nCustomer "+form[1]+"\nRaport "+form[2]+"\nRepetition "+form[3]+"\nStreams "+form[4]+"\nGAP "+Gapp[0]+"\ncasing "+form[6]+"\ndist "+form[7]);  
     //@target illustrator
 //app.bringToFront();
     //alert("Namber "+form[10]);
@@ -47,29 +49,29 @@ var Dat= String (''+Da.getDate() +'-'+ (Da.getMonth()+1)+'-'+  Da.getFullYear())
     if (sp.micro != '') {dop += ' / '+sp.micro;}
     if (sp.google != '') {dop += ' / '+sp.google;}
 
-    var Rap = sp.Raport.split(' ');
+    var Rap = sp.Raport; //.split(' ');
+    
+    var PolurotY = sp.PolurotY;
+    var Polurot = sp.Polurot;
 	//alert (sp.gross);
     var Rep = sp.Repetition;
     var Stre = sp.Streams;
     var Gapp = sp.GAP.split(' ');
-	var Plosk = Rap[1];
-	var Rap0 = Rap[0];
-	var PlTrue= true;
+
 
 	var Gap2 = Gapp[1]*1.0;
-	//alert (Rap[0]/Rep+'\n'+Gap2);
+	//alert (PolurotY/Rep+'\n'+Gap2);
     var casi = sp.casing;
     var Distor = sp.Dis;
     var Ang = sp.Material.substring(0, sp.Material.indexOf(" "));
     var Mate = sp.Material.substring(sp.Material.indexOf(" "), sp.Material.lastIndexOf(" "));
     var Kni = sp.Knife;
-    if (~Mate.indexOf("Плоская")) {Rap[1]=Rap[0]; Rap[0]= Plosk+0.001;}
-    if (~Mate.indexOf("Ротация")) {Mate=''; Rap[1]=Rap[0]; Rap[0]= Plosk;}
-	if (~Mate.indexOf("Полуротация")) PlTrue = false;
 	
 	var SAll = sp.Forms.split(';');
 
-	//alert(SAll);
+  var Plosk = false;
+
+	if (~Mate.indexOf("Плоская")) Plosk = true;
     
    var lineOb = parseFloat(sp.Material.substring(sp.Material.lastIndexOf(" ")));   
     
@@ -79,23 +81,23 @@ var WidthLab = 19*mm;
 var xEl=0, yEl=0;
 var compens = 6;
  
-    
-var elem = newLayer.groupItems.add();  
-var elis = newLayer.groupItems.add(); 
+
 var elm = newLayer.groupItems.add();
-var elm1 = newLayer.groupItems.add();
-var elm2 = newLayer.groupItems.add();
-var alls = newLayer.groupItems.add();
+
     
     var docSelection = new Array();
     var docSelection2 = new Array();
 
     var procLabel = 50, procCyan = 70, procRisk = 70;
 
+var dotPoint = 2.0;
+
     if(sp.gross){
       procLabel = 100;
       procCyan = 100;
       procRisk = 100;
+
+      dotPoint = 3.0;
     }
     
 var PLabel = new CMYKColor(); // text
@@ -133,17 +135,22 @@ var PFull = new CMYKColor();
     PFull.magenta = 100; 
     PFull.yellow = 100;
      
- if  (casi==2){if (SAll[1]=='true') {closePath();} el();  Gap2 = Rap[1]/Rep - SAll[1]; elSelect();};
+ if  (casi==2){if (SAll[1]=='true') {closePath();} el();  Gap2 = Rap/Rep - SAll[1]; elSelect();};
  if  (casi==3){if (SAll[1]=='true') {closePath();} el(); fullSelect();}; 
  if  (casi==0){circ();elSelect();};
  if  (casi==1){rect();elSelect();};
- 
- if (Rap[1]==0)
-	 if (casi==3) Rap[1] = elm.width/mm + 10;
-		else Rap[1] = (elm.width/mm+Gap2)*Rep-Gap2 + 10;
+ //alert(Polurot);
+ if (Polurot!=='') Rap=Polurot;
 
- //if (Rap[1]==0 & form[6]==2) alert (); 
- //alert (Rap[1]+' '+elm.width);
+ if (~Mate.indexOf("Полуротация")){
+    if (Polurot==='0')
+      if (casi==3) Rap = elm.width/mm + 10;
+        else Rap = (elm.width/mm+Gap2)*Rep-Gap2 + 10;
+  };
+
+  if (~Mate.indexOf("Ротация")) Polurot = Rap;
+  //if (Rap==0 & form[6]==2) alert (); 
+ //alert (Rap+' '+elm.width);
     
 var newGroup = newLayer.groupItems.add();
     
@@ -157,12 +164,17 @@ a.moveToBeginning(newGroup);
          }
     
  var WidthForm = (SAll[0]*Stre)+(Gapp[0]*Stre)+20 - compens; 
- if ((Rap[0]!=Rap[1]) && PlTrue) {WidthForm = Plosk; }
+ //if ((Polurot!=Rap) && PlTrue) {WidthForm = PolurotY; }
+
+ if (PolurotY!='') WidthForm = PolurotY; 
+ //alert(newGroup.width/mm+"\n"+newGroup.height/mm);
+ if (PolurotY < newGroup.height/mm) alert("Нож не влезает в эту ширину!");
+ if (Polurot < newGroup.width/mm) alert("Нож не влезает в эту длину!");
     
 var LI = Linfo.groupItems.add();
 var RiskGorizont = LI.groupItems.add();
     
-Oporka = LI.pathItems.rectangle( 12*mm, 5*mm, Rap[1]*mm, -WidthForm*mm);
+Oporka = LI.pathItems.rectangle( 12*mm, 5*mm, Rap*mm, -WidthForm*mm);
 //Oporka.setEntirePath( Array( Array(0, 0), Array(0, hi), Array(5*mm, hi), Array(5*mm, 0) ) );
 Oporka.closed = true;
 Oporka.filled = false;
@@ -187,14 +199,14 @@ Oporka.strokeDashes = [2,2,2,2];
     angleLT.filled = false;
      
     angleRT = LI.pathItems.add();
-    angleRT.setEntirePath( Array( Array(Rap[1]*mm+8*mm, 12*mm), Array(Rap[1]*mm+5*mm, 12*mm), Array(Rap[1]*mm+5*mm, 9*mm) ) );
+    angleRT.setEntirePath( Array( Array(Rap*mm+8*mm, 12*mm), Array(Rap*mm+5*mm, 12*mm), Array(Rap*mm+5*mm, 9*mm) ) );
     angleRT.stroked = true;
     angleRT.strokeColor = PCyan;
     angleRT.strokeWidth = 0.1*mm;
     angleRT.filled = false;
    
     angleRB = LI.pathItems.add();
-    angleRB.setEntirePath( Array( Array(Rap[1]*mm+8*mm, WidthForm*mm+12*mm), Array(Rap[1]*mm+5*mm, WidthForm*mm+12*mm), Array(Rap[1]*mm+5*mm, WidthForm*mm+15*mm) ) );
+    angleRB.setEntirePath( Array( Array(Rap*mm+8*mm, WidthForm*mm+12*mm), Array(Rap*mm+5*mm, WidthForm*mm+12*mm), Array(Rap*mm+5*mm, WidthForm*mm+15*mm) ) );
     angleRB.stroked = true;
     angleRB.strokeColor = PCyan;
     angleRB.strokeWidth = 0.1*mm;
@@ -208,7 +220,7 @@ Oporka.strokeDashes = [2,2,2,2];
 		LabelW2.filled = false;
 		
 		LabelW2 = LI.pathItems.add();
-		LabelW2.setEntirePath( Array( Array(Rap[1]*mm-1*mm, 12*mm), Array(Rap[1]*mm-1*mm, 17*mm)) );
+		LabelW2.setEntirePath( Array( Array(Rap*mm-1*mm, 12*mm), Array(Rap*mm-1*mm, 17*mm)) );
 		LabelW2.stroked = true;
 		LabelW2.strokeColor = PRisk;
 		LabelW2.strokeWidth = 0.15*mm;
@@ -222,7 +234,7 @@ Oporka.strokeDashes = [2,2,2,2];
 		LabelW2.filled = false;
 		
 		LabelW2 = LI.pathItems.add();
-		LabelW2.setEntirePath( Array( Array(Rap[1]*mm-1*mm, WidthForm*mm+12*mm), Array(Rap[1]*mm-1*mm, WidthForm*mm+7*mm)) );
+		LabelW2.setEntirePath( Array( Array(Rap*mm-1*mm, WidthForm*mm+12*mm), Array(Rap*mm-1*mm, WidthForm*mm+7*mm)) );
 		LabelW2.stroked = true;
 		LabelW2.strokeColor = PRisk;
 		LabelW2.strokeWidth = 0.15*mm;
@@ -236,7 +248,7 @@ Oporka.strokeDashes = [2,2,2,2];
 		riskCenter.filled = false;
 		
 		riskCenter = LI.pathItems.add();
-		riskCenter.setEntirePath( Array( Array(Rap[1]*mm+5*mm, WidthForm*mm/2+12*mm), Array(Rap[1]*mm, WidthForm*mm/2+12*mm)) );
+		riskCenter.setEntirePath( Array( Array(Rap*mm+5*mm, WidthForm*mm/2+12*mm), Array(Rap*mm, WidthForm*mm/2+12*mm)) );
 		riskCenter.stroked = true;
 		riskCenter.strokeColor = PRisk;
 		riskCenter.strokeWidth = 0.15*mm;
@@ -248,6 +260,7 @@ var i = 0;
     if (casi==3){iv/=2; Stre+=1;};
     //alert('gor '+form[7]+"\n ver "+iv);
 for (s1=0; s1<=Stre; s1++) {
+  //alert(WidthLab+'  '+i+'  '+iv);
     LabelSw1 = RiskGorizont.pathItems.add();
     LabelSw1.setEntirePath( Array( Array(5*mm, WidthLab+i), Array(10*mm, WidthLab+i)) );
     LabelSw1.stroked = true;
@@ -256,7 +269,7 @@ for (s1=0; s1<=Stre; s1++) {
     LabelSw1.filled = false;
     
     LabelSw2 = RiskGorizont.pathItems.add();
-    LabelSw2.setEntirePath( Array( Array(Rap[1]*mm+5*mm, WidthLab+i), Array(Rap[1]*mm, WidthLab+i)) );
+    LabelSw2.setEntirePath( Array( Array(Rap*mm+5*mm, WidthLab+i), Array(Rap*mm, WidthLab+i)) );
     LabelSw2.stroked = true;
     LabelSw2.strokeColor = PRisk;
     LabelSw2.strokeWidth = 0.15*mm;
@@ -283,47 +296,47 @@ var LVector2 = LVector1.duplicate();
     
 var LVector3 = LVector1.duplicate();
     LVector3.rotate(180);
-    LVector3.left = Rap[1]*mm-20*mm;
+    LVector3.left = Rap*mm-20*mm;
     
 var LVector4 = LVector1.duplicate();
     LVector4.rotate(180);
-    LVector4.left = Rap[1]*mm-20*mm;
+    LVector4.left = Rap*mm-20*mm;
     LVector4.top = Oporka.top-1*mm;
 
 var Llog = LI.textFrames.add();
-    Llog.position = [(Rap[1]*mm)/2-50*mm, Oporka.top-1*mm];
+    Llog.position = [(Rap*mm)/2-50*mm, Oporka.top-1*mm];
     Llog.contents = "www.justcut.ru  +7(495) 128-62-73";
     Llog.textRange.characterAttributes.size = 13;
 	Llog.textRange.characterAttributes.tracking = 30;
     //Llog.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
     Llog.textRange.characterAttributes.textFont = app.textFonts.getByName(fonts);
     Llog.textRange.characterAttributes.fillColor = PLabel;
-	if (Llog.width > Rap[1]*mm) Llog.width = Rap[1]*mm;
-	Llog.position = [(Rap[1]*mm)/2-(Llog.width/2)+5*mm, Oporka.top-1*mm];
+	if (Llog.width > Rap*mm) Llog.width = Rap*mm;
+	Llog.position = [(Rap*mm)/2-(Llog.width/2)+5*mm, Oporka.top-1*mm];
 
 	//alert(SAll[0],SAll[1]);
 	 if  (casi!=3) {xEl = SAll[0]; yEl = SAll[1];}
 	
 var LPod = LI.textFrames.add();
-    LPod.contents = (""+Dat+" / "+Cust+" / "+parseFloat(parseFloat(xEl).toFixed(2))+"x"+parseFloat(parseFloat(yEl).toFixed(2))+" / ВАЛ "+Math.round(parseFloat(Rap0/3.175))+" ("+Rap0+")"+" / "+Nam+" / "+Ang+Mate + rll); //.split(".").join(" ");
+    LPod.contents = (""+Dat+" / "+Cust+" / "+parseFloat(parseFloat(xEl).toFixed(2))+"x"+parseFloat(parseFloat(yEl).toFixed(2))+" / ВАЛ Z"+Math.round(parseFloat(Rap/3.175))+" ("+Rap+")"+" / "+Nam+" / "+Ang+Mate + rll); //.split(".").join(" ");
     LPod.textRange.characterAttributes.size = 12;
 	LPod.textRange.characterAttributes.tracking = 30;
     //LPod.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
     LPod.textRange.characterAttributes.textFont = app.textFonts.getByName(fonts);
     LPod.textRange.characterAttributes.fillColor = PLabel;
-    if (LPod.width > Rap[1]*mm) LPod.width = Rap[1]*mm;
-    LPod.position = [(Rap[1]*mm)/2-(LPod.width/2)+5*mm, 17*mm];
+    if (LPod.width > Rap*mm) LPod.width = Rap*mm;
+    LPod.position = [(Rap*mm)/2-(LPod.width/2)+5*mm, 17*mm];
     
 var LPod2 = LI.textFrames.add();
-    LPod2.position = [(Rap[1]*mm)/2-(LPod2.width/2)-38*mm, 11*mm];
+    LPod2.position = [(Rap*mm)/2-(LPod2.width/2)-38*mm, 11*mm];
     LPod2.contents = (Distor+" - "+Kni+" - "+Ang+" - Mirror, L"+lineOb+dop); //.split(".").join(" ");
     LPod2.textRange.characterAttributes.size = 12;
 	LPod2.textRange.characterAttributes.tracking = 30;
     LPod2.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
     LPod2.textRange.characterAttributes.textFont = app.textFonts.getByName(fonts);
     LPod2.textRange.characterAttributes.fillColor = PLabel;
-	if (LPod2.width > Rap[1]*mm) LPod2.width = Rap[1]*mm;
-    LPod2.position = [(Rap[1]*mm)/2-(LPod2.width/2)+5*mm, 11*mm];
+	if (LPod2.width > Rap*mm) LPod2.width = Rap*mm;
+    LPod2.position = [(Rap*mm)/2-(LPod2.width/2)+5*mm, 11*mm];
     
 if (Distor!=0){   
     
@@ -346,8 +359,8 @@ for (var i=0; i<docRef.selection.length;i++){
    
   }
   
-  //if (~Mate.indexOf("Плоская"))
-	   if (Rap[0]!=Rap[1])
+  //if (!Plosk)
+	   //if (PolurotY!=Rap)
   {   
     
     //docRef.layers["info"].locked = true;
@@ -382,25 +395,25 @@ for (var i=0; i<docRef.selection.length;i++){
     
 var Point0 = L_Test.groupItems.add();
     
-var P0K = Point0.pathItems.ellipse(2.0/2, -2.0/2, 2.0, 2.0, false, false );
+var P0K = Point0.pathItems.ellipse(dotPoint/2, -dotPoint/2, dotPoint, dotPoint, false, false );
     P0K.stroked = false;
     P0K.filled = true;
     P0K.fillColor = PFull;
     P0K.fillOverprint = false;
     
-var P0W = Point0.pathItems.ellipse(2.0/8, -2.0/8, 2.0/4, 2.0/4, false, false );
+var P0W = Point0.pathItems.ellipse(dotPoint/8, -dotPoint/8, dotPoint/4, dotPoint/4, false, false );
     P0W.stroked = false;
     P0W.filled = true;
     P0W.fillColor = PWhite;
     P0W.fillOverprint = false;
     
 var P1K = Point0.duplicate();
-    P1K.left += Rap[1]*mm;
+    P1K.left += Rap*mm;
     
    var countLabel=0;
    var i = 0;
    
-   var gor=parseInt((Rap[1])/10);
+   var gor=parseInt((Rap)/10);
     if (gor>40) gor=40;
    var ver = parseInt(WidthForm/10);
     if (ver>40) ver=40;
@@ -449,7 +462,7 @@ var LText = Linfo.textFrames.add();
     }
     
     
-Gabarit = L_Test.pathItems.rectangle( -5*mm, -12*mm, Rap[1]*mm+23*mm, -WidthForm*mm-27*mm);
+Gabarit = L_Test.pathItems.rectangle( -5*mm, -12*mm, Rap*mm+23*mm, -WidthForm*mm-27*mm);
 //Oporka.setEntirePath( Array( Array(0, 0), Array(0, hi), Array(5*mm, hi), Array(5*mm, 0) ) );
 Gabarit.closed = true;
 Gabarit.filled = false;
@@ -516,7 +529,7 @@ function rect(){
      
  }
  SAll[0]=elm.width/mm; SAll[1]=elm.height/mm;
-				   //Gap2 = Rap[1]/Rep - form[11];
+				   //Gap2 = Rap/Rep - form[11];
 				   //alert(Gap2);
 //alert(form[10]+"--"+form[11]);
   
@@ -539,7 +552,7 @@ function selAll(){
  }
  SAll[0]=elm.width/mm; SAll[1]=elm.height/mm;  
    xEl=documents[0].pathItems[0].width/mm; yEl=documents[0].pathItems[0].height/mm;
-   //Gap2 = Rap[1]/Rep - form[11];
+   //Gap2 = Rap/Rep - form[11];
  
  }
     
@@ -577,7 +590,7 @@ kostyl = true;
     //elm1.moveToBeginning(elm2);
 
     j+= tr;
-	//alert(Rap[0]/form[3]*mm+'\n'+tr);
+	//alert(PolurotY/form[3]*mm+'\n'+tr);
     i=0;
     //elm.left= (10*mm-elm.strokeWidth/2)+((form[2]/form[3]-form[11])*mm/2) + j;
         }
@@ -595,7 +608,7 @@ function fullSelect(){
 	elm.filled = false;
     elm.strokeWidth = lineOb*mm;
     elm.top = WidthLab+elm.height+lineOb*mm/2+Gapp[0]*mm/2;
-    elm.left = (5*mm-lineOb*mm/2)+((Rap[0]-SAll[1])*mm/2);
+    elm.left = (5*mm-lineOb*mm/2)+((PolurotY-SAll[1])*mm/2);
     
     Rep=1;
     Stre=1;
@@ -713,5 +726,9 @@ function isLocked (test) {
   }
 }
 	}    
+
+
+  docRef = null;
+  delete sp;
     
 };

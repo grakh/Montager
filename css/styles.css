@@ -66,13 +66,29 @@ input[id="Raport"]{
 	position: absolute;
 
 	left: 120px;
-    width:100px;
+    width:60px;
+}
+
+#Rd{
+	position: absolute;
+	left: 260px;
 }
 
 input[id="Polurot"]{
 	position: absolute;
-	left: 260px;
-	width:60px;
+	left: 280px;
+	width:40px;
+}
+
+#RY{
+	position: absolute;
+	left: 190px;
+}
+
+input[id="PolurotY"]{
+	position: absolute;
+	left: 210px;
+	width:40px;
 }
 
 input[id="GAP"]{

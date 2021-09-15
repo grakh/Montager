@@ -20,7 +20,7 @@ function fxml(){
 var x = doc.getElementById("Namber").value;
 
 doc.getElementById("gross").checked = false;
-localStorage.getItem('lineSet') > 0 ? doc.getElementById("Line").value = localStorage.getItem('lineSet') : 0.7;
+localStorage.getItem('lineSet') > 0 ? doc.getElementById("Line").value = localStorage.getItem('lineSet') : doc.getElementById("Line").value = 0.7;
           
 //localStorage.removeItem('lineSet');
 
@@ -37,13 +37,14 @@ doc.getElementById("GAP2").value = '';
 doc.getElementById("Knife").value = '';
 doc.getElementById("Angle").value = '';
 doc.getElementById("Dist").value = '0';
-//doc.getElementById("Polurot").disabled = true;
+doc.getElementById("Polurot").setAttribute("disabled", "disabled");
 doc.getElementById("GAP2").disabled = true;
 doc.getElementById("disa").checked = true;
 doc.getElementById("Customer").setAttribute('rll', '');
 doc.getElementById("Customer").setAttribute('perf', '');
 doc.getElementById("Customer").setAttribute('micro', '');
 doc.getElementById("Customer").setAttribute('google', '');
+
 
 var element = doc.getElementById("comm");
     element.scrollTop = 0;
@@ -83,12 +84,9 @@ function parseXML() {
     doc.getElementById("Angle").value=xmlDoc.getElementsByTagName("УголЗаточкиКромки")[0] ? xmlDoc.getElementsByTagName("УголЗаточкиКромки")[0].childNodes[0].nodeValue : 'не найден';
     doc.getElementById("Material").value=xmlDoc.getElementsByTagName("ТипВырубки")[0] ? xmlDoc.getElementsByTagName("ТипВырубки")[0].childNodes[0].nodeValue : 'не найден';
     doc.getElementById("Raport").value=xmlDoc.getElementsByTagName("ШагПечатногоВала")[0] ? xmlDoc.getElementsByTagName("ШагПечатногоВала")[0].childNodes[0].nodeValue : 'не найден';
-
-~doc.getElementById("Material").value.indexOf("Полуротация")
-    ?   
-    doc.getElementById("Polurot").value=xmlDoc.getElementsByTagName("ДлинаНожа")[0] ? xmlDoc.getElementsByTagName("ДлинаНожа")[0].childNodes[0].nodeValue : ''
-    :
-    doc.getElementById("Polurot").value=xmlDoc.getElementsByTagName("ШиринаНожа")[0] ? xmlDoc.getElementsByTagName("ШиринаНожа")[0].childNodes[0].nodeValue : '';
+  
+    doc.getElementById("Polurot").value=xmlDoc.getElementsByTagName("ДлинаНожа")[0] ? xmlDoc.getElementsByTagName("ДлинаНожа")[0].childNodes[0].nodeValue : '';
+    doc.getElementById("PolurotY").value=xmlDoc.getElementsByTagName("ШиринаНожа")[0] ? xmlDoc.getElementsByTagName("ШиринаНожа")[0].childNodes[0].nodeValue : '';
 
     doc.getElementById("Repetition").value=xmlDoc.getElementsByTagName("КоличествоПовторенийНаРаппорте")[0] ? xmlDoc.getElementsByTagName("КоличествоПовторенийНаРаппорте")[0].childNodes[0].nodeValue : '1';
     doc.getElementById("Streams").value=xmlDoc.getElementsByTagName("КоличествоРучьев")[0] ? xmlDoc.getElementsByTagName("КоличествоРучьев")[0].childNodes[0].nodeValue : '1';
@@ -103,7 +101,8 @@ function parseXML() {
     doc.getElementById("GAP").value = xmlDoc.getElementsByTagName("РасстояниеМеждуРучьями")[0] ? (xmlDoc.getElementsByTagName("РасстояниеМеждуРучьями")[0].childNodes[0].nodeValue > 0 ? xmlDoc.getElementsByTagName("РасстояниеМеждуРучьями")[0].childNodes[0].nodeValue : '3' )  : '3';
     doc.getElementById("GAP2").value=xmlDoc.getElementsByTagName("РасстояниеМеждуПовторениями")[0] ? xmlDoc.getElementsByTagName("РасстояниеМеждуПовторениями")[0].childNodes[0].nodeValue : doc.getElementById("Raport").value / doc.getElementById("Repetition").value;    
     doc.getElementById("Knife").value=xmlDoc.getElementsByTagName("ВысотаНожа")[0] ? xmlDoc.getElementsByTagName("ВысотаНожа")[0].childNodes[0].nodeValue : 'не найден';
-    
+    if (doc.getElementById("Knife").value > 0.5) {doc.getElementById("gross").checked = true; 
+           localStorage.getItem('gross') > 0 ? doc.getElementById("Line").value = localStorage.getItem('gross') : doc.getElementById("Line").value = 1.1;}
 
 	di(); doc.getElementById("disa").value='1';
 	if (~doc.getElementById("Material").value.indexOf("Плоская")) {doc.getElementById("disa").checked = false; doc.getElementById("Dist").value = "0";}

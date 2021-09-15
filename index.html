@@ -46,8 +46,11 @@ Angle:
 <label>
 Raport, mm:
 <input id="Raport" type="text" value="" OnChange="di()">
-
-<input id="Polurot"  value=""><br>
+<span id = "RY">,Y</span>
+<input id="PolurotY"  value="">
+<span id = "Rd">,d</span>
+<input id="Polurot"  value="">
+<br>
 <!-- <input id="Polurot"  value="" disabled><br> -->
 </label>
 </div>
@@ -173,8 +176,8 @@ Diameter, mm: D1:
 
    <script>
        doc.getElementById("gross").onchange = function(e){
- if(doc.getElementById("gross").checked) localStorage.getItem('lineGross') > 0 ? doc.getElementById("Line").value = localStorage.getItem('lineGross') : 1.1
-    else localStorage.getItem('lineSet') > 0 ? doc.getElementById("Line").value = localStorage.getItem('lineSet') : 0.7;
+ if(doc.getElementById("gross").checked) localStorage.getItem('lineGross') > 0 ? doc.getElementById("Line").value = localStorage.getItem('lineGross') : doc.getElementById("Line").value = 1.1
+    else localStorage.getItem('lineSet') > 0 ? doc.getElementById("Line").value = localStorage.getItem('lineSet') : doc.getElementById("Line").value = 0.7;
        }
     </script>
 

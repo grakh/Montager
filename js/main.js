@@ -17,8 +17,10 @@
       var Namber = $('#Namber').val();
       var Customer = $('#Customer').val();
       var Raport = doc.getElementById("Raport").value;
-	  if ($('#Polurot').val() != '') Raport = Raport+' '+$('#Polurot').val(); else Raport += ' '+ Raport;
-	  
+	 // if ($('#Polurot').val() != '') Raport = Raport+' '+$('#Polurot').val(); else Raport += ' '+ Raport;
+
+      var Polurot = $('#Polurot').val();
+      var PolurotY = $('#PolurotY').val();	  
       var Repetition = doc.getElementById("Repetition").value;
       var Streams = doc.getElementById("Streams").value;
       var GAP = doc.getElementById("GAP").value +' '+ doc.getElementById("GAP2").value;
@@ -35,6 +37,8 @@
           
       var dict = {
         'Namber': Namber,
+        'PolurotY': PolurotY,
+        'Polurot': Polurot,
         'Customer': Customer,
         'Raport': Raport,
         'Repetition': Repetition,
