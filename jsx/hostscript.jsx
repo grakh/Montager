@@ -45,12 +45,13 @@ var Dat= String (''+Da.getDate() +'-'+ (Da.getMonth()+1)+'-'+  Da.getFullYear())
     var Nam = sp.Namber;
     var Cust = sp.Customer;
     if (sp.rll != '') {dop = rll = ' / '+sp.rll;}
+    if (sp.rez != '') {dop += ' / '+sp.rez;}
     if (sp.perf != '') {dop += ' / '+sp.perf;}
     if (sp.micro != '') {dop += ' / '+sp.micro;}
     if (sp.google != '') {dop += ' / '+sp.google;}
 
     var perimetr = 0;
-    perimetr = sp.perimetr;
+        perimetr = sp.perimetr;
 
     var Rap = sp.Raport; //.split(' ');
     
@@ -344,7 +345,7 @@ var LPod = Linfo.textFrames.add();
     if(!sp.gross) if (LPod.width > Rap*mm) LPod.width = Rap*mm;
     LPod.position = [(Rap*mm)/2-(LPod.width/2)+5*mm, 17*mm];
     
-var LPod2 = LI.textFrames.add();
+var LPod2 = Linfo.textFrames.add();
     LPod2.position = [(Rap*mm)/2-(LPod2.width/2)-38*mm, 11*mm];
     LPod2.contents = (Distor+" - "+Kni+" - "+Ang+" - Mirror, L"+lineOb+dop); //.split(".").join(" ");
     LPod2.textRange.characterAttributes.size = 12;

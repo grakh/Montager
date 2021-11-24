@@ -41,8 +41,10 @@ doc.getElementById("Polurot").setAttribute("disabled", "disabled");
 doc.getElementById("GAP2").disabled = true;
 doc.getElementById("disa").checked = true;
 doc.getElementById("Customer").setAttribute('rll', '');
+doc.getElementById("Customer").setAttribute('rez', '');
 doc.getElementById("Customer").setAttribute('perf', '');
 doc.getElementById("Customer").setAttribute('micro', '');
+doc.getElementById("Customer").setAttribute('perimetr', '');
 doc.getElementById("Customer").setAttribute('google', '');
 
 
@@ -118,6 +120,10 @@ function parseXML() {
             //doc.getElementById("Customer").value +=' /RLL';
             doc.getElementById("Customer").setAttribute('rll', 'RLL');
             doc.getElementById("comm").value +='== RLL =='
+        };
+    if (xmlDoc.getElementsByTagName("КромкаМенее2ммОтКраяШтампа")[0].childNodes[0].nodeValue =='true') {
+            doc.getElementById("Customer").setAttribute('rez', 'Фигурная подрезка!');
+            doc.getElementById("comm").value +='Фигурная подрезка!'
         };
 if ( xmlDoc.getElementsByTagName("Контур")[0].childNodes[0].nodeValue==3) {
         if (xmlDoc.getElementsByTagName("Перфорация")[0].childNodes[0].nodeValue =='true') {

@@ -50,13 +50,15 @@
         'Forms': Forms,
         'Dis': Dis,
         'rll': doc.getElementById('Customer').getAttribute('rll'),
+        'rez': doc.getElementById('Customer').getAttribute('rez'),
         'perf': doc.getElementById('Customer').getAttribute('perf'),
         'micro': doc.getElementById('Customer').getAttribute('micro'),
         'google': doc.getElementById('Customer').getAttribute('google'),
         'perimetr': doc.getElementById('Customer').getAttribute('perimetr'),
         'gross': doc.getElementById("gross").checked
-        };   
-        //alert(dict.Customer);  
+        };  
+
+        //alert(doc.getElementById('Customer').getAttribute('rez'));  
  
       csInterface.evalScript('sayHello('+JSON.stringify(dict)+')'); 
            
