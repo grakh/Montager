@@ -49,6 +49,9 @@ var Dat= String (''+Da.getDate() +'-'+ (Da.getMonth()+1)+'-'+  Da.getFullYear())
     if (sp.micro != '') {dop += ' / '+sp.micro;}
     if (sp.google != '') {dop += ' / '+sp.google;}
 
+    var perimetr = 0;
+    perimetr = sp.perimetr;
+
     var Rap = sp.Raport; //.split(' ');
     
     var PolurotY = sp.PolurotY;
@@ -168,8 +171,8 @@ a.moveToBeginning(newGroup);
 
  if (PolurotY!='') WidthForm = PolurotY; 
  //alert(newGroup.width/mm+"\n"+newGroup.height/mm);
- if (PolurotY < newGroup.height/mm) alert("Нож не влезает в эту ширину!");
- if (Polurot < newGroup.width/mm) alert("Нож не влезает в эту длину!");
+ if (PolurotY <= newGroup.height/mm + 0.5*mm && PolurotY!='') alert("Нож не влезает в эту ширину!");
+ if (Polurot <= newGroup.width/mm + 0.5*mm) alert("Нож не влезает в эту длину!");
     
 var LI = Linfo.groupItems.add();
 var RiskGorizont = LI.groupItems.add();
@@ -241,35 +244,49 @@ Oporka.strokeDashes = [2,2,2,2];
 		LabelW2.filled = false;
 		
 		riskCenter = LI.pathItems.add();
-		riskCenter.setEntirePath( Array( Array(5*mm, WidthForm*mm/2+12*mm), Array(10*mm, WidthForm*mm/2+12*mm)) );
+		riskCenter.setEntirePath( Array( Array(4*mm, WidthForm*mm/2+12*mm), Array(10*mm, WidthForm*mm/2+12*mm)) );
 		riskCenter.stroked = true;
 		riskCenter.strokeColor = PRisk;
 		riskCenter.strokeWidth = 0.15*mm;
 		riskCenter.filled = false;
 		
 		riskCenter = LI.pathItems.add();
-		riskCenter.setEntirePath( Array( Array(Rap*mm+5*mm, WidthForm*mm/2+12*mm), Array(Rap*mm, WidthForm*mm/2+12*mm)) );
+		riskCenter.setEntirePath( Array( Array(Rap*mm+6*mm, WidthForm*mm/2+12*mm), Array(Rap*mm, WidthForm*mm/2+12*mm)) );
 		riskCenter.stroked = true;
 		riskCenter.strokeColor = PRisk;
 		riskCenter.strokeWidth = 0.15*mm;
 		riskCenter.filled = false;
         
 
-var i = 0;
+var i = 0, yRisk = 0, yCompensation=0;
     iv=(SAll[0]*mm+Gapp[0]*mm);
     if (casi==3){iv/=2; Stre+=1;};
-    //alert('gor '+form[7]+"\n ver "+iv);
+    //alert(newGroup.height);
+    if (newGroup.height/mm >= (WidthForm - 0.5*mm)) {
+      yCompensation = ((newGroup.height/mm - WidthForm)/2 + 5)*mm;
+      //alert(newGroup.height/mm+"\n"+WidthForm+"\n"+yCompensation);
+      //alert(yCompensation);
+    }
+
 for (s1=0; s1<=Stre; s1++) {
   //alert(WidthLab+'  '+i+'  '+iv);
+
+    yRisk = WidthLab+i;
+
+    if (yCompensation) {
+      s1==0 ? yRisk += yCompensation : yRisk; 
+      s1==Stre ? yRisk -= yCompensation : yRisk;
+    }
+  
     LabelSw1 = RiskGorizont.pathItems.add();
-    LabelSw1.setEntirePath( Array( Array(5*mm, WidthLab+i), Array(10*mm, WidthLab+i)) );
+    LabelSw1.setEntirePath( Array( Array(5*mm, yRisk), Array(10*mm, yRisk)) );
     LabelSw1.stroked = true;
     LabelSw1.strokeColor = PRisk;
     LabelSw1.strokeWidth = 0.15*mm;
     LabelSw1.filled = false;
     
     LabelSw2 = RiskGorizont.pathItems.add();
-    LabelSw2.setEntirePath( Array( Array(Rap*mm+5*mm, WidthLab+i), Array(Rap*mm, WidthLab+i)) );
+    LabelSw2.setEntirePath( Array( Array(Rap*mm+5*mm, yRisk), Array(Rap*mm, yRisk)) );
     LabelSw2.stroked = true;
     LabelSw2.strokeColor = PRisk;
     LabelSw2.strokeWidth = 0.15*mm;
@@ -279,13 +296,13 @@ for (s1=0; s1<=Stre; s1++) {
     
 var LVector1 = LI.groupItems.add();
     LV1 = LVector1.pathItems.add();
-    LV1.setEntirePath( Array( Array(10*mm, WidthLab-5*mm), Array(28*mm, WidthLab-5*mm)) );
+    LV1.setEntirePath( Array( Array(4*mm, WidthLab-5*mm), Array(23*mm, WidthLab-5*mm)) );
     LV1.stroked = true;
     LV1.strokeColor = PRisk;
     LV1.strokeWidth = 0.1*mm;
     LV1.filled = false;
     LV2 = LVector1.pathItems.add();
-    LV2.setEntirePath( Array( Array(25*mm, WidthLab-6*mm), Array(30*mm, WidthLab-5*mm), Array(25*mm, WidthLab-4*mm)) );
+    LV2.setEntirePath( Array( Array(20*mm, WidthLab-6*mm), Array(25*mm, WidthLab-5*mm), Array(20*mm, WidthLab-4*mm)) );
     LV2.stroked = true;
     LV2.strokeColor = PRisk;
     LV2.strokeWidth = 0.1*mm;
@@ -296,11 +313,11 @@ var LVector2 = LVector1.duplicate();
     
 var LVector3 = LVector1.duplicate();
     LVector3.rotate(180);
-    LVector3.left = Rap*mm-20*mm;
+    LVector3.left = Rap*mm-15*mm;
     
 var LVector4 = LVector1.duplicate();
     LVector4.rotate(180);
-    LVector4.left = Rap*mm-20*mm;
+    LVector4.left = Rap*mm-15*mm;
     LVector4.top = Oporka.top-1*mm;
 
 var Llog = LI.textFrames.add();
@@ -317,14 +334,14 @@ var Llog = LI.textFrames.add();
 	//alert(SAll[0],SAll[1]);
 	 if  (casi!=3) {xEl = SAll[0]; yEl = SAll[1];}
 	
-var LPod = LI.textFrames.add();
-    LPod.contents = (""+Dat+" / "+Cust+" / "+parseFloat(parseFloat(xEl).toFixed(2))+"x"+parseFloat(parseFloat(yEl).toFixed(2))+" / ВАЛ Z"+Math.round(parseFloat(Rap/3.175))+" ("+Rap+")"+" / "+Nam+" / "+Ang+Mate + rll); //.split(".").join(" ");
+var LPod = Linfo.textFrames.add();
+    LPod.contents = (""+Dat+" / "+Cust+" / "+parseFloat(parseFloat(xEl).toFixed(2))+"x"+parseFloat(parseFloat(yEl).toFixed(2))+" / ВАЛ Z"+Math.round(parseFloat(sp.Raport/3.175))+" ("+sp.Raport+")"+" / "+Nam+" / "+Ang+Mate + rll); //.split(".").join(" ");
     LPod.textRange.characterAttributes.size = 12;
 	LPod.textRange.characterAttributes.tracking = 30;
     //LPod.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
     LPod.textRange.characterAttributes.textFont = app.textFonts.getByName(fonts);
     LPod.textRange.characterAttributes.fillColor = PLabel;
-    if (LPod.width > Rap*mm) LPod.width = Rap*mm;
+    if(!sp.gross) if (LPod.width > Rap*mm) LPod.width = Rap*mm;
     LPod.position = [(Rap*mm)/2-(LPod.width/2)+5*mm, 17*mm];
     
 var LPod2 = LI.textFrames.add();
@@ -542,18 +559,20 @@ function rect(){
  } 
     
 function selAll(){
+  var iSel = 0;
  for(var i = 0; i < documents[0].pathItems.length; i++){
     docSelection  = documents[0].pathItems[i]; 
      docSelection.strokeColor = PFull;
 	 docSelection.filled = false;
      docSelection.strokeWidth = lineOb*mm;
     docSelection.moveToBeginning(elm); 
-     
+    iSel += documents[0].pathItems[i].length/mm;
  }
  SAll[0]=elm.width/mm; SAll[1]=elm.height/mm;  
    xEl=documents[0].pathItems[0].width/mm; yEl=documents[0].pathItems[0].height/mm;
-   //Gap2 = Rap/Rep - form[11];
- 
+
+   //if (parseFloat(parseFloat(perimetr).toFixed(1)) != parseFloat(parseFloat(iSel).toFixed(1)))
+   //   alert("Не совпадение длины периметра!\nВозможна двойная дисторция");
  }
     
 function elSelect(){

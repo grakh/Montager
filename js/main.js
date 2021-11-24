@@ -53,6 +53,7 @@
         'perf': doc.getElementById('Customer').getAttribute('perf'),
         'micro': doc.getElementById('Customer').getAttribute('micro'),
         'google': doc.getElementById('Customer').getAttribute('google'),
+        'perimetr': doc.getElementById('Customer').getAttribute('perimetr'),
         'gross': doc.getElementById("gross").checked
         };   
         //alert(dict.Customer);  

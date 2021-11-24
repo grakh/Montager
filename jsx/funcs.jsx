@@ -95,7 +95,8 @@ function parseXML() {
     less = xmlDoc.getElementsByTagName("КоличествоУгловМеньше06");
     for ( i = 0; i < less.length; i++)
         les += parseInt(xmlDoc.getElementsByTagName("КоличествоУгловМеньше06")[i].childNodes[0].nodeValue);
-        
+       
+    doc.getElementById("Customer").setAttribute('perimetr', xmlDoc.getElementsByTagName("СуммаПериметровЭлементов")[0].childNodes[0].nodeValue);
  
     doc.getElementById("less").value=xmlDoc.getElementsByTagName("КоличествоУгловМеньше06")[0] ? les : '0';
     doc.getElementById("GAP").value = xmlDoc.getElementsByTagName("РасстояниеМеждуРучьями")[0] ? (xmlDoc.getElementsByTagName("РасстояниеМеждуРучьями")[0].childNodes[0].nodeValue > 0 ? xmlDoc.getElementsByTagName("РасстояниеМеждуРучьями")[0].childNodes[0].nodeValue : '3' )  : '3';
