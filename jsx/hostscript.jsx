@@ -347,7 +347,7 @@ var LPod = Linfo.textFrames.add();
     
 var LPod2 = Linfo.textFrames.add();
     LPod2.position = [(Rap*mm)/2-(LPod2.width/2)-38*mm, 11*mm];
-    LPod2.contents = (Distor+" - "+Kni+" - "+Ang+" - Mirror, L"+lineOb+dop); //.split(".").join(" ");
+    LPod2.contents = (sp.data + ' / '+ Distor+" - "+Kni+" - "+Ang+" - Mirror, L"+lineOb+dop); //.split(".").join(" ");
     LPod2.textRange.characterAttributes.size = 12;
 	LPod2.textRange.characterAttributes.tracking = 30;
     LPod2.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
@@ -572,8 +572,8 @@ function selAll(){
  SAll[0]=elm.width/mm; SAll[1]=elm.height/mm;  
    xEl=documents[0].pathItems[0].width/mm; yEl=documents[0].pathItems[0].height/mm;
 
-   //if (parseFloat(parseFloat(perimetr).toFixed(1)) != parseFloat(parseFloat(iSel).toFixed(1)))
-   //   alert("Не совпадение длины периметра!\nВозможна двойная дисторция");
+   if (parseInt((parseFloat(perimetr)*Distor)) > parseFloat(parseFloat(iSel).toFixed(1)))
+      alert(parseInt((parseFloat(perimetr)*Distor))+"\n"+parseFloat(parseFloat(iSel).toFixed(1))+"\n"+"Не совпадение длины периметра!\nВозможна двойная дисторция");
  }
     
 function elSelect(){

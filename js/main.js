@@ -52,6 +52,7 @@
         'rll': doc.getElementById('Customer').getAttribute('rll'),
         'rez': doc.getElementById('Customer').getAttribute('rez'),
         'perf': doc.getElementById('Customer').getAttribute('perf'),
+        'data': doc.getElementById('Customer').getAttribute('data'),
         'micro': doc.getElementById('Customer').getAttribute('micro'),
         'google': doc.getElementById('Customer').getAttribute('google'),
         'perimetr': doc.getElementById('Customer').getAttribute('perimetr'),

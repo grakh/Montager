@@ -46,6 +46,7 @@ doc.getElementById("Customer").setAttribute('perf', '');
 doc.getElementById("Customer").setAttribute('micro', '');
 doc.getElementById("Customer").setAttribute('perimetr', '');
 doc.getElementById("Customer").setAttribute('google', '');
+doc.getElementById("Customer").setAttribute('data', '');
 
 
 var element = doc.getElementById("comm");
@@ -79,6 +80,7 @@ function parseXML() {
 
     //alert (xmlDoc.documentElement.nodeName+' <'+xmlDoc.documentElement.attributes[0].name+' = '+xmlDoc.documentElement.attributes[0].value+'>');
     doc.getElementById("Customer").value=(xmlDoc.documentElement.attributes['НаименованиеЗаказа'].value+' / '+xmlDoc.documentElement.attributes['Покупатель'].value).replace(/"/g, "'");
+    doc.getElementById("Customer").setAttribute('data', xmlDoc.documentElement.attributes['ДатаИзготовления'].value);
     //alert(xmlDoc.documentElement.attributes['КомментарийКонтрагента']);
     doc.getElementById("comm").value = (xmlDoc.documentElement.attributes['КомментарийКонтрагента'] !== undefined) ? (xmlDoc.documentElement.attributes['КомментарийКонтрагента'].value).replace(/"/g, "'")+'\n' : '' ;
     doc.getElementById("comm").value += (xmlDoc.documentElement.attributes['Комментарий'].value).replace(/"/g, "'")+'\n';

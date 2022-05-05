@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ExtensionManifest Version="7.0" ExtensionBundleId="ru.list.don" ExtensionBundleVersion="3.7.7" Author="S.Klimov"
+<ExtensionManifest Version="7.0" ExtensionBundleId="ru.list.don" ExtensionBundleVersion="3.7.9" Author="S.Klimov"
 		ExtensionBundleName="Montager" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<ExtensionList>
-		<Extension Id="ru.list.don" Version="3.7.7" Author="S.Klimov" />
+		<Extension Id="ru.list.don" Version="3.7.9" Author="S.Klimov" />
 	</ExtensionList>
 	<ExecutionEnvironment>
 		<HostList>
@@ -59,7 +59,7 @@
 				</Lifecycle>
 				<UI>
 					<Type>Panel</Type>
-					<Menu>Montager 3.7.7</Menu>
+					<Menu>Montager 3.7.9</Menu>
 					<Geometry>
 						<Size>
 							<Height>570</Height>
