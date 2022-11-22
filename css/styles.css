@@ -439,3 +439,52 @@ padding-left:44px;
 #button{
 	margin-top: -17px;
 }
+
+#btnSet{
+	background-color: gray;
+	border: none;
+	padding: 5px 5px;
+	margin: -86px 0px 0px 22px;
+}
+
+#save{
+	float:left;
+	margin: 50px 140px;
+} 
+
+#Set{
+	float:left;
+	margin: 10px;
+	margin-bottom: 10px;
+
+} 
+
+.red {
+	background-color: #f57373;
+}
+
+.colorSet{
+
+    width:70px;
+}
+
+.pocLabel{
+
+
+}
+
+#colorBox{
+	float:left;
+	margin-left: 15px;
+}
+
+.colorLabel{
+	float:left;
+	padding-right:10px;
+}
+
+.field {
+	clear:both;
+	text-align:right;
+	line-height:30px;
+}

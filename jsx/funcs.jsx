@@ -15,12 +15,39 @@ $("#Namber").on("keypress", function(e){
     if (!test) return false;
 });
 
+function setload(){
+    doc.getElementById('colorText').value = localStorage.getItem('Text');
+    doc.getElementById('colorRisk').value = localStorage.getItem('Risk');
+    doc.getElementById('colorDush').value = localStorage.getItem('Dush');
+}
+
+function set(){
+
+    var cText = doc.getElementById("colorText").value > 0 ? doc.getElementById("colorText").value : 14;
+    var cRisk = doc.getElementById("colorRisk").value > 0 ? doc.getElementById("colorRisk").value : 20;
+    var cDush = doc.getElementById("colorDush").value > 0 ? doc.getElementById("colorDush").value : 25;
+
+    localStorage.setItem('Text', cText);
+    localStorage.setItem('Risk', cRisk);
+    localStorage.setItem('Dush', cDush);
+
+    window.location.href = 'index.html';
+}
+
 
 function fxml(){
 var x = doc.getElementById("Namber").value;
 
 doc.getElementById("gross").checked = false;
-localStorage.getItem('lineSet') > 0 ? doc.getElementById("Line").value = localStorage.getItem('lineSet') : doc.getElementById("Line").value = 0.7;
+
+    if (localStorage.getItem('lineSet') > 0) {
+            doc.getElementById("Line").value = localStorage.getItem('lineSet');
+            doc.getElementById("Line").classList.remove('red')
+        } else {
+            doc.getElementById("Line").value = 0.7;
+            doc.getElementById("Line").classList.add('red')
+        }
+
           
 //localStorage.removeItem('lineSet');
 

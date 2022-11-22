@@ -92,13 +92,13 @@ var elm = newLayer.groupItems.add();
     var docSelection = new Array();
     var docSelection2 = new Array();
 
-    var procLabel = 50, procCyan = 70, procRisk = 70;
+    var procText = sp.colorText, procDash = sp.colorDush, procRisk = sp.colorRisk;
 
 var dotPoint = 2.0;
 
     if(sp.gross){
-      procLabel = 100;
-      procCyan = 100;
+      procText = 100;
+      procDash = 100;
       procRisk = 100;
 
       dotPoint = 3.0;
@@ -108,14 +108,14 @@ var PLabel = new CMYKColor(); // text
     PLabel.name = 'labelColor';
     PLabel.black = 0; 
     PLabel.cyan = 0; 
-    PLabel.magenta = procLabel; 
+    PLabel.magenta = procText; 
     PLabel.yellow = 0;
     
 var PCyan = new CMYKColor(); //Dashed Line
     PCyan.name = 'labelColor';
     PCyan.black = 0; 
     PCyan.cyan = 0; 
-    PCyan.magenta = procCyan; 
+    PCyan.magenta = procDash; 
     PCyan.yellow = 0;
 
 var PRisk= new CMYKColor();  //Metki
@@ -322,8 +322,8 @@ var LVector4 = LVector1.duplicate();
     LVector4.top = Oporka.top-1*mm;
 
 var Llog = LI.textFrames.add();
-    Llog.position = [(Rap*mm)/2-50*mm, Oporka.top-1*mm];
-    Llog.contents = "www.justcut.ru  +7(495) 128-62-73";
+    Llog.position = [(Rap*mm)/2-50*mm, Oporka.top];
+    Llog.contents = "www.justcut.ru  +7(495) 665-20-50";
     Llog.textRange.characterAttributes.size = 13;
 	Llog.textRange.characterAttributes.tracking = 30;
     //Llog.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
@@ -488,6 +488,10 @@ Gabarit.stroked = true;
 Gabarit.strokeColor = PFull;
 Gabarit.fillOverprint = false;
 Gabarit.strokeWidth = 1.5*mm;
+
+newLayer = null;
+Linfo = null;
+L_Test = null;
     
  
 //---------------------------------- functions
@@ -572,8 +576,8 @@ function selAll(){
  SAll[0]=elm.width/mm; SAll[1]=elm.height/mm;  
    xEl=documents[0].pathItems[0].width/mm; yEl=documents[0].pathItems[0].height/mm;
 
-   if (parseInt((parseFloat(perimetr)*Distor)) > parseFloat(parseFloat(iSel).toFixed(1)))
-      alert(parseInt((parseFloat(perimetr)*Distor))+"\n"+parseFloat(parseFloat(iSel).toFixed(1))+"\n"+"Не совпадение длины периметра!\nВозможна двойная дисторция");
+  // if (parseInt((parseFloat(perimetr)*Distor)) > parseFloat(parseFloat(iSel).toFixed(1)))
+  //    alert(parseInt((parseFloat(perimetr)*Distor))+"\n"+parseFloat(parseFloat(iSel).toFixed(1))+"\n"+"Не совпадение длины периметра!\nВозможна двойная дисторция");
  }
     
 function elSelect(){

@@ -21,7 +21,7 @@
 <div id="LabelTextbox">
 <label>
 Order number:
-<button class="btnXml" id="xml" onClick="fxml()">:XML</button>
+<button class="btnXml" id="xml" onclick="fxml()">:XML</button>
 <input id="Namber" type="text" value=""><br>
 </label>
 </div>
@@ -93,7 +93,7 @@ Knife, mm:
         doc.getElementById("Streams").onkeypress = function(e){return !(/[^\d]/.test(String.fromCharCode(e.charCode)))}
         doc.getElementById("GAP").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))}
 		doc.getElementById("GAP2").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))}
-        doc.getElementById("Knife").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))}
+        //doc.getElementById("Knife").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))}
         doc.getElementById("Angle").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))}
 			
     </script>
@@ -182,17 +182,28 @@ Diameter, mm: D1:
     </script>
 
 <div id="button">
-    <button class="button" onClick="subm()">Run code</button>
+    <button id = "bot" class="button" onClick="subm()">Run code</button>
 </div>
 
-
+<div>
+    <button id="btnSet" class="btnXml" onClick="window.location.href = 'set.html'">Set</button>
+</div>
 
 <div id='manager' class="east">
     Manager: 
 </div>
 </div>
 
+<script>
+    var ixml = doc.getElementById("Namber");
+    ixml.addEventListener("keypress", function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        doc.getElementById("xml").click();
+      }
+    });
 
+</script>
         <!-- These are debugging shortcuts.  Class debuglink items only appear in debug mode  -->
     
     <script src="js/libs/CSInterface.js"></script>
