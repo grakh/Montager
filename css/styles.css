@@ -17,7 +17,7 @@ display:block;
 }
 
 #comm{
-#padding:7px;
+/* padding:7px; */
 margin:7px;
 display:block-inline;
 width:300px;
@@ -342,7 +342,7 @@ input[type="radio"]:focus + span {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    #margin: 4px 0px 0px 0px;
+    /* #margin: 4px 0px 0px 0px; */
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
     cursor: pointer;
@@ -371,7 +371,7 @@ input[type="radio"]:focus + span {
     display: inline-block;
     font-size: 8px;
     margin-right:10px;
-    #margin: 0px 0px;
+    /* #margin: 0px 0px; */
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
     cursor: pointer;
@@ -392,7 +392,7 @@ input[type="radio"]:focus + span {
 }
 
 .checkboxFour{
-    #text-align:center;
+    /* #text-align:center; */
     margin-left: 30px;
 }
 
@@ -448,8 +448,13 @@ padding-left:44px;
 }
 
 #save{
-	float:left;
-	margin: 50px 140px;
+	margin-left: 60px;
+	margin-top: 50px;
+} 
+
+#cancel{
+	margin-top: -46px;
+	margin-left: 200px;
 } 
 
 #Set{
@@ -463,19 +468,24 @@ padding-left:44px;
 	background-color: #f57373;
 }
 
+.yel {
+	background-color: #f5e873;
+}
+
 .colorSet{
 
     width:70px;
 }
 
-.pocLabel{
-
-
+.btnBox{
+	float:left;
+	z-index: 0;
 }
 
 #colorBox{
 	float:left;
 	margin-left: 15px;
+	z-index: 1;
 }
 
 .colorLabel{
@@ -487,4 +497,5 @@ padding-left:44px;
 	clear:both;
 	text-align:right;
 	line-height:30px;
+}
 }

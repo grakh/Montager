@@ -21,6 +21,8 @@ function setload(){
     doc.getElementById('colorDush').value = localStorage.getItem('Dush');
 }
 
+function cancel(){window.location.href = 'index.html';}
+
 function set(){
 
     var cText = doc.getElementById("colorText").value > 0 ? doc.getElementById("colorText").value : 14;
@@ -56,6 +58,7 @@ path = '\\\\storage\\zakaz\\'+x.substr (0, x.length-3)+'000-'+x.substr (0, x.len
 doc.getElementById("Customer").value = '';
 doc.getElementById("Material").value = '';
 doc.getElementById("Raport").value = '';
+doc.getElementById("Raport").classList.remove('yel');
 doc.getElementById("Polurot").value = '';
 doc.getElementById("Repetition").value = '1';
 doc.getElementById("Streams").value = '1';
@@ -74,6 +77,7 @@ doc.getElementById("Customer").setAttribute('micro', '');
 doc.getElementById("Customer").setAttribute('perimetr', '');
 doc.getElementById("Customer").setAttribute('google', '');
 doc.getElementById("Customer").setAttribute('data', '');
+doc.getElementById("less").classList.remove('yel');
 
 
 var element = doc.getElementById("comm");
@@ -115,7 +119,7 @@ function parseXML() {
     doc.getElementById("Angle").value=xmlDoc.getElementsByTagName("УголЗаточкиКромки")[0] ? xmlDoc.getElementsByTagName("УголЗаточкиКромки")[0].childNodes[0].nodeValue : 'не найден';
     doc.getElementById("Material").value=xmlDoc.getElementsByTagName("ТипВырубки")[0] ? xmlDoc.getElementsByTagName("ТипВырубки")[0].childNodes[0].nodeValue : 'не найден';
     doc.getElementById("Raport").value=xmlDoc.getElementsByTagName("ШагПечатногоВала")[0] ? xmlDoc.getElementsByTagName("ШагПечатногоВала")[0].childNodes[0].nodeValue : 'не найден';
-  
+    if (parseInt(doc.getElementById("Raport").value) <= 254) doc.getElementById("Raport").classList.add('yel');
     doc.getElementById("Polurot").value=xmlDoc.getElementsByTagName("ДлинаНожа")[0] ? xmlDoc.getElementsByTagName("ДлинаНожа")[0].childNodes[0].nodeValue : '';
     doc.getElementById("PolurotY").value=xmlDoc.getElementsByTagName("ШиринаНожа")[0] ? xmlDoc.getElementsByTagName("ШиринаНожа")[0].childNodes[0].nodeValue : '';
 
@@ -126,7 +130,8 @@ function parseXML() {
     less = xmlDoc.getElementsByTagName("КоличествоУгловМеньше06");
     for ( i = 0; i < less.length; i++)
         les += parseInt(xmlDoc.getElementsByTagName("КоличествоУгловМеньше06")[i].childNodes[0].nodeValue);
-       
+    if (les > 0) doc.getElementById("less").classList.add('yel');
+
     doc.getElementById("Customer").setAttribute('perimetr', xmlDoc.getElementsByTagName("СуммаПериметровЭлементов")[0].childNodes[0].nodeValue);
  
     doc.getElementById("less").value=xmlDoc.getElementsByTagName("КоличествоУгловМеньше06")[0] ? les : '0';
@@ -261,7 +266,7 @@ xmlDoc.documentElement.setAttribute("Комментарий","food");
 //----------------------------------------------------------------
 
 var text = "как записать строку в файл .txt с помощью js?";
-document.write('<a href="data:text/plain;charset=utf-8,%EF%BB%BF' + encodeURIComponent(text) + '" download="c:/temp/text.txt">text.txt</a>');
+document.write('<a onClick="cancel()" href="data:text/plain;charset=utf-8,%EF%BB%BF' + encodeURIComponent(text) + '" download="c:/temp/text.txt">text.txt</a>');
 var file = new File( 'C:/Temp/text.txt');
             
 if (file.open("w")) {

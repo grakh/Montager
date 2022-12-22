@@ -93,7 +93,7 @@ Knife, mm:
         doc.getElementById("Streams").onkeypress = function(e){return !(/[^\d]/.test(String.fromCharCode(e.charCode)))}
         doc.getElementById("GAP").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))}
 		doc.getElementById("GAP2").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))}
-        //doc.getElementById("Knife").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))}
+        doc.getElementById("Knife").onkeypress = function(e){return !(/[^\d\.\ \/\d]/.test(String.fromCharCode(e.charCode)))}
         doc.getElementById("Angle").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))}
 			
     </script>
@@ -141,7 +141,7 @@ Diameter, mm: D1:
 <div id="LabelTextbox">
 <label>
  Distortion: <input type="checkbox" id = "disa" name="ch" class="chk" value="1" checked="checked" />
-<input id="Dist" value="0" disabled>
+<input id="Dist" value="0">
 </label>
 <span id = "angle">Angles less 0.6: <input id = "less" value="0" disabled></span>
 
@@ -202,7 +202,8 @@ Diameter, mm: D1:
         doc.getElementById("xml").click();
       }
     });
-
+    doc.getElementById("Dist").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))}
+    doc.getElementById("Line").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))}
 </script>
         <!-- These are debugging shortcuts.  Class debuglink items only appear in debug mode  -->
     
