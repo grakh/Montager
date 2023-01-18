@@ -25,9 +25,9 @@ function cancel(){window.location.href = 'index.html';}
 
 function set(){
 
-    var cText = doc.getElementById("colorText").value > 0 ? doc.getElementById("colorText").value : 14;
-    var cRisk = doc.getElementById("colorRisk").value > 0 ? doc.getElementById("colorRisk").value : 20;
-    var cDush = doc.getElementById("colorDush").value > 0 ? doc.getElementById("colorDush").value : 25;
+    var cText = doc.getElementById("colorText").value != '' ? doc.getElementById("colorText").value : 14;
+    var cRisk = doc.getElementById("colorRisk").value != '' ? doc.getElementById("colorRisk").value : 20;
+    var cDush = doc.getElementById("colorDush").value != '' ? doc.getElementById("colorDush").value : 25;
 
     localStorage.setItem('Text', cText);
     localStorage.setItem('Risk', cRisk);
@@ -68,6 +68,7 @@ doc.getElementById("Knife").value = '';
 doc.getElementById("Angle").value = '';
 doc.getElementById("Dist").value = '0';
 doc.getElementById("Polurot").setAttribute("disabled", "disabled");
+doc.getElementById("bot").disabled = false;
 doc.getElementById("GAP2").disabled = true;
 doc.getElementById("disa").checked = true;
 doc.getElementById("Customer").setAttribute('rll', '');

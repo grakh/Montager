@@ -170,8 +170,8 @@ cursor: pointer;
 }
 
 img{
-position:absolute;
-margin-top: -7px;
+vertical-align: middle;
+padding-top: -22px;
 z-index:1;
 }
 
@@ -291,7 +291,7 @@ margin-bottom: 20px;
 }
 
 .Figures{
-width:34px;
+width:44px;
 height:34px;
 display:inline-block;
 margin-right:20px;
@@ -300,15 +300,20 @@ margin-right:20px;
 .Figures label {
 	cursor: pointer;
 	position: relative;
+	
+
 }
 
 .Figures label + label {
+	
 	margin-left: 15px;
 }
+
 
 input[type="radio"] {
 	opacity: 0; /* hidden but still tabable */
 	position: absolute;
+	
 }
 
 input[type="radio"] + span {
@@ -327,6 +332,10 @@ margin-left:50%;
 input[type="radio"]:checked + span {
 	color: #D9E7FD;
   background-color: #4285F4;
+}
+
+#bot:disabled {
+	background-color: #8090ac;
 }
 
 input[type="radio"]:focus + span {
@@ -348,6 +357,7 @@ input[type="radio"]:focus + span {
     cursor: pointer;
     position:relative;
     top:-30px;
+
 }
 
 .button{
@@ -416,8 +426,9 @@ input[type="radio"]:focus + span {
 }
 
 img{
-margin-top:-24px;
-margin-left:5px;
+margin-top:-7px;
+margin-left:-33px;
+padding-right:10px;
 }
 
 #Forms{

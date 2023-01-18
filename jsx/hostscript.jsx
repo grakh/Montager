@@ -4,22 +4,27 @@
 
 function sayHello(sp) {
     
-var fonts="MagistralTT";
-    
+//var fonts="OLFSimpleSansCJK-Regular";
+var fonts="MagistralTT";  
+
 var docRef = app.activeDocument;
 var newLayer=docRef.activeLayer;
 //newLayer = docRef.layers.add();
 //newLayer.zOrder(ZOrderMethod.BRINGTOFRONT);
-newLayer.name="Knife";
+    newLayer.name="Knife";
 
-Linfo = docRef.layers.add();
+var Linfo = docRef.layers.add();
 //Linfo .zOrder(ZOrderMethod.BRINGTOFRONT);
-Linfo .zOrder(ZOrderMethod.SENDTOBACK);
-Linfo .name="info";
+    Linfo .zOrder(ZOrderMethod.SENDTOBACK);
+    Linfo .name="info";
 
-L_Test = docRef.layers.add();
-L_Test.zOrder(ZOrderMethod.SENDTOBACK);
-L_Test.name="L-Test";
+var L_Test = docRef.layers.add();
+    L_Test.zOrder(ZOrderMethod.SENDTOBACK);
+    L_Test.name="L-Test";
+
+var REZ = docRef.layers.add();
+    REZ.zOrder(ZOrderMethod.SENDTOBACK);
+    REZ.name="REZ";
     
 docRef.rulerOrigin = Array (0,0);
     var units = 1; // 2-inches, 3-milllimeters, 0-points
@@ -103,6 +108,13 @@ var dotPoint = 2.0;
 
       dotPoint = 3.0;
     }
+
+var Prll = new CMYKColor(); // text
+    Prll.name = 'rllColor';
+    Prll.black = 0; 
+    Prll.cyan = 0; 
+    Prll.magenta = 0; 
+    Prll.yellow = 1;
     
 var PLabel = new CMYKColor(); // text
     PLabel.name = 'labelColor';
@@ -329,8 +341,12 @@ var Llog = LI.textFrames.add();
     //Llog.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
     Llog.textRange.characterAttributes.textFont = app.textFonts.getByName(fonts);
     Llog.textRange.characterAttributes.fillColor = PLabel;
+   // Llog.textRange.characterAttributes.strokeColor = PLabel;
+   // Llog.textRange.characterAttributes.stroked = true;
+   // Llog.textRange.characterAttributes.strokeWidth = 0.05*mm;
+   // Llog.textRange.characterAttributes.filled = false;
 	if (Llog.width > Rap*mm) Llog.width = Rap*mm;
-	Llog.position = [(Rap*mm)/2-(Llog.width/2)+5*mm, Oporka.top-1*mm];
+	Llog.position = [(Rap*mm)/2-(Llog.width/2)+5*mm, Oporka.top-0.1*mm];
 
 	//alert(SAll[0],SAll[1]);
 	 if  (casi!=3) {xEl = SAll[0]; yEl = SAll[1];}
@@ -342,6 +358,10 @@ var LPod = Linfo.textFrames.add();
     //LPod.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
     LPod.textRange.characterAttributes.textFont = app.textFonts.getByName(fonts);
     LPod.textRange.characterAttributes.fillColor = PLabel;
+   // LPod.textRange.characterAttributes.strokeColor = PLabel;
+   // LPod.textRange.characterAttributes.stroked = true;
+   // LPod.textRange.characterAttributes.filled = false;
+   // LPod.textRange.characterAttributes.strokeWidth = 0.05*mm;
     if(!sp.gross) if (LPod.width > Rap*mm) LPod.width = Rap*mm;
     LPod.position = [(Rap*mm)/2-(LPod.width/2)+5*mm, 17*mm];
     
@@ -353,6 +373,10 @@ var LPod2 = Linfo.textFrames.add();
     LPod2.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
     LPod2.textRange.characterAttributes.textFont = app.textFonts.getByName(fonts);
     LPod2.textRange.characterAttributes.fillColor = PLabel;
+  //  LPod2.textRange.characterAttributes.strokeColor = PLabel;
+  //  LPod2.textRange.characterAttributes.stroked = true;
+  //  LPod2.textRange.characterAttributes.filled = false;
+  //  LPod2.textRange.characterAttributes.strokeWidth = 0.05*mm;
 	if (LPod2.width > Rap*mm) LPod2.width = Rap*mm;
     LPod2.position = [(Rap*mm)/2-(LPod2.width/2)+5*mm, 11*mm];
     
@@ -393,22 +417,32 @@ for (var i=0; i<docRef.selection.length;i++){
    
   }
     
-
-        pointCenter = LI.pathItems.add();
-        pointCenter .setEntirePath( Array( Array(Oporka.left-0.5*mm+Oporka.strokeWidth/2, WidthForm*mm/2+12*mm), Array(Oporka.left+Oporka.width+0.5*mm+Oporka.strokeWidth/2, WidthForm*mm/2+12*mm)) );
-        pointCenter .stroked = false;
-        //pointCenter .strokeColor = PWhite;
-        //pointCenter .strokeWidth = 0.1*mm;
-        pointCenter .filled = false;
+//-------------------------REZ--------------------------------- 
+    var lineCenter = REZ.pathItems.add();
+        lineCenter .setEntirePath( Array( Array(Oporka.left-0.55*mm+Oporka.strokeWidth/2, WidthForm*mm/2+12*mm), Array(Oporka.left+Oporka.width+0.55*mm+Oporka.strokeWidth/2, WidthForm*mm/2+12*mm)) );
+        lineCenter.stroked = false;
+        lineCenter.strokeColor = Prll;
+        lineCenter.strokeWidth = 0.01*mm;
+        lineCenter.filled = false;
+        lineCenter.strokeOverprint = true;
         
-        //pointCenter = LI.pathItems.add();
-        //pointCenter .setEntirePath( Array( Array(Oporka.left+Oporka.width-3*mm, WidthForm*mm/2+12*mm), Array(Oporka.left+Oporka.width+0.3*mm+Oporka.strokeWidth/2, WidthForm*mm/2+12*mm)) );
-        //pointCenter .stroked = false;
-        //pointCenter .strokeColor = PWhite;
-        //pointCenter .strokeWidth = 0.1*mm;
-        //pointCenter .filled = false;
+    var leftRez = REZ.pathItems.add();
+        leftRez .setEntirePath( Array( Array(Oporka.left+0.3*mm+Oporka.strokeWidth/2, WidthForm*mm+15*mm), Array(Oporka.left+0.3*mm+Oporka.strokeWidth/2, 9*mm)) );
+        leftRez.stroked = false;
+        leftRez.strokeColor = Prll;
+        leftRez.strokeWidth = 0.01*mm;
+        leftRez.filled = false;
+        leftRez.strokeOverprint = true;
+
+    var rightRez = REZ.pathItems.add();
+        rightRez .setEntirePath( Array( Array(Oporka.left+Oporka.width-0.3*mm+Oporka.strokeWidth/2, WidthForm*mm+15*mm), Array(Oporka.left+Oporka.width-0.3*mm+Oporka.strokeWidth/2, 9*mm)) );
+        rightRez.stroked = false;
+        rightRez.strokeColor = Prll;
+        rightRez.strokeWidth = 0.01*mm;
+        rightRez.filled = false;
+        rightRez.strokeOverprint = true;
     
-//----------------------------------------------------------    
+//------------------POINT----------------------------------------    
 
     
 var Point0 = L_Test.groupItems.add();
@@ -428,6 +462,23 @@ var P0W = Point0.pathItems.ellipse(dotPoint/8, -dotPoint/8, dotPoint/4, dotPoint
 var P1K = Point0.duplicate();
     P1K.left += Rap*mm;
     
+//----------RLL----------
+var rll0 = newLayer.pathItems.add();
+    rll0.setEntirePath( Array( Array(0, 0), Array(0, -mm)) );
+    rll0.stroked = false;
+    rll0.strokeColor = Prll;
+    rll0.strokeWidth = 0.01*mm;
+    rll0.filled = false;
+    rll0.strokeOverprint = true;
+
+var rll1 = newLayer.pathItems.add();
+    rll1.setEntirePath( Array( Array(Rap*mm, 0), Array(Rap*mm, -mm)) );
+    rll1.stroked = true;
+    rll1.strokeColor = Prll;
+    rll1.strokeWidth = 0.01*mm;
+    rll1.filled = false;
+    rll1.strokeOverprint = true;
+
    var countLabel=0;
    var i = 0;
    
