@@ -19,6 +19,10 @@ function setload(){
     doc.getElementById('colorText').value = localStorage.getItem('Text');
     doc.getElementById('colorRisk').value = localStorage.getItem('Risk');
     doc.getElementById('colorDush').value = localStorage.getItem('Dush');
+
+    doc.getElementById('colorText1').value = localStorage.getItem('Text1');
+    doc.getElementById('colorRisk1').value = localStorage.getItem('Risk1');
+    doc.getElementById('colorDush1').value = localStorage.getItem('Dush1');
 }
 
 function cancel(){window.location.href = 'index.html';}
@@ -32,6 +36,14 @@ function set(){
     localStorage.setItem('Text', cText);
     localStorage.setItem('Risk', cRisk);
     localStorage.setItem('Dush', cDush);
+
+    var cText1 = doc.getElementById("colorText1").value != '' ? doc.getElementById("colorText1").value : 60;
+    var cRisk1 = doc.getElementById("colorRisk1").value != '' ? doc.getElementById("colorRisk1").value : 100;
+    var cDush1 = doc.getElementById("colorDush1").value != '' ? doc.getElementById("colorDush1").value : 100;
+
+    localStorage.setItem('Text1', cText1);
+    localStorage.setItem('Risk1', cRisk1);
+    localStorage.setItem('Dush1', cDush1);
 
     window.location.href = 'index.html';
 }

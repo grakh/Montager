@@ -3,6 +3,11 @@
 
 
 function sayHello(sp) {
+
+  if (sp.btnRll) {
+    #include './expDXF.js';
+    return;
+  };
     
 //var fonts="OLFSimpleSansCJK-Regular";
 var fonts="MagistralTT";  
@@ -102,9 +107,9 @@ var elm = newLayer.groupItems.add();
 var dotPoint = 2.0;
 
     if(sp.gross){
-      procText = 100;
-      procDash = 100;
-      procRisk = 100;
+      procText = sp.colorText1;
+      procDash = sp.colorDush1;
+      procRisk = sp.colorRisk1;
 
       dotPoint = 3.0;
     }

@@ -59,7 +59,7 @@ input[id="Namber"]{
 	position: absolute;
 	top: 9px;
 	left: 120px;
-    width:170px;
+    width:150px;
 }
 
 input[id="Raport"]{
@@ -213,12 +213,18 @@ width:100%;
 height:8%;
 }
 
+#LabelTextbox3{
+	z-index:2;
+	}
+
 #manager{
-	margin-top: -15px;
+	margin-top: 60px;
+	padding-left:7px;
 	}
 
 .east{
 	padding-left:7px;
+	margin-top: -15px;
 }
 
 
@@ -338,6 +344,29 @@ input[type="radio"]:checked + span {
 	background-color: #8090ac;
 }
 
+
+
+#btnRll {
+	font-size: 16px;
+	padding: 12px 8px;
+    }
+#btnR{
+	margin-left:255px;
+	margin-top: -45px;
+	z-index: 2;
+	}
+
+#btnRll:disabled {
+	background-color: #a3a3a3;
+}
+#btnRll:enabled {
+	background-color:  #a3a3a3;
+}
+
+#btnRll:hover {
+	background-color:  #7c2020;
+}
+
 input[type="radio"]:focus + span {
 	color: #fff;
 }
@@ -346,7 +375,7 @@ input[type="radio"]:focus + span {
     background-color: #4CAF50; /* Green */
     border: none;
     color: white;
-    padding: 12px 32px;
+    padding: 12px 30px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -356,7 +385,24 @@ input[type="radio"]:focus + span {
     transition-duration: 0.4s;
     cursor: pointer;
     position:relative;
-    top:-30px;
+	margin-left:-10px;
+	z-index:2;
+
+}
+
+.buttonRll{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    position:relative;
+	margin-left:-10px;
 
 }
 
@@ -386,8 +432,8 @@ input[type="radio"]:focus + span {
     transition-duration: 0.4s;
     cursor: pointer;
     position:absolute;
-    left:295px;
-    top:8px;
+    margin-left:178px;
+    margin-top:-2px;
 }
 
 .btnXml{
@@ -448,14 +494,19 @@ padding-left:44px;
 }
  
 #button{
-	margin-top: -17px;
+	margin-top: -47px;
 }
 
 #btnSet{
 	background-color: gray;
 	border: none;
 	padding: 5px 5px;
-	margin: -86px 0px 0px 22px;
+}
+
+#btnS{
+	margin-top:-40px;
+	margin-left:140px;
+	z-index: 2;
 }
 
 #save{
@@ -473,6 +524,13 @@ padding-left:44px;
 	margin: 10px;
 	margin-bottom: 10px;
 
+} 
+
+#zag{
+
+	margin-left: 30px;
+	color:#a3a3a3;
+	margin-bottom: 10px;
 } 
 
 .red {

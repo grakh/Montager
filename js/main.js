@@ -59,7 +59,10 @@
         'gross': doc.getElementById("gross").checked,
         'colorText': localStorage.getItem('Text'),
         'colorRisk': localStorage.getItem('Risk'),
-        'colorDush': localStorage.getItem('Dush')
+        'colorDush': localStorage.getItem('Dush'),
+        'colorText1': localStorage.getItem('Text1'),
+        'colorRisk1': localStorage.getItem('Risk1'),
+        'colorDush1': localStorage.getItem('Dush1')
         };  
 
         //alert(doc.getElementById('Customer').getAttribute('rez'));  
@@ -68,7 +71,17 @@
            
         //csInterface.evalScript('sayHello("'+Namber+';'+Customer+';'+Raport+';'+Repetition+';'+Streams+';'+GAP+';'+casing+';'+Dis+';'+Material+';'+Knife+';'+Forms+'")');
     });
-  
+
+    $("#btnRll").click(function () {
+      var dict = {
+        'btnRll': true,
+        'Namb': $('#Namber').val()
+      };
+      csInterface.evalScript('sayHello('+JSON.stringify(dict)+')'); 
+    });
+
+
+
   
   }
     init();

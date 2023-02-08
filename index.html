@@ -9,6 +9,7 @@
 <link  id="hostStyle" rel="stylesheet" href="css/styles.css"/>
 <script src="jsx/funcs.jsx"></script>
     <script src="jsx/hostscript.jsx"></script>
+        <script src="jsx/expDXF.js"></script>
     
 
 <title></title>
@@ -186,11 +187,15 @@ Diameter, mm: D1:
     <button id = "bot" class="button" onClick="subm()">Run code</button>
 </div>
 
-<div>
+<div id="btnR">
+    <button id = "btnRll" class="buttonRll" onClick="laser()">RLL</button>
+</div>
+
+<div id="btnS">
     <button id="btnSet" class="btnXml" onClick="window.location.href = 'set.html'">Set</button>
 </div>
 
-<div id='manager' class="east">
+<div id='manager'>
     Manager: 
 </div>
 </div>
