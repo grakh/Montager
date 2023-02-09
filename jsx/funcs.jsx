@@ -166,6 +166,7 @@ function parseXML() {
     if (xmlDoc.getElementsByTagName("ЛазернаяЗакалка")[0].childNodes[0].nodeValue =='true') {
             //doc.getElementById("Customer").value +=' /RLL';
             doc.getElementById("Customer").setAttribute('rll', 'RLL');
+            doc.getElementById('btnRll').classList.add('gre');
             doc.getElementById("comm").value +='== RLL =='
         };
     if (xmlDoc.getElementsByTagName("КромкаМенее2ммОтКраяШтампа")[0].childNodes[0].nodeValue =='true') {

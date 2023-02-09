@@ -810,5 +810,5 @@ function isLocked (test) {
 
   docRef = null;
   delete sp;
-    
+  return;  
 };

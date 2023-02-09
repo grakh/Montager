@@ -345,7 +345,9 @@ input[type="radio"]:checked + span {
 }
 
 
-
+#btnRll:disabled {
+	background-color: #888787;
+}
 #btnRll {
 	font-size: 16px;
 	padding: 12px 8px;
@@ -356,12 +358,6 @@ input[type="radio"]:checked + span {
 	z-index: 2;
 	}
 
-#btnRll:disabled {
-	background-color: #a3a3a3;
-}
-#btnRll:enabled {
-	background-color:  #a3a3a3;
-}
 
 #btnRll:hover {
 	background-color:  #7c2020;
@@ -539,6 +535,17 @@ padding-left:44px;
 
 .yel {
 	background-color: #f5e873;
+}
+
+.gre {
+	background-color: #3f920e;
+}
+
+.grayl {
+	background-color: #a3a3a3;
+}
+.grayb {
+	background-color: #888787;
 }
 
 .colorSet{

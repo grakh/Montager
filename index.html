@@ -88,7 +88,7 @@ Knife, mm:
 
     <script>
         doc.getElementById("Namber").onkeypress = function(e){return (/\d+(\.\d)?/.test(String.fromCharCode(e.charCode)))}
-        doc.getElementById("Namber").onkeypress = function(e){return (doc.getElementById("bot").setAttribute("disabled", "disabled"))}
+        doc.getElementById("Namber").onkeypress = function(e){return (doc.getElementById("bot").setAttribute("disabled", "disabled"), doc.getElementById("btnRll").setAttribute("disabled", "disabled"))}
         doc.getElementById("Raport").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))}
 		doc.getElementById("Polurot").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))}
         doc.getElementById("Repetition").onkeypress = function(e){return !(/[^\d]/.test(String.fromCharCode(e.charCode)))}
@@ -184,11 +184,11 @@ Diameter, mm: D1:
     </script>
 
 <div id="button">
-    <button id = "bot" class="button" onClick="subm()">Run code</button>
+    <button id = "bot" class="button" onClick="subm()" disabled>Run code</button>
 </div>
 
 <div id="btnR">
-    <button id = "btnRll" class="buttonRll" onClick="laser()">RLL</button>
+    <button id = "btnRll" class="buttonRll grayb" onClick="laser()" disabled>RLL</button>
 </div>
 
 <div id="btnS">
