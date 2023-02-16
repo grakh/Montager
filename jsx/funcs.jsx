@@ -62,7 +62,8 @@ doc.getElementById("gross").checked = false;
             doc.getElementById("Line").classList.add('red')
         }
 
-          
+$('#btnRll').removeAttr('disabled');
+doc.getElementById('btnRll').classList.add('grayl');        
 //localStorage.removeItem('lineSet');
 
 path = '\\\\storage\\zakaz\\'+x.substr (0, x.length-3)+'000-'+x.substr (0, x.length-3)+'999\\'+x+'\\XML\\specification_'+x+'.xml';
@@ -166,7 +167,6 @@ function parseXML() {
     if (xmlDoc.getElementsByTagName("ЛазернаяЗакалка")[0].childNodes[0].nodeValue =='true') {
             //doc.getElementById("Customer").value +=' /RLL';
             doc.getElementById("Customer").setAttribute('rll', 'RLL');
-            doc.getElementById('btnRll').classList.add('gre');
             doc.getElementById("comm").value +='== RLL =='
         };
     if (xmlDoc.getElementsByTagName("КромкаМенее2ммОтКраяШтампа")[0].childNodes[0].nodeValue =='true') {
@@ -191,6 +191,12 @@ if ( xmlDoc.getElementsByTagName("Контур")[0].childNodes[0].nodeValue==3) 
     }
     //x=xmlDoc.getElementsByTagName("ШагПечатногоВала")[0];
     //alert (x.nodeName+' <'+x.childNodes[0].nodeValue+'>');
+    doc.getElementById('btnRll').classList.remove('grayb');
+    doc.getElementById('btnRll').classList.remove('grayl');
+    if(doc.getElementById('Customer').getAttribute('rll')){
+        doc.getElementById('btnRll').classList.add('gre');
+    } else doc.getElementById('btnRll').classList.add('grayl');
+
     if ( xmlDoc.getElementsByTagName("Контур")[0].childNodes[0].nodeValue==3) {doc.getElementsByName("figure")[3].checked=true;  verify(3) ;}
      if ( xmlDoc.getElementsByTagName("Контур")[0].childNodes[0].nodeValue==2) {doc.getElementsByName("figure")[1].checked=true;  verify(1) ;
          doc.getElementById("X").value=xmlDoc.getElementsByTagName("ШиринаПрямоугольника")[0] ? xmlDoc.getElementsByTagName("ШиринаПрямоугольника")[0].childNodes[0].nodeValue : '0';

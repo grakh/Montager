@@ -450,7 +450,7 @@ function arcDiv ( pStart, pEnd, outPts ) {
       
  
       if ( aLine[0] != undefined || !isNaN(cr)) 
-        outPts.push ([0, "ARC", 8, "APS_GEOMETRY", 10, aLine[0]/mm, 20, aLine[1]/mm, 40, aLine.r/mm, 50, aLine.s, 51, aLine.e]);
+        outPts.push ([0, "ARC", 8, lazerName, 10, aLine[0]/mm, 20, aLine[1]/mm, 40, aLine.r/mm, 50, aLine.s, 51, aLine.e]);
 
       //arcs[i] = (aLine);
       //alert('ts= '+ ts);

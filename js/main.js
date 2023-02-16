@@ -13,6 +13,7 @@
           else localStorage.setItem('lineSet', doc.getElementById("Line").value);
       $('#btnRll').removeAttr('disabled');
       doc.getElementById('btnRll').classList.remove('grayb');
+      doc.getElementById('btnRll').classList.remove('grayl');
       if(doc.getElementById('Customer').getAttribute('rll')){
           doc.getElementById('btnRll').classList.add('gre');
       } else doc.getElementById('btnRll').classList.add('grayl');
@@ -79,8 +80,8 @@
 
     $("#btnRll").click(function () {
       doc.getElementById('btnRll').classList.remove('gre');
-      doc.getElementById('btnRll').classList.remove('grayl');
-      doc.getElementById('btnRll').classList.add('grayb');
+      doc.getElementById('btnRll').classList.remove('grayb');
+      doc.getElementById('btnRll').classList.add('grayl');
       var dict = {
         'btnRll': true,
         'Namb': $('#Namber').val()
@@ -90,7 +91,7 @@
 
 
 
-  
+    return;
   }
     init();
 	

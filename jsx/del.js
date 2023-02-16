@@ -13,7 +13,7 @@ function readjustAnchors(p){
 
   // merge the anchor points when the distance between
   // 2 points is within ### square root ### of this value (in point)
-  var minDist = TOLERANCE * mm * 2; 
+  var minDist = TOLERANCE; // * mm; 
 
   // ===================================
   if(p.length < 2) return 1;

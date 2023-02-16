@@ -11,7 +11,7 @@ PMagenta .magenta = 100;
 PMagenta .yellow = 0;
 
 const mm = 72/25.4;
-const TOLERANCE = 0.25;
+const TOLERANCE = 0.5;
 const MIN_ANGLE = 0, // Degrees range for the Tolerance
       MAX_ANGLE = 180, // Degrees range for the Tolerance
       COS_INACCURACY = -0.999999, // Correction of coordinate inaccuracy
@@ -20,7 +20,7 @@ const MIN_ANGLE = 0, // Degrees range for the Tolerance
 var p, op, pnts;
 var docRef = app.activeDocument;
 var layerName = "Knife";
-
+var lazerName = "Laser";
 //var newLayer = docRef.layers.add();
 //    newLayer.name="Laser";
 
@@ -37,6 +37,8 @@ function laser(znamber){
         for(var i = 0; i < docRef.layers[layerName].groupItems.length; i++)
             docRef.layers[layerName].groupItems[i].selected = true;
         
+        for(var i = 0; i < docRef.layers[layerName].compoundPathItems.length; i++)
+            docRef.layers[layerName].compoundPathItems[i].selected = true;
 
     } catch (e) {
         alert("Layer with name - " + layerName + " doesn't exists");
@@ -229,7 +231,7 @@ k = 0;
 
         } else {
           if (j < newPts.length-1) {
-            outPts.push ([0, "LINE", 8, "APS_GEOMETRY", 10, newPts[j].anchor[0]/mm, 20, newPts[j].anchor[1]/mm, 11, newPts[j+1].anchor[0]/mm, 21, newPts[j+1].anchor[1]/mm]);
+            outPts.push ([0, "LINE", 8, lazerName, 10, newPts[j].anchor[0]/mm, 20, newPts[j].anchor[1]/mm, 11, newPts[j+1].anchor[0]/mm, 21, newPts[j+1].anchor[1]/mm]);
 
 /*             getArc([[newPts[j].anchor[0], newPts[j].anchor[1],
                      newPts[j].rightDirection[0], newPts[j].rightDirection[1]],
