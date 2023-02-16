@@ -351,20 +351,24 @@ function getDat(p){ // pathPoint
     var isZeroLHandle2 = (xArr2[0] == xArr2[1]) && (yArr2[0] == yArr2[1]),
         isZeroRHandle2 = (xArr2[1] == xArr2[2]) && (yArr2[1] == yArr2[2]);
   
-    var handlesCos = calcAngleCos(xArr1, yArr1);
-  
+    var handlesCos1 = calcAngleCos(xArr1, yArr1);
+	  var handlesCos2 = calcAngleCos(xArr2, yArr2);
     // Convert Degrees to Radians
     var radians = TOLERANCE * (Math.PI / 180);
   
     // If cos of angle is -1, then angle is 180 degrees 
     //if (point1.pointType === PointType.SMOOTH || point2.pointType === PointType.SMOOTH && Math.round(handlesCos) == COS_180) return 'bezier';
-    if ((isZeroLHandle1 && isZeroRHandle1) && (isZeroLHandle2 && isZeroRHandle2)) return 'flat';
-    if ((isZeroLHandle2) && (isZeroRHandle1)) return 'flat';
-    return 'bezier';
+	//if (Math.round(handlesCos) == COS_180) return 'bezier';
+	if (Math.round(handlesCos1) == COS_180 || Math.round(handlesCos2) == COS_180) return 'bezier';
+
+    //if ((isZeroLHandle1 && isZeroRHandle1) && (isZeroLHandle2 && isZeroRHandle2)) return 'flat';
+    //if ((isZeroLHandle2) && (isZeroRHandle1)) return 'flat';
     //if (isZeroRHandle) return 'r_zero';
     //if (point.pointType === PointType.SMOOTH && Math.round(handlesCos) == COS_180) return 'bezier';
     //if (handlesCos > Math.cos(radians)) return 'corner';
-    //if (point.pointType === PointType.CORNER && handlesCos <= Math.cos(radians)) return 'broken';
+    if (handlesCos1 <= Math.cos(radians)) return 'bezier';
+	if (handlesCos2 <= Math.cos(radians)) return 'bezier';
+	return 'flat';
   }
 
   // Calculate Cos of angle between vectors
