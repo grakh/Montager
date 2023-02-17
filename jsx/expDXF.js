@@ -15,7 +15,8 @@ const TOLERANCE = 0.5;
 const MIN_ANGLE = 0, // Degrees range for the Tolerance
       MAX_ANGLE = 180, // Degrees range for the Tolerance
       COS_INACCURACY = -0.999999, // Correction of coordinate inaccuracy
-      COS_180 = -1;
+      COS_180 = -1,
+      COS_0 = 1;
 
 var p, op, pnts;
 var docRef = app.activeDocument;
@@ -351,34 +352,53 @@ function getDat(p){ // pathPoint
     var isZeroLHandle2 = (xArr2[0] == xArr2[1]) && (yArr2[0] == yArr2[1]),
         isZeroRHandle2 = (xArr2[1] == xArr2[2]) && (yArr2[1] == yArr2[2]);
   
-    var handlesCos1 = calcAngleCos(xArr1, yArr1);
-	  var handlesCos2 = calcAngleCos(xArr2, yArr2);
-    // Convert Degrees to Radians
-    var radians = TOLERANCE * (Math.PI / 180);
-  
-    // If cos of angle is -1, then angle is 180 degrees 
-    //if (point1.pointType === PointType.SMOOTH || point2.pointType === PointType.SMOOTH && Math.round(handlesCos) == COS_180) return 'bezier';
-	//if (Math.round(handlesCos) == COS_180) return 'bezier';
-	if (Math.round(handlesCos1) == COS_180 || Math.round(handlesCos2) == COS_180) return 'bezier';
-
-    //if ((isZeroLHandle1 && isZeroRHandle1) && (isZeroLHandle2 && isZeroRHandle2)) return 'flat';
-    //if ((isZeroLHandle2) && (isZeroRHandle1)) return 'flat';
-    //if (isZeroRHandle) return 'r_zero';
-    //if (point.pointType === PointType.SMOOTH && Math.round(handlesCos) == COS_180) return 'bezier';
-    //if (handlesCos > Math.cos(radians)) return 'corner';
-    if (handlesCos1 <= Math.cos(radians)) return 'bezier';
-	if (handlesCos2 <= Math.cos(radians)) return 'bezier';
-	return 'flat';
+        var handlesCos1 = calcAngleCos(xArr1, yArr1);
+        var handlesCos2 = calcAngleCos(xArr2, yArr2);
+          // Convert Degrees to Radians
+          var radians = TOLERANCE * (Math.PI / 180);
+        var handle1 = getRad2(point1[1], point1[0], point2[0]);
+        var handle2 = getRad2(point2[2], point2[0], point1[0]);
+       // If cos of angle is -1, then angle is 180 degrees 
+        //alert ('p1='+point1[3]+', p2='+point2[3]+'\nhandlesCos1='+handlesCos1+', handlesCos2='+handlesCos2);
+        //alert ('p1='+point1[3]+', xl='+xArr1[0]+', xr='+xArr1[2]+'\nyl='+yArr1[0]+', yr='+yArr1[2]+
+        //	'\np2='+point2[3]+', xl='+xArr2[0]+', xr='+xArr2[2]+'\nyl='+yArr2[0]+', yr='+yArr2[2]);
+        
+          //if (point1[3] === PointType.SMOOTH && Math.round(handlesCos1) == COS_180 || Math.round(handlesCos1) == COS_0) return 'bezier';
+          //if (point2[3] === PointType.SMOOTH && Math.round(handlesCos2) == COS_180 || Math.round(handlesCos2) == COS_0) return 'bezier';
+          //alert ('handle1='+handle1+', handle2='+handle2 +', radians='+radians);
+      
+        if ((isZeroLHandle1 && isZeroRHandle1) && (isZeroLHandle2 && isZeroRHandle2)) return 'flat';
+        if ((isZeroLHandle2) && (isZeroRHandle1)) return 'flat';
+        if (handle1 <= radians) return 'flat';
+        if (handle2 <= radians) return 'flat';
+          
+        //alert ('handlesCos1='+handlesCos1+'\nCOS_180 + radians='+(COS_180 + radians)+'\nCOS_0 - radians='+(COS_0 - radians));
+        //if (point1[3] === PointType.CORNER && handlesCos1 <= Math.cos(radians)) return 'bezier';
+          //if (point2[3] === PointType.CORNER && handlesCos2 <= Math.cos(radians)) return 'bezier';
+          //if ((isZeroLHandle1 && isZeroRHandle1) && (isZeroLHandle2 && isZeroRHandle2)) return 'flat';
+          //if ((isZeroLHandle2) && (isZeroRHandle1)) return 'flat';
+      
+          //if (point1[3] === PointType.CORNER && handlesCos1 <= Math.cos(radians)) return 'flat';
+          //if (point2[3] === PointType.CORNER && handlesCos2 <= Math.cos(radians)) return 'flat';
+          //if (handlesCos1 > Math.cos(radians) || handlesCos2 > Math.cos(radians)) return 'bezier';
+          
+          //if (isZeroRHandle) return 'r_zero';
+          //if (point.pointType === PointType.SMOOTH && Math.round(handlesCos) == COS_180) return 'bezier';
+          //if (handlesCos > Math.cos(radians)) return 'corner';
+          //if (point.pointType === PointType.CORNER && handlesCos <= Math.cos(radians)) return 'broken';
+          return 'bezier';
   }
-
   // Calculate Cos of angle between vectors
   //var radians = tolerance * (Math.PI / 180);
 function calcAngleCos(xArr, yArr) {
-    var leftEdge = Math.sqrt(Math.pow((xArr[0] - xArr[1]), 2) + Math.pow((yArr[0] - yArr[1]), 2));
-    var rightEdge = Math.sqrt(Math.pow((xArr[2] - xArr[1]), 2) + Math.pow((yArr[2] - yArr[1]), 2));
-    var farEdge = Math.sqrt(Math.pow((xArr[0] - xArr[2]), 2) + Math.pow((yArr[0] - yArr[2]), 2));
-    var angleCos = (Math.pow(leftEdge, 2) + Math.pow(rightEdge, 2) - Math.pow(farEdge, 2)) / (2 * leftEdge * rightEdge);
-    return angleCos;
+  var angleCos;
+  var leftEdge = parseFloat(Math.sqrt(Math.pow((xArr[0] - xArr[1]), 2) + Math.pow((yArr[0] - yArr[1]), 2)));
+  var rightEdge = parseFloat(Math.sqrt(Math.pow((xArr[2] - xArr[1]), 2) + Math.pow((yArr[2] - yArr[1]), 2)));
+  var farEdge = parseFloat(Math.sqrt(Math.pow((xArr[0] - xArr[2]), 2) + Math.pow((yArr[0] - yArr[2]), 2)));
+  if (leftEdge == 0 || rightEdge ==0) return 0.0;
+  angleCos = parseFloat((Math.pow(leftEdge, 2) + Math.pow(rightEdge, 2) - Math.pow(farEdge, 2)) / (2 * leftEdge * rightEdge));
+  //alert('l='+leftEdge+', r='+rightEdge+'\nf='+farEdge+', a='+angleCos);
+  return angleCos;
   }
 
 // ------------------------------------------------
