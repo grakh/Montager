@@ -152,7 +152,7 @@ function parseXML() {
     doc.getElementById("GAP").value = xmlDoc.getElementsByTagName("РасстояниеМеждуРучьями")[0] ? (xmlDoc.getElementsByTagName("РасстояниеМеждуРучьями")[0].childNodes[0].nodeValue > 0 ? xmlDoc.getElementsByTagName("РасстояниеМеждуРучьями")[0].childNodes[0].nodeValue : '3' )  : '3';
     doc.getElementById("GAP2").value=xmlDoc.getElementsByTagName("РасстояниеМеждуПовторениями")[0] ? xmlDoc.getElementsByTagName("РасстояниеМеждуПовторениями")[0].childNodes[0].nodeValue : doc.getElementById("Raport").value / doc.getElementById("Repetition").value;    
     doc.getElementById("Knife").value=xmlDoc.getElementsByTagName("ВысотаНожа")[0] ? xmlDoc.getElementsByTagName("ВысотаНожа")[0].childNodes[0].nodeValue : 'не найден';
-    if (doc.getElementById("Knife").value > 0.5) {doc.getElementById("gross").checked = true; 
+    if ((doc.getElementById("Knife").value).split("/")[0] > 0.5) {doc.getElementById("gross").checked = true; 
            localStorage.getItem('gross') > 0 ? doc.getElementById("Line").value = localStorage.getItem('gross') : doc.getElementById("Line").value = 1.1;}
 
 	di(); doc.getElementById("disa").value='1';
@@ -324,7 +324,8 @@ return(null);
 
 function di(){
     d = $('#Raport').val();
-    H = $('#Knife').val();
+    H = (doc.getElementById("Knife").value).split("/")[0];
+    //alert (H);
 	var dis;
     //alert(((d/Math.PI)-0.734)*Math.PI/d);
 	if (doc.getElementById("disa").checked != false){
