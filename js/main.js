@@ -62,6 +62,8 @@
         'micro': doc.getElementById('Customer').getAttribute('micro'),
         'google': doc.getElementById('Customer').getAttribute('google'),
         'perimetr': doc.getElementById('Customer').getAttribute('perimetr'),
+        'eWi': doc.getElementById('Customer').getAttribute('eWi'),
+        'eHi': doc.getElementById('Customer').getAttribute('eHi'),
         'gross': doc.getElementById("gross").checked,
         'colorText': localStorage.getItem('Text'),
         'colorRisk': localStorage.getItem('Risk'),

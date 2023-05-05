@@ -233,29 +233,29 @@ Oporka.strokeDashes = [2,2,2,2];
     angleRB.strokeWidth = 0.1*mm;
     angleRB.filled = false;
 	
-	    LabelW2 = LI.pathItems.add();
-		LabelW2.setEntirePath( Array( Array(11*mm, 12*mm), Array(11*mm, 17*mm)) );
+	  LabelW2 = LI.pathItems.add();
+		LabelW2.setEntirePath( Array( Array(newGroup.left, 12*mm), Array(newGroup.left, 17*mm)) );
 		LabelW2.stroked = true;
 		LabelW2.strokeColor = PRisk;
 		LabelW2.strokeWidth = 0.15*mm;
 		LabelW2.filled = false;
 		
 		LabelW2 = LI.pathItems.add();
-		LabelW2.setEntirePath( Array( Array(Rap*mm-1*mm, 12*mm), Array(Rap*mm-1*mm, 17*mm)) );
+		LabelW2.setEntirePath( Array( Array(newGroup.left+newGroup.width, 12*mm), Array(newGroup.left+newGroup.width, 17*mm)) );
 		LabelW2.stroked = true;
 		LabelW2.strokeColor = PRisk;
 		LabelW2.strokeWidth = 0.15*mm;
 		LabelW2.filled = false;
 		
 		LabelW2 = LI.pathItems.add();
-		LabelW2.setEntirePath( Array( Array(11*mm, WidthForm*mm+12*mm), Array(11*mm, WidthForm*mm+7*mm)) );
+		LabelW2.setEntirePath( Array( Array(newGroup.left, WidthForm*mm+12*mm), Array(newGroup.left, WidthForm*mm+7*mm)) );
 		LabelW2.stroked = true;
 		LabelW2.strokeColor = PRisk;
 		LabelW2.strokeWidth = 0.15*mm;
 		LabelW2.filled = false;
 		
 		LabelW2 = LI.pathItems.add();
-		LabelW2.setEntirePath( Array( Array(Rap*mm-1*mm, WidthForm*mm+12*mm), Array(Rap*mm-1*mm, WidthForm*mm+7*mm)) );
+		LabelW2.setEntirePath( Array( Array(newGroup.left+newGroup.width, WidthForm*mm+12*mm), Array(newGroup.left+newGroup.width, WidthForm*mm+7*mm)) );
 		LabelW2.stroked = true;
 		LabelW2.strokeColor = PRisk;
 		LabelW2.strokeWidth = 0.15*mm;
@@ -357,7 +357,11 @@ var Llog = LI.textFrames.add();
 	 if  (casi!=3) {xEl = SAll[0]; yEl = SAll[1];}
 	
 var LPod = Linfo.textFrames.add();
-    LPod.contents = (""+Dat+" / "+Cust+" / "+parseFloat(parseFloat(xEl).toFixed(2))+"x"+parseFloat(parseFloat(yEl).toFixed(2))+" / ВАЛ Z"+Math.round(parseFloat(sp.Raport/3.175))+" ("+sp.Raport+")"+" / "+Nam+" / "+Ang+Mate + rll); //.split(".").join(" ");
+  if(sp.eWi == 0 || sp.eHi == 0)
+    LPod.contents = (""+Dat+" / "+Cust+" / "+parseFloat(parseFloat(yEl).toFixed(2))+"x"+parseFloat(parseFloat(xEl).toFixed(2))+" / ВАЛ Z"+Math.round(parseFloat(sp.Raport/3.175))+" ("+sp.Raport+")"+" / "+Nam+" / "+Ang+Mate + rll); //.split(".").join(" ");
+  else  
+    LPod.contents = (""+Dat+" / "+Cust+" / "+sp.eWi+"x"+sp.eHi+" / ВАЛ Z"+Math.round(parseFloat(sp.Raport/3.175))+" ("+sp.Raport+")"+" / "+Nam+" / "+Ang+Mate + rll);
+    
     LPod.textRange.characterAttributes.size = 12;
 	LPod.textRange.characterAttributes.tracking = 30;
     //LPod.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;

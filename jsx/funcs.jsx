@@ -91,6 +91,8 @@ doc.getElementById("Customer").setAttribute('micro', '');
 doc.getElementById("Customer").setAttribute('perimetr', '');
 doc.getElementById("Customer").setAttribute('google', '');
 doc.getElementById("Customer").setAttribute('data', '');
+doc.getElementById("Customer").setAttribute('eWi', 0);
+doc.getElementById("Customer").setAttribute('eHi', 0);
 doc.getElementById("less").classList.remove('yel');
 
 
@@ -163,6 +165,10 @@ function parseXML() {
 		$('#GAP2').removeAttr('disabled');
 		PL=true;
 		};
+if (xmlDoc.getElementsByTagName("ДлинаЭлемента")[0])
+        doc.getElementById("Customer").setAttribute('eWi', xmlDoc.getElementsByTagName("ДлинаЭлемента")[0].childNodes[0].nodeValue);
+if (xmlDoc.getElementsByTagName("ШиринаЭлемента")[0])        
+        doc.getElementById("Customer").setAttribute('eHi', xmlDoc.getElementsByTagName("ШиринаЭлемента")[0].childNodes[0].nodeValue);
 
     if (xmlDoc.getElementsByTagName("ЛазернаяЗакалка")[0].childNodes[0].nodeValue =='true') {
             //doc.getElementById("Customer").value +=' /RLL';
