@@ -233,33 +233,7 @@ Oporka.strokeDashes = [2,2,2,2];
     angleRB.strokeWidth = 0.1*mm;
     angleRB.filled = false;
 	
-	  LabelW2 = LI.pathItems.add();
-		LabelW2.setEntirePath( Array( Array(newGroup.left, 12*mm), Array(newGroup.left, 17*mm)) );
-		LabelW2.stroked = true;
-		LabelW2.strokeColor = PRisk;
-		LabelW2.strokeWidth = 0.15*mm;
-		LabelW2.filled = false;
-		
-		LabelW2 = LI.pathItems.add();
-		LabelW2.setEntirePath( Array( Array(newGroup.left+newGroup.width, 12*mm), Array(newGroup.left+newGroup.width, 17*mm)) );
-		LabelW2.stroked = true;
-		LabelW2.strokeColor = PRisk;
-		LabelW2.strokeWidth = 0.15*mm;
-		LabelW2.filled = false;
-		
-		LabelW2 = LI.pathItems.add();
-		LabelW2.setEntirePath( Array( Array(newGroup.left, WidthForm*mm+12*mm), Array(newGroup.left, WidthForm*mm+7*mm)) );
-		LabelW2.stroked = true;
-		LabelW2.strokeColor = PRisk;
-		LabelW2.strokeWidth = 0.15*mm;
-		LabelW2.filled = false;
-		
-		LabelW2 = LI.pathItems.add();
-		LabelW2.setEntirePath( Array( Array(newGroup.left+newGroup.width, WidthForm*mm+12*mm), Array(newGroup.left+newGroup.width, WidthForm*mm+7*mm)) );
-		LabelW2.stroked = true;
-		LabelW2.strokeColor = PRisk;
-		LabelW2.strokeWidth = 0.15*mm;
-		LabelW2.filled = false;
+
 		
 		riskCenter = LI.pathItems.add();
 		riskCenter.setEntirePath( Array( Array(4*mm, WidthForm*mm/2+12*mm), Array(10*mm, WidthForm*mm/2+12*mm)) );
@@ -300,14 +274,14 @@ for (s1=0; s1<=Stre; s1++) {
     LabelSw1.setEntirePath( Array( Array(5*mm, yRisk), Array(10*mm, yRisk)) );
     LabelSw1.stroked = true;
     LabelSw1.strokeColor = PRisk;
-    LabelSw1.strokeWidth = 0.15*mm;
+    LabelSw1.strokeWidth = 0.1*mm;
     LabelSw1.filled = false;
     
     LabelSw2 = RiskGorizont.pathItems.add();
     LabelSw2.setEntirePath( Array( Array(Rap*mm+5*mm, yRisk), Array(Rap*mm, yRisk)) );
     LabelSw2.stroked = true;
     LabelSw2.strokeColor = PRisk;
-    LabelSw2.strokeWidth = 0.15*mm;
+    LabelSw2.strokeWidth = 0.1*mm;
     LabelSw2.filled = false;
     i+=iv;
 }
@@ -351,7 +325,7 @@ var Llog = LI.textFrames.add();
    // Llog.textRange.characterAttributes.strokeWidth = 0.05*mm;
    // Llog.textRange.characterAttributes.filled = false;
 	if (Llog.width > Rap*mm) Llog.width = Rap*mm;
-	Llog.position = [(Rap*mm)/2-(Llog.width/2)+5*mm, Oporka.top-0.1*mm];
+	Llog.position = [(Rap*mm)/2-(Llog.width/2)+5*mm, Oporka.top+0.2*mm];
 
 	//alert(SAll[0],SAll[1]);
 	 if  (casi!=3) {xEl = SAll[0]; yEl = SAll[1];}
@@ -372,7 +346,7 @@ var LPod = Linfo.textFrames.add();
    // LPod.textRange.characterAttributes.filled = false;
    // LPod.textRange.characterAttributes.strokeWidth = 0.05*mm;
     if(!sp.gross) if (LPod.width > Rap*mm) LPod.width = Rap*mm;
-    LPod.position = [(Rap*mm)/2-(LPod.width/2)+5*mm, 17*mm];
+    LPod.position = [(Rap*mm)/2-(LPod.width/2)+5*mm, 16*mm];
     
 var LPod2 = Linfo.textFrames.add();
     LPod2.position = [(Rap*mm)/2-(LPod2.width/2)-38*mm, 11*mm];
@@ -387,7 +361,7 @@ var LPod2 = Linfo.textFrames.add();
   //  LPod2.textRange.characterAttributes.filled = false;
   //  LPod2.textRange.characterAttributes.strokeWidth = 0.05*mm;
 	if (LPod2.width > Rap*mm) LPod2.width = Rap*mm;
-    LPod2.position = [(Rap*mm)/2-(LPod2.width/2)+5*mm, 11*mm];
+    LPod2.position = [(Rap*mm)/2-(LPod2.width/2)+5*mm, 11.3*mm];
     
 if (Distor!=0){   
     
@@ -425,7 +399,9 @@ for (var i=0; i<docRef.selection.length;i++){
 
    
   }
-    
+
+  risk (LI.width); 
+
 //-------------------------REZ--------------------------------- 
     var lineCenter = REZ.pathItems.add();
         lineCenter .setEntirePath( Array( Array(Oporka.left-0.55*mm+Oporka.strokeWidth/2, WidthForm*mm/2+12*mm), Array(Oporka.left+Oporka.width+0.55*mm+Oporka.strokeWidth/2, WidthForm*mm/2+12*mm)) );
@@ -809,7 +785,67 @@ function isLocked (test) {
     }
   }
 }
-	}    
+  } 
+
+function risk (li_wi) {
+
+  LabelW2 = LI.pathItems.add();
+  LabelW2.setEntirePath( Array( Array(newGroup.left+lineOb*mm/2, 11*mm), Array(newGroup.left+lineOb*mm/2, 17*mm)) );
+  LabelW2.stroked = true;
+  LabelW2.strokeColor = PRisk;
+  LabelW2.strokeWidth = 0.15*mm;
+  LabelW2.filled = false;
+  
+  LabelW2 = LI.pathItems.add();
+  LabelW2.setEntirePath( Array( Array(newGroup.left+newGroup.width+lineOb*mm/2, 11*mm), Array(newGroup.left+newGroup.width+lineOb*mm/2, 17*mm)) );
+  LabelW2.stroked = true;
+  LabelW2.strokeColor = PRisk;
+  LabelW2.strokeWidth = 0.15*mm;
+  LabelW2.filled = false;
+  
+  LabelW2 = LI.pathItems.add();
+  LabelW2.setEntirePath( Array( Array(newGroup.left+lineOb*mm/2, WidthForm*mm+13*mm), Array(newGroup.left+lineOb*mm/2, WidthForm*mm+7*mm)) );
+  LabelW2.stroked = true;
+  LabelW2.strokeColor = PRisk;
+  LabelW2.strokeWidth = 0.15*mm;
+  LabelW2.filled = false;
+  
+  LabelW2 = LI.pathItems.add();
+  LabelW2.setEntirePath( Array( Array(newGroup.left+newGroup.width+lineOb*mm/2, WidthForm*mm+13*mm), Array(newGroup.left+newGroup.width+lineOb*mm/2, WidthForm*mm+7*mm)) );
+  LabelW2.stroked = true;
+  LabelW2.strokeColor = PRisk;
+  LabelW2.strokeWidth = 0.15*mm;
+  LabelW2.filled = false;
+//----------
+  LabelSw1 = LI.pathItems.add();
+  LabelSw1.setEntirePath( Array( Array(4*mm, newGroup.top-lineOb*mm/2), Array(9*mm, newGroup.top-lineOb*mm/2)) );
+  LabelSw1.stroked = true;
+  LabelSw1.strokeColor = PRisk;
+  LabelSw1.strokeWidth = 0.15*mm;
+  LabelSw1.filled = false;
+  
+  LabelSw1 = LI.pathItems.add();
+  LabelSw1.setEntirePath( Array( Array(4*mm, newGroup.top-newGroup.height-lineOb*mm/2), Array(9*mm, newGroup.top-newGroup.height-lineOb*mm/2)) );
+  LabelSw1.stroked = true;
+  LabelSw1.strokeColor = PRisk;
+  LabelSw1.strokeWidth = 0.15*mm;
+  LabelSw1.filled = false;
+
+  LabelSw2 = LI.pathItems.add();
+  LabelSw2.setEntirePath( Array( Array(li_wi, newGroup.top-lineOb*mm/2), Array(li_wi-5*mm, newGroup.top-lineOb*mm/2)) );
+  LabelSw2.stroked = true;
+  LabelSw2.strokeColor = PRisk;
+  LabelSw2.strokeWidth = 0.15*mm;
+  LabelSw2.filled = false;
+  
+  LabelSw2 = LI.pathItems.add();
+  LabelSw2.setEntirePath( Array( Array(li_wi, newGroup.top-newGroup.height-lineOb*mm/2), Array(li_wi-5*mm, newGroup.top-newGroup.height-lineOb*mm/2)) );
+  LabelSw2.stroked = true;
+  LabelSw2.strokeColor = PRisk;
+  LabelSw2.strokeWidth = 0.15*mm;
+  LabelSw2.filled = false;
+
+}   
 
 
   docRef = null;
