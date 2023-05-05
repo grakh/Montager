@@ -104,6 +104,24 @@ input[id="GAP2"]{
 	width:60px;
 }
 
+input[id="Knife"]{
+	position: absolute;
+
+	left: 120px;
+    width:80px;
+}
+
+input[id="offset"]{
+	position: absolute;
+	left: 300px;
+	width:20px;
+}
+
+#spOff{
+	position: absolute;
+	left: 210px;
+}
+
 input[name="XYR"]{
 /*float:left;*/
 width:50px;

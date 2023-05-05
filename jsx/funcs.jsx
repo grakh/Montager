@@ -77,6 +77,8 @@ doc.getElementById("Repetition").value = '1';
 doc.getElementById("Streams").value = '1';
 doc.getElementById("GAP").value = '3';
 doc.getElementById("GAP2").value = '';
+doc.getElementById("offset").value = '0';
+doc.getElementById("offset").disabled = true;
 doc.getElementById("Knife").value = '';
 doc.getElementById("Angle").value = '';
 doc.getElementById("Dist").value = '0';
@@ -163,6 +165,7 @@ function parseXML() {
 	if (~doc.getElementById("Material").value.indexOf("Полуротация") || ~doc.getElementById("Material").value.indexOf("Плоская")) {
 		$('#Polurot').removeAttr('disabled'); 
 		$('#GAP2').removeAttr('disabled');
+        $('#offset').removeAttr('disabled');
 		PL=true;
 		};
 if (xmlDoc.getElementsByTagName("ДлинаЭлемента")[0])

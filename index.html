@@ -82,7 +82,9 @@ G A P, mm:
 <div id="LabelTextbox">
 <label>
 Knife, mm:
-<input id="Knife" type="text" value=""><br>
+<input id="Knife" type="text" value="">
+<label id="spOff">; offset, mm:</label>
+<input id="offset" value="0" disabled><br>
 </label>
 </div>
 
@@ -95,6 +97,7 @@ Knife, mm:
         doc.getElementById("Streams").onkeypress = function(e){return !(/[^\d]/.test(String.fromCharCode(e.charCode)))}
         doc.getElementById("GAP").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))}
 		doc.getElementById("GAP2").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))}
+        doc.getElementById("offset").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))}
         doc.getElementById("Knife").onkeypress = function(e){return !(/[^\d\.\ \/\d]/.test(String.fromCharCode(e.charCode)))}
         doc.getElementById("Angle").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))}
 			

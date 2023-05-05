@@ -59,7 +59,7 @@ var Dat= String (''+Da.getDate() +'-'+ (Da.getMonth()+1)+'-'+  Da.getFullYear())
     if (sp.perf != '') {dop += ' / '+sp.perf;}
     if (sp.micro != '') {dop += ' / '+sp.micro;}
     if (sp.google != '') {dop += ' / '+sp.google;}
-
+//alert(parseFloat(sp.offset));
     var perimetr = 0;
         perimetr = sp.perimetr;
 
@@ -368,7 +368,14 @@ if (Distor!=0){
     LI.width *= Distor;
     //docRef.layers["info"].locked = true;
     newGroup.width *= Distor;
-    newGroup.left = 5*mm +(LI.width-newGroup.width-6*mm)/2-lineOb*mm/2.0;
+
+    if (sp.offset != '0'){
+      //newGroup.left = LI.width - newGroup.width - parseFloat(sp.offset)*mm - mm;
+      newGroup.left = (5*mm + parseFloat(sp.offset)*mm) * Distor - lineOb*mm/2.0;
+      //alert(newGroup.left);
+    } else {
+      newGroup.left = 5*mm +(LI.width-newGroup.width-6*mm)/2-lineOb*mm/2.0;
+    }
 /*    
 app.executeMenuCommand('selectall');
 //app.executeMenuCommand('transformscale');
@@ -395,7 +402,7 @@ for (var i=0; i<docRef.selection.length;i++){
 	//Llog.top = WidthForm*mm + 10*mm;
 	//LVector2.top = WidthForm*mm + 8*mm;
 	//LVector4.top = WidthForm*mm + 8*mm;
-    newGroup.left = 5*mm +(LI.width-newGroup.width-6*mm)/2-lineOb*mm/2.0;
+  //newGroup.left = 5*mm +(LI.width-newGroup.width-6*mm)/2-lineOb*mm/2.0;
 
    
   }

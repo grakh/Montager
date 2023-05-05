@@ -55,6 +55,7 @@
         'Knife': Knife,
         'Forms': Forms,
         'Dis': Dis,
+        'offset': doc.getElementById("offset").value,
         'rll': doc.getElementById('Customer').getAttribute('rll'),
         'rez': doc.getElementById('Customer').getAttribute('rez'),
         'perf': doc.getElementById('Customer').getAttribute('perf'),
