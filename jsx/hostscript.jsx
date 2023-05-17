@@ -156,10 +156,10 @@ var PFull = new CMYKColor();
     PFull.magenta = 100; 
     PFull.yellow = 100;
      
- if  (casi==2){if (SAll[1]=='true') {closePath();} el();  Gap2 = Rap/Rep - SAll[1]; elSelect();};
+ if  (casi==2){if (SAll[1]=='true') {closePath();} el();  Gap2 = Rap/Rep - SAll[1]; elSelect(0); recRap(Rap, (SAll[0]*Stre)+(Gapp[0]*Stre)+15); return};
  if  (casi==3){if (SAll[1]=='true') {closePath();} el(); fullSelect();}; 
- if  (casi==0){circ();elSelect();};
- if  (casi==1){rect();elSelect();};
+ if  (casi==0){circ();elSelect(1);};
+ if  (casi==1){rect();elSelect(1);};
  //alert(Polurot);
  if (Polurot!=='') Rap=Polurot;
 
@@ -334,7 +334,7 @@ var LPod = Linfo.textFrames.add();
   if(sp.eWi == 0 || sp.eHi == 0)
     LPod.contents = (""+Dat+" / "+Cust+" / "+parseFloat(parseFloat(yEl).toFixed(2))+"x"+parseFloat(parseFloat(xEl).toFixed(2))+" / ВАЛ Z"+Math.round(parseFloat(sp.Raport/3.175))+" ("+sp.Raport+")"+" / "+Nam+" / "+Ang+Mate + rll); //.split(".").join(" ");
   else  
-    LPod.contents = (""+Dat+" / "+Cust+" / "+sp.eWi+"x"+sp.eHi+" / ВАЛ Z"+Math.round(parseFloat(sp.Raport/3.175))+" ("+sp.Raport+")"+" / "+Nam+" / "+Ang+Mate + rll);
+    LPod.contents = (""+Dat+" / "+Cust+" / "+sp.eHi+"x"+sp.eWi+" / ВАЛ Z"+Math.round(parseFloat(sp.Raport/3.175))+" ("+sp.Raport+")"+" / "+Nam+" / "+Ang+Mate + rll);
     
     LPod.textRange.characterAttributes.size = 12;
 	LPod.textRange.characterAttributes.tracking = 30;
@@ -623,9 +623,11 @@ function selAll(){
   //    alert(parseInt((parseFloat(perimetr)*Distor))+"\n"+parseFloat(parseFloat(iSel).toFixed(1))+"\n"+"Не совпадение длины периметра!\nВозможна двойная дисторция");
  }
     
-function elSelect(){
-    elm.transform(app.getScaleMatrix(-100,100));
-    elm.rotate(-90);
+function elSelect(mirror){
+    if (mirror) { elm.transform(app.getScaleMatrix(-100,100));
+                  elm.rotate(-90);}
+    else elm.rotate(90);
+    
     var i =0;
     var j =0;
     elm.strokeColor = PFull;
@@ -854,6 +856,39 @@ function risk (li_wi) {
 
 }   
 
+
+function recRap (Rap, WidthForm) {
+  var Pr = new CMYKColor(); // text
+    Pr.name = 'PrColor';
+    Pr.black = 0; 
+    Pr.cyan = 100; 
+    Pr.magenta = 0; 
+    Pr.yellow = 100;
+
+  RRap = Linfo.pathItems.rectangle( 12*mm, 5*mm, Rap*mm, -WidthForm*mm);
+  RRap.closed = true;
+  RRap.filled = false;
+  RRap.stroked = true;
+  RRap.strokeColor = Pr;
+  RRap.fillOverprint = false;
+  RRap.strokeWidth = 0.3*mm;
+
+  RR1 = REZ.pathItems.rectangle( -3*mm, -10*mm, Rap*mm+30*mm, -WidthForm*mm-30*mm);
+  RR1.closed = true;
+  RR1.filled = false;
+  RR1.stroked = true;
+  RR1.strokeColor = Pr;
+  RR1.fillOverprint = false;
+  RR1.strokeWidth = 0;
+
+	app.activeDocument.layers["REZ"].hasSelectedArtwork = true;
+	app.activeDocument.fitArtboardToSelectedArt(0);
+	app.activeDocument.selection = null;
+
+  app.activeDocument.layers.getByName('L-Test').remove();
+  app.activeDocument.layers.getByName('REZ').remove();
+
+}
 
   docRef = null;
   delete sp;
