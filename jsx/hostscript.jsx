@@ -285,32 +285,32 @@ for (s1=0; s1<=Stre; s1++) {
     LabelSw2.filled = false;
     i+=iv;
 }
-    
+var offsetVector = 2.5*mm;    
 var LVector1 = LI.groupItems.add();
     LV1 = LVector1.pathItems.add();
-    LV1.setEntirePath( Array( Array(4*mm, WidthLab-5*mm), Array(23*mm, WidthLab-5*mm)) );
+    LV1.setEntirePath( Array( Array(4*mm, WidthLab-5*mm+offsetVector), Array(13*mm, WidthLab-5*mm+offsetVector)) );
     LV1.stroked = true;
     LV1.strokeColor = PRisk;
     LV1.strokeWidth = 0.1*mm;
     LV1.filled = false;
     LV2 = LVector1.pathItems.add();
-    LV2.setEntirePath( Array( Array(20*mm, WidthLab-6*mm), Array(25*mm, WidthLab-5*mm), Array(20*mm, WidthLab-4*mm)) );
+    LV2.setEntirePath( Array( Array(10*mm, WidthLab-6*mm+offsetVector), Array(15*mm, WidthLab-5*mm+offsetVector), Array(10*mm, WidthLab-4*mm+offsetVector)) );
     LV2.stroked = true;
     LV2.strokeColor = PRisk;
     LV2.strokeWidth = 0.1*mm;
     LV2.filled = false;
 
 var LVector2 = LVector1.duplicate();
-    LVector2.top = Oporka.top-1*mm;
+    LVector2.top = Oporka.top-1*mm-offsetVector;
     
 var LVector3 = LVector1.duplicate();
     LVector3.rotate(180);
-    LVector3.left = Rap*mm-15*mm;
+    LVector3.left = Rap*mm-5*mm;
     
 var LVector4 = LVector1.duplicate();
     LVector4.rotate(180);
-    LVector4.left = Rap*mm-15*mm;
-    LVector4.top = Oporka.top-1*mm;
+    LVector4.left = Rap*mm-5*mm;
+    LVector4.top = Oporka.top-1*mm-offsetVector;
 
 var Llog = LI.textFrames.add();
     Llog.position = [(Rap*mm)/2-50*mm, Oporka.top];
@@ -349,13 +349,13 @@ var _str ='';
    // LPod.textRange.characterAttributes.filled = false;
    // LPod.textRange.characterAttributes.strokeWidth = 0.05*mm;
     //if(!sp.gross) if (LPod.width > Rap*mm) LPod.width = Rap*mm;
-    if (LPod.width > Rap*mm) {
+    if (LPod.width > (Rap*mm)) {
       _str = LPod.contents;
       LPod.contents = LPod.contents.replace(/@/g, "\n");
       LPod.contents = LPod.contents.replace(/\|/g, "/");
       topPos = 5.3*mm;
      
-      if (LPod.width > Rap*mm) {
+      if (LPod.width > (Rap*mm)) {
         LPod.contents = _str;
         LPod.contents = LPod.contents.replace(/\|/g, "\n");
         LPod.contents = LPod.contents.replace(/@/g, "/");

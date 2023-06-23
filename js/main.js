@@ -90,6 +90,7 @@
         'Namb': $('#Namber').val()
       };
       csInterface.evalScript('sayHello('+JSON.stringify(dict)+')'); 
+      csInterface = null;
     });
 
 
