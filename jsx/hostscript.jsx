@@ -331,22 +331,38 @@ var Llog = LI.textFrames.add();
 	 if  (casi!=3) {xEl = SAll[0]; yEl = SAll[1];}
 	
 var LPod = Linfo.textFrames.add();
+var rQ = " | ВАЛ Z"+Math.round(parseFloat(sp.Raport/3.175))+" ("+sp.Raport+")";
+var topPos = 0;
+var _str ='';
+    if (Plosk) rQ = "";
   if(sp.eWi == 0 || sp.eHi == 0)
-    LPod.contents = (""+Dat+" / "+Cust+" / "+parseFloat(parseFloat(yEl).toFixed(2))+"x"+parseFloat(parseFloat(xEl).toFixed(2))+" / ВАЛ Z"+Math.round(parseFloat(sp.Raport/3.175))+" ("+sp.Raport+")"+" / "+Nam+" / "+Ang+Mate + rll); //.split(".").join(" ");
-  else  
-    LPod.contents = (""+Dat+" / "+Cust+" / "+sp.eHi+"x"+sp.eWi+" / ВАЛ Z"+Math.round(parseFloat(sp.Raport/3.175))+" ("+sp.Raport+")"+" / "+Nam+" / "+Ang+Mate + rll);
-    
+    LPod.contents = (""+Dat+" / "+Cust+" @ "+parseFloat(parseFloat(xEl).toFixed(2))+"x"+parseFloat(parseFloat(yEl).toFixed(2))+rQ+" / "+Nam+" / "+Ang+Mate + rll); //.split(".").join(" ");
+  else LPod.contents = (""+Dat+" / "+Cust+" @ "+sp.eHi+"x"+sp.eWi+rQ+" / "+Nam+" / "+Ang+Mate + rll);
+  
     LPod.textRange.characterAttributes.size = 12;
 	LPod.textRange.characterAttributes.tracking = 30;
-    //LPod.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
+    LPod.textRange.paragraphAttributes.justification = Justification.CENTER;
     LPod.textRange.characterAttributes.textFont = app.textFonts.getByName(fonts);
     LPod.textRange.characterAttributes.fillColor = PLabel;
    // LPod.textRange.characterAttributes.strokeColor = PLabel;
    // LPod.textRange.characterAttributes.stroked = true;
    // LPod.textRange.characterAttributes.filled = false;
    // LPod.textRange.characterAttributes.strokeWidth = 0.05*mm;
-    if(!sp.gross) if (LPod.width > Rap*mm) LPod.width = Rap*mm;
-    LPod.position = [(Rap*mm)/2-(LPod.width/2)+5*mm, 16*mm];
+    //if(!sp.gross) if (LPod.width > Rap*mm) LPod.width = Rap*mm;
+    if (LPod.width > Rap*mm) {
+      _str = LPod.contents;
+      LPod.contents = LPod.contents.replace(/@/g, "\n");
+      LPod.contents = LPod.contents.replace(/\|/g, "/");
+      topPos = 5.3*mm;
+     
+      if (LPod.width > Rap*mm) {
+        LPod.contents = _str;
+        LPod.contents = LPod.contents.replace(/\|/g, "\n");
+        LPod.contents = LPod.contents.replace(/@/g, "/");
+        topPos = 10.6*mm;
+                          }
+    } else LPod.contents = LPod.contents.replace(/@|\|/g, "/");
+    LPod.position = [(Rap*mm)/2-(LPod.width/2)+5*mm, 16*mm + topPos];
     
 var LPod2 = Linfo.textFrames.add();
     LPod2.position = [(Rap*mm)/2-(LPod2.width/2)-38*mm, 11*mm];
@@ -402,7 +418,7 @@ for (var i=0; i<docRef.selection.length;i++){
 	//Llog.top = WidthForm*mm + 10*mm;
 	//LVector2.top = WidthForm*mm + 8*mm;
 	//LVector4.top = WidthForm*mm + 8*mm;
-  //newGroup.left = 5*mm +(LI.width-newGroup.width-6*mm)/2-lineOb*mm/2.0;
+  if (Plosk) newGroup.left = 5*mm +(LI.width-newGroup.width-6*mm)/2-lineOb*mm/2.0;
 
    
   }
