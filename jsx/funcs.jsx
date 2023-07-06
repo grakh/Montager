@@ -87,6 +87,7 @@ doc.getElementById("bot").disabled = false;
 doc.getElementById("GAP2").disabled = true;
 doc.getElementById("disa").checked = true;
 doc.getElementById("Customer").setAttribute('rll', '');
+doc.getElementById("Customer").setAttribute('raa', '');
 doc.getElementById("Customer").setAttribute('rez', '');
 doc.getElementById("Customer").setAttribute('perf', '');
 doc.getElementById("Customer").setAttribute('micro', '');
@@ -177,6 +178,12 @@ if (xmlDoc.getElementsByTagName("ШиринаЭлемента")[0])
             //doc.getElementById("Customer").value +=' /RLL';
             doc.getElementById("Customer").setAttribute('rll', 'RLL');
             doc.getElementById("comm").value +='== RLL =='
+        };
+
+    if (xmlDoc.getElementsByTagName("АнтиадгезионноеПокрытие")[0].childNodes[0].nodeValue =='true') {
+            //doc.getElementById("Customer").value +=' /RLL';
+            doc.getElementById("Customer").setAttribute('raa', 'RAA');
+            doc.getElementById("comm").value +='-- RAA --'
         };
     if (xmlDoc.getElementsByTagName("КромкаМенее2ммОтКраяШтампа")[0].childNodes[0].nodeValue =='true') {
             doc.getElementById("Customer").setAttribute('rez', 'Фигурная подрезка!');

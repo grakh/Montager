@@ -57,6 +57,7 @@
         'Dis': Dis,
         'offset': doc.getElementById("offset").value,
         'rll': doc.getElementById('Customer').getAttribute('rll'),
+        'raa': doc.getElementById('Customer').getAttribute('raa'),
         'rez': doc.getElementById('Customer').getAttribute('rez'),
         'perf': doc.getElementById('Customer').getAttribute('perf'),
         'data': doc.getElementById('Customer').getAttribute('data'),

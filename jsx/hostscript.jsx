@@ -51,10 +51,11 @@ var Dat= String (''+Da.getDate() +'-'+ (Da.getMonth()+1)+'-'+  Da.getFullYear())
 //app.bringToFront();
     //alert("Namber "+form[10]);
     var dop='';
-    var rll='';
+    var rll='', raa='';
     var Nam = sp.Namber;
     var Cust = sp.Customer;
     if (sp.rll != '') {dop = rll = ' / '+sp.rll;}
+    if (sp.raa != '') {dop += raa = ' / '+sp.raa;}
     if (sp.rez != '') {dop += ' / '+sp.rez;}
     if (sp.perf != '') {dop += ' / '+sp.perf;}
     if (sp.micro != '') {dop += ' / '+sp.micro;}
@@ -336,8 +337,8 @@ var topPos = 1;
 var _str ='';
     if (Plosk) rQ = "";
   if(sp.eWi == 0 || sp.eHi == 0)
-    LPod.contents = (""+Dat+" / "+Cust+" @ "+parseFloat(parseFloat(yEl).toFixed(2))+"x"+parseFloat(parseFloat(xEl).toFixed(2))+rQ+" / "+Nam+" / "+Ang+Mate + rll); //.split(".").join(" ");
-  else LPod.contents = (""+Dat+" / "+Cust+" @ "+sp.eWi+"x"+sp.eHi+rQ+" / "+Nam+" / "+Ang+Mate + rll);
+    LPod.contents = (""+Dat+" / "+Cust+" @ "+parseFloat(parseFloat(yEl).toFixed(2))+"x"+parseFloat(parseFloat(xEl).toFixed(2))+rQ+" / "+Nam+" / "+Ang+Mate + rll + raa); //.split(".").join(" ");
+  else LPod.contents = (""+Dat+" / "+Cust+" @ "+sp.eWi+"x"+sp.eHi+rQ+" / "+Nam+" / "+Ang+Mate + rll + raa);
   
     LPod.textRange.characterAttributes.size = 12;
 	LPod.textRange.characterAttributes.tracking = 30;
