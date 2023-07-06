@@ -259,7 +259,7 @@ var i = 0, yRisk = 0, yCompensation=0;
       //alert(newGroup.height/mm+"\n"+WidthForm+"\n"+yCompensation);
       //alert(yCompensation);
     }
-
+//---- Metki po ruchym
 for (s1=0; s1<=Stre; s1++) {
   //alert(WidthLab+'  '+i+'  '+iv);
 
@@ -285,7 +285,7 @@ for (s1=0; s1<=Stre; s1++) {
     LabelSw2.filled = false;
     i+=iv;
 }
-var offsetVector = 2.5*mm;    
+var offsetVector = 0*mm;    
 var LVector1 = LI.groupItems.add();
     LV1 = LVector1.pathItems.add();
     LV1.setEntirePath( Array( Array(4*mm, WidthLab-5*mm+offsetVector), Array(13*mm, WidthLab-5*mm+offsetVector)) );
@@ -300,16 +300,16 @@ var LVector1 = LI.groupItems.add();
     LV2.strokeWidth = 0.1*mm;
     LV2.filled = false;
 
-var LVector2 = LVector1.duplicate();
-    LVector2.top = Oporka.top-1*mm-offsetVector;
-    
-var LVector3 = LVector1.duplicate();
+//var LVector2 = LVector1.duplicate();
+    LVector1.top = Oporka.top-1*mm-offsetVector;
+    LVector1.left = 11*mm;
+/* var LVector3 = LVector1.duplicate();
     LVector3.rotate(180);
-    LVector3.left = Rap*mm-5*mm;
+    LVector3.left = Rap*mm-5*mm; */
     
 var LVector4 = LVector1.duplicate();
     LVector4.rotate(180);
-    LVector4.left = Rap*mm-5*mm;
+    LVector4.left = Rap*mm-12*mm;
     LVector4.top = Oporka.top-1*mm-offsetVector;
 
 var Llog = LI.textFrames.add();
@@ -332,12 +332,12 @@ var Llog = LI.textFrames.add();
 	
 var LPod = Linfo.textFrames.add();
 var rQ = " | ВАЛ Z"+Math.round(parseFloat(sp.Raport/3.175))+" ("+sp.Raport+")";
-var topPos = 0;
+var topPos = 1;
 var _str ='';
     if (Plosk) rQ = "";
   if(sp.eWi == 0 || sp.eHi == 0)
-    LPod.contents = (""+Dat+" / "+Cust+" @ "+parseFloat(parseFloat(xEl).toFixed(2))+"x"+parseFloat(parseFloat(yEl).toFixed(2))+rQ+" / "+Nam+" / "+Ang+Mate + rll); //.split(".").join(" ");
-  else LPod.contents = (""+Dat+" / "+Cust+" @ "+sp.eHi+"x"+sp.eWi+rQ+" / "+Nam+" / "+Ang+Mate + rll);
+    LPod.contents = (""+Dat+" / "+Cust+" @ "+parseFloat(parseFloat(yEl).toFixed(2))+"x"+parseFloat(parseFloat(xEl).toFixed(2))+rQ+" / "+Nam+" / "+Ang+Mate + rll); //.split(".").join(" ");
+  else LPod.contents = (""+Dat+" / "+Cust+" @ "+sp.eWi+"x"+sp.eHi+rQ+" / "+Nam+" / "+Ang+Mate + rll);
   
     LPod.textRange.characterAttributes.size = 12;
 	LPod.textRange.characterAttributes.tracking = 30;
@@ -353,13 +353,13 @@ var _str ='';
       _str = LPod.contents;
       LPod.contents = LPod.contents.replace(/@/g, "\n");
       LPod.contents = LPod.contents.replace(/\|/g, "/");
-      topPos = 5.3*mm;
+      topPos = 5.5*mm;
      
       if (LPod.width > (Rap*mm)) {
         LPod.contents = _str;
         LPod.contents = LPod.contents.replace(/\|/g, "\n");
         LPod.contents = LPod.contents.replace(/@/g, "/");
-        topPos = 10.6*mm;
+        topPos = 10.5*mm;
                           }
     } else LPod.contents = LPod.contents.replace(/@|\|/g, "/");
     LPod.position = [(Rap*mm)/2-(LPod.width/2)+5*mm, 16*mm + topPos];
@@ -818,56 +818,56 @@ function risk (li_wi) {
   LabelW2.setEntirePath( Array( Array(newGroup.left+lineOb*mm/2, 11*mm), Array(newGroup.left+lineOb*mm/2, 17*mm)) );
   LabelW2.stroked = true;
   LabelW2.strokeColor = PRisk;
-  LabelW2.strokeWidth = 0.15*mm;
+  LabelW2.strokeWidth = 0.1*mm;
   LabelW2.filled = false;
   
   LabelW2 = LI.pathItems.add();
   LabelW2.setEntirePath( Array( Array(newGroup.left+newGroup.width+lineOb*mm/2, 11*mm), Array(newGroup.left+newGroup.width+lineOb*mm/2, 17*mm)) );
   LabelW2.stroked = true;
   LabelW2.strokeColor = PRisk;
-  LabelW2.strokeWidth = 0.15*mm;
+  LabelW2.strokeWidth = 0.1*mm;
   LabelW2.filled = false;
   
   LabelW2 = LI.pathItems.add();
   LabelW2.setEntirePath( Array( Array(newGroup.left+lineOb*mm/2, WidthForm*mm+13*mm), Array(newGroup.left+lineOb*mm/2, WidthForm*mm+7*mm)) );
   LabelW2.stroked = true;
   LabelW2.strokeColor = PRisk;
-  LabelW2.strokeWidth = 0.15*mm;
+  LabelW2.strokeWidth = 0.1*mm;
   LabelW2.filled = false;
   
   LabelW2 = LI.pathItems.add();
   LabelW2.setEntirePath( Array( Array(newGroup.left+newGroup.width+lineOb*mm/2, WidthForm*mm+13*mm), Array(newGroup.left+newGroup.width+lineOb*mm/2, WidthForm*mm+7*mm)) );
   LabelW2.stroked = true;
   LabelW2.strokeColor = PRisk;
-  LabelW2.strokeWidth = 0.15*mm;
+  LabelW2.strokeWidth = 0.1*mm;
   LabelW2.filled = false;
 //----------
   LabelSw1 = LI.pathItems.add();
   LabelSw1.setEntirePath( Array( Array(4*mm, newGroup.top-lineOb*mm/2), Array(9*mm, newGroup.top-lineOb*mm/2)) );
   LabelSw1.stroked = true;
   LabelSw1.strokeColor = PRisk;
-  LabelSw1.strokeWidth = 0.15*mm;
+  LabelSw1.strokeWidth = 0.1*mm;
   LabelSw1.filled = false;
   
   LabelSw1 = LI.pathItems.add();
   LabelSw1.setEntirePath( Array( Array(4*mm, newGroup.top-newGroup.height-lineOb*mm/2), Array(9*mm, newGroup.top-newGroup.height-lineOb*mm/2)) );
   LabelSw1.stroked = true;
   LabelSw1.strokeColor = PRisk;
-  LabelSw1.strokeWidth = 0.15*mm;
+  LabelSw1.strokeWidth = 0.1*mm;
   LabelSw1.filled = false;
 
   LabelSw2 = LI.pathItems.add();
   LabelSw2.setEntirePath( Array( Array(li_wi, newGroup.top-lineOb*mm/2), Array(li_wi-5*mm, newGroup.top-lineOb*mm/2)) );
   LabelSw2.stroked = true;
   LabelSw2.strokeColor = PRisk;
-  LabelSw2.strokeWidth = 0.15*mm;
+  LabelSw2.strokeWidth = 0.1*mm;
   LabelSw2.filled = false;
   
   LabelSw2 = LI.pathItems.add();
   LabelSw2.setEntirePath( Array( Array(li_wi, newGroup.top-newGroup.height-lineOb*mm/2), Array(li_wi-5*mm, newGroup.top-newGroup.height-lineOb*mm/2)) );
   LabelSw2.stroked = true;
   LabelSw2.strokeColor = PRisk;
-  LabelSw2.strokeWidth = 0.15*mm;
+  LabelSw2.strokeWidth = 0.1*mm;
   LabelSw2.filled = false;
 
 }   
