@@ -21,31 +21,33 @@
 
 <div id="LabelTextbox">
 <label>
-Order number:
-<button class="btnXml" id="xml" onclick="fxml()">:XML</button>
+Номер заказа:
 <input id="Namber" type="text" value=""><br>
 </label>
+<button class="btnXml" id="xml" onclick="fxml()">:XML</button>
+<button class="btnXml" id="ipt" onclick="inFold(doc.getElementById('Namber').value) "><img id="folder" src="icons/box.png"/></button>
+<button class="btnXml grayl" id="inp" disabled><img id="saves" src="icons/sav.png"/></button>
 </div>
     
 <div id="LabelTextbox">
 <label>
-Customer:
+Заказчик:
 <input id="Customer" type="text" rll="" raa="" rez="" perf="" micro="" google="" perimetr="" eWi="0" eHi="0"><br>
 </label>
 </div>
     
 <div id="LabelTextbox2">
 <label>
-Angle:
+Угол:
 <input id="Angle"  value="">
-°, type cut:
+°, тип:
 <input id="Material"  value=""><br>
 </label>
 </div>
 
 <div id="LabelTextbox">
 <label>
-Raport, mm:
+Раппорт, mm:
 <input id="Raport" type="text" value="" OnChange="di()">
 <span id = "RY">,Y</span>
 <input id="PolurotY"  value="">
@@ -58,14 +60,14 @@ Raport, mm:
 
 <div id="LabelTextbox">
 <label>
-Repetition:
+Повторений:
 <input id="Repetition" type="text" value="1"><br>
 </label>
 </div>
 
 <div id="LabelTextbox">
 <label>
-Streams:
+Ручьев:
 <input id="Streams" type="text" value="1"><br>
 </label>
 </div>
@@ -81,16 +83,18 @@ G A P, mm:
     
 <div id="LabelTextbox">
 <label>
-Knife, mm:
+Высота, mm:
 <input id="Knife" type="text" value="">
-<label id="spOff">; offset, mm:</label>
+<label id="spOff">; смещение:</label>
 <input id="offset" value="0" disabled><br>
 </label>
 </div>
 
     <script>
         doc.getElementById("Namber").onkeypress = function(e){return (/\d+(\.\d)?/.test(String.fromCharCode(e.charCode)))}
-        doc.getElementById("Namber").onkeypress = function(e){return (doc.getElementById("bot").setAttribute("disabled", "disabled"), doc.getElementById("btnRll").setAttribute("disabled", "disabled"))}
+        doc.getElementById("Namber").onkeypress = function(e){return (doc.getElementById("bot").setAttribute("disabled", "disabled"),
+            doc.getElementById("btnRll").setAttribute("disabled", "disabled"), doc.getElementById("inp").setAttribute("disabled", "disabled"),
+            doc.getElementById('inp').classList.add('grayl') )}
         doc.getElementById("Raport").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))}
 		doc.getElementById("Polurot").onkeypress = function(e){return !(/[^\d\.\d]/.test(String.fromCharCode(e.charCode)))}
         doc.getElementById("Repetition").onkeypress = function(e){return !(/[^\d]/.test(String.fromCharCode(e.charCode)))}
@@ -148,7 +152,7 @@ Diameter, mm: D1:
  Distortion: <input type="checkbox" id = "disa" name="ch" class="chk" value="1" checked="checked" />
 <input id="Dist" value="0">
 </label>
-<span id = "angle">Angles less 0.6: <input id = "less" value="0" disabled></span>
+<span id = "angleless">Angles less 0.6: <input id = "less" value="0" disabled></span>
 
 </div>   
     <hr>
@@ -187,7 +191,7 @@ Diameter, mm: D1:
     </script>
 
 <div id="button">
-    <button id = "bot" class="button" onClick="subm()" disabled>Run code</button>
+    <button id = "bot" class="button" onClick="" disabled>Run code</button>
 </div>
 
 <div id="btnR">
@@ -199,7 +203,7 @@ Diameter, mm: D1:
 </div>
 
 <div id='manager'>
-    Manager: 
+    Менеджер: 
 </div>
 </div>
 

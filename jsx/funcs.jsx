@@ -48,6 +48,25 @@ function set(){
     window.location.href = 'index.html';
 }
 
+function inFold(namber){
+    //alert('VBS');
+    //window.open('infolder://W:');
+    //$.evalFile(new File("C:\\Windows\\explorer.exe"));
+    //var sct = 'Din WShShell\nSet WshShell=WScript.CreateObject("WScript.Shell")\nWshShell.Run"%windir%\\notepad"&WScript.ScriptFullName,0,true';
+    //var sct = 'Din WShShell\rSet WshShell=WScript.CreateObject("WScript.Shell")\rWshShell.Run"C:\\Windows\\explorer.exe",0,true';
+    //app.doScript('MsgBox \"Adding a tag.\"', ScriptLanguage.visualBasic);
+    //var vbsFile = new File("C:\\Temp\\test.vbs");
+    //vbsFile.execute() ;
+   //gUserName = app.doScript(getUserCodeStringVB, ScriptLanguage.visualBasic);
+   //prog="C:/Windows/explorer.exe";
+   //WSH = new ActiveXObject("WScript.Shell");
+   //WSH.run(prog);
+   //parent.location = ('http://127.0.0.1:8081/'+namber);
+   var url = 'http://127.0.0.1:8081/'+namber;
+   var xhr = new XMLHttpRequest();
+   xhr.open('GET', url, true);
+   xhr.send();
+}
 
 function fxml(){
 var x = doc.getElementById("Namber").value;
@@ -65,6 +84,8 @@ doc.getElementById("gross").checked = false;
 $('#btnRll').removeAttr('disabled');
 doc.getElementById('btnRll').classList.add('grayl');        
 //localStorage.removeItem('lineSet');
+$('#inp').removeAttr('disabled');
+doc.getElementById('inp').classList.remove('grayl');
 
 path = '\\\\storage\\zakaz\\'+x.substr (0, x.length-3)+'000-'+x.substr (0, x.length-3)+'999\\'+x+'\\XML\\specification_'+x+'.xml';
 //alert(path);

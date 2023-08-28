@@ -78,7 +78,7 @@
         //alert(doc.getElementById('Customer').getAttribute('rez'));  
  
       csInterface.evalScript('sayHello('+JSON.stringify(dict)+')'); 
-           
+      //csInterface.closeExtension();     
         //csInterface.evalScript('sayHello("'+Namber+';'+Customer+';'+Raport+';'+Repetition+';'+Streams+';'+GAP+';'+casing+';'+Dis+';'+Material+';'+Knife+';'+Forms+'")');
     });
 
@@ -91,10 +91,16 @@
         'Namb': $('#Namber').val()
       };
       csInterface.evalScript('sayHello('+JSON.stringify(dict)+')'); 
-      //csInterface = null;
+  
     });
 
+    $("#inp").click(function () {
+      csInterface.evalScript('saves('+$('#Namber').val()+')'); 
+    });
 
+    $("#ipt").click(function () {
+      csInterface.evalFile(new File("C:\\Program Files\\Adobe\\Adobe Illustrator CC 2017\\CEP\\extensions\\ru.list.don'\\infolder.bat")); 
+    });
 
     return;
   }

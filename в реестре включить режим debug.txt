@@ -1,1 +1,2 @@
-file deb.reg
+запустить install.bat
+для работы кнопки Input - запустить server.pyw

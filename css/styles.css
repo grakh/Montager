@@ -8,6 +8,7 @@ margin:0px;
 padding:0px;
 width:350px;
 height:350px;
+color: rgb(211, 211, 208);
 }
 
 div{
@@ -38,7 +39,7 @@ color: red;
 		width:60px;
 	}
 
-#angle{
+#angleless{
 		float:right;
 			position: absolute;
 			left: 190px;
@@ -59,7 +60,7 @@ input[id="Namber"]{
 	position: absolute;
 	top: 9px;
 	left: 120px;
-    width:150px;
+    width:80px;
 }
 
 input[id="Raport"]{
@@ -139,7 +140,7 @@ width:50px;
 
 input[id="Angle"]{
 
-margin-left:65px;
+margin-left:70px;
 width:30px;
 }
 
@@ -152,7 +153,7 @@ width:30px;
 input[id="Material"]{
 
 
-width:80px;
+width:110px;
 }
 
 
@@ -236,7 +237,7 @@ height:8%;
 	}
 
 #manager{
-	margin-top: 60px;
+	margin-top: 40px;
 	padding-left:7px;
 	}
 
@@ -426,40 +427,45 @@ input[type="radio"]:focus + span {
     border: 2px solid #008CBA;
 }
 
-.button:hover {
-    background-color: #008CBA;
-    color: white;
-}
 
 .btnXml{
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
+    background-color: yellow; /* Green */
+    border: 2px solid #008CBA;
+    color: black;
     padding: 5px 5px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 8px;
-    margin-right:10px;
     /* #margin: 0px 0px; */
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
     cursor: pointer;
     position:absolute;
-    margin-left:178px;
-    margin-top:-2px;
+    margin-left:200px;
+    margin-top:-21px;
 }
 
-.btnXml{
-    background-color: yellow; 
-    color: black; 
-    border: 2px solid #008CBA;
-}
-
-.btnXml:hover {
+#inp:hover, #xml:hover, #ipt:hover {
     background-color: #008CBA;
     color: white;
+
 }
+
+
+#ipt{
+	position:absolute;
+    margin-left:247px;
+
+}
+
+#inp{
+	position:absolute;
+    margin-left:286px;
+
+}
+
+
 
 .checkboxFour{
     /* #text-align:center; */
@@ -491,6 +497,23 @@ margin-left:-33px;
 padding-right:10px;
 }
 
+#folder{
+	/*background-color: greenyellow; /* Green */
+	margin: -1px;
+	padding: 0;
+	padding: 0;
+	width:20px;
+	height:20px;
+	}
+
+#saves{
+		/*background-color: greenyellow; /* Green */
+	margin: -1px;
+	padding: 0;
+	width:20px;
+	height:20px;
+	}
+
 #Forms{
 margin-bottom:20px;
 }
@@ -514,11 +537,12 @@ padding-left:44px;
 #btnSet{
 	background-color: gray;
 	border: none;
+	margin-left:180px;
 	padding: 5px 5px;
 }
 
 #btnS{
-	margin-top:-40px;
+	margin-top:-23px;
 	margin-left:140px;
 	z-index: 2;
 }

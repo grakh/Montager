@@ -1,6 +1,17 @@
 ﻿/*jslint vars: true, plusplus: true, devel: true, nomen: true, regexp: true, indent: 4, maxerr: 50 */
 /*global $, Folder*/
 
+function saves(namb) {
+
+//alert(app.activeDocument.fullName);
+var n = ""+namb;
+//alert(n.length);
+var pathNamb = "\\\\storage\\zakaz\\" + n.substring(0, n.length-3) + "000-" + n.substring(0, n.length-3) + "999\\" + n + "\\maket\\" + n;
+//alert(pathNamb);
+app.activeDocument.saveAs(new File(pathNamb));//,  SaveOptions.PROMPTTOSAVECHANGES);
+    return;
+  };
+
 
 function sayHello(sp) {
 
@@ -326,19 +337,19 @@ var Llog = LI.textFrames.add();
    // Llog.textRange.characterAttributes.strokeWidth = 0.05*mm;
    // Llog.textRange.characterAttributes.filled = false;
 	if (Llog.width > Rap*mm) Llog.width = Rap*mm;
-	Llog.position = [(Rap*mm)/2-(Llog.width/2)+5*mm, Oporka.top+0.2*mm];
+	Llog.position = [(Rap*mm)/2-(Llog.width/2)+5*mm, Oporka.top-0.1*mm];
 
 	//alert(SAll[0],SAll[1]);
 	 if  (casi!=3) {xEl = SAll[0]; yEl = SAll[1];}
 	
 var LPod = Linfo.textFrames.add();
 var rQ = " | ВАЛ Z"+Math.round(parseFloat(sp.Raport/3.175))+" ("+sp.Raport+")";
-var topPos = 1;
+var topPos = 1*mm;
 var _str ='';
     if (Plosk) rQ = "";
   if(sp.eWi == 0 || sp.eHi == 0)
-    LPod.contents = (""+Dat+" / "+Cust+" @ "+parseFloat(parseFloat(yEl).toFixed(2))+"x"+parseFloat(parseFloat(xEl).toFixed(2))+rQ+" / "+Nam+" / "+Ang+Mate + rll + raa); //.split(".").join(" ");
-  else LPod.contents = (""+Dat+" / "+Cust+" @ "+sp.eWi+"x"+sp.eHi+rQ+" / "+Nam+" / "+Ang+Mate + rll + raa);
+    LPod.contents = (""+Dat+" / "+Cust+" @ "+parseFloat(parseFloat(xEl).toFixed(2))+"x"+parseFloat(parseFloat(yEl).toFixed(2))+rQ+" / "+Nam+" / "+Ang+Mate + rll + raa); //.split(".").join(" ");
+  else LPod.contents = (""+Dat+" / "+Cust+" @ "+sp.eHi+"x"+sp.eWi+rQ+" / "+Nam+" / "+Ang+Mate + rll + raa);
   
     LPod.textRange.characterAttributes.size = 12;
 	LPod.textRange.characterAttributes.tracking = 30;
