@@ -3,12 +3,23 @@
 
 function saves(namb) {
 
+  //alert(Math.round(activeDocument.layers["Knife"].groupItems[0].pathItems[0].strokeColor.yellow));
+  //alert(Math.round(activeDocument.layers["Knife"].pathItems.length));
+  //alert(Math.round(activeDocument.layers["Knife"].groupItems.length));
+  if (activeDocument.layers["Knife"].groupItems.length) 
+    if(Math.round(activeDocument.layers["Knife"].groupItems[0].pathItems[0].strokeColor.yellow) != 100)
+      alert("Проверить цветность элементов нет 100% цвета"); else ;
+  else if (activeDocument.layers["Knife"].pathItems.length > 2)
+    if (Math.round(activeDocument.layers["Knife"].pathItems[3].strokeColor.yellow) != 100)
+      alert("Проверить цветность элементов нет 100% цвета");
 //alert(app.activeDocument.fullName);
 var n = ""+namb;
 //alert(n.length);
 var pathNamb = "\\\\storage\\zakaz\\" + n.substring(0, n.length-3) + "000-" + n.substring(0, n.length-3) + "999\\" + n + "\\maket\\" + n;
 //alert(pathNamb);
-app.activeDocument.saveAs(new File(pathNamb));//,  SaveOptions.PROMPTTOSAVECHANGES);
+var saveOptions = new IllustratorSaveOptions();
+saveOptions.compatibility = Compatibility.ILLUSTRATOR17;
+app.activeDocument.saveAs(new File(pathNamb), saveOptions);//,  SaveOptions.PROMPTTOSAVECHANGES);
     return;
   };
 
@@ -549,7 +560,7 @@ var LText = Linfo.textFrames.add();
     i+=10*mm;
 
     }
-    
+ 
     
 Gabarit = L_Test.pathItems.rectangle( -5*mm, -12*mm, Rap*mm+23*mm, -WidthForm*mm-27*mm);
 //Oporka.setEntirePath( Array( Array(0, 0), Array(0, hi), Array(5*mm, hi), Array(5*mm, 0) ) );
@@ -559,6 +570,9 @@ Gabarit.stroked = true;
 Gabarit.strokeColor = PFull;
 Gabarit.fillOverprint = false;
 Gabarit.strokeWidth = 1.5*mm;
+
+//if (elm.strokeColor.cyan != 100 || elm.strokeColor.magenta != 100 || elm.strokeColor.yellow != 100)
+//  alert("Проверить цветность элементов нет 100% цвета");
 
 newLayer = null;
 Linfo = null;

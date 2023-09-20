@@ -30,14 +30,14 @@ function cancel(){window.location.href = 'index.html';}
 function set(){
 
     var cText = doc.getElementById("colorText").value != '' ? doc.getElementById("colorText").value : 14;
-    var cRisk = doc.getElementById("colorRisk").value != '' ? doc.getElementById("colorRisk").value : 20;
+    var cRisk = doc.getElementById("colorRisk").value != '' ? doc.getElementById("colorRisk").value : 25;
     var cDush = doc.getElementById("colorDush").value != '' ? doc.getElementById("colorDush").value : 25;
 
     localStorage.setItem('Text', cText);
     localStorage.setItem('Risk', cRisk);
     localStorage.setItem('Dush', cDush);
 
-    var cText1 = doc.getElementById("colorText1").value != '' ? doc.getElementById("colorText1").value : 60;
+    var cText1 = doc.getElementById("colorText1").value != '' ? doc.getElementById("colorText1").value : 40;
     var cRisk1 = doc.getElementById("colorRisk1").value != '' ? doc.getElementById("colorRisk1").value : 100;
     var cDush1 = doc.getElementById("colorDush1").value != '' ? doc.getElementById("colorDush1").value : 100;
 
@@ -62,9 +62,9 @@ function inFold(namber){
    //WSH = new ActiveXObject("WScript.Shell");
    //WSH.run(prog);
    //parent.location = ('http://127.0.0.1:8081/'+namber);
-   var url = 'http://127.0.0.1:8081/'+namber;
+   var url = 'http://127.0.0.1:8081/?'+'input='+namber;
    var xhr = new XMLHttpRequest();
-   xhr.open('GET', url, true);
+   xhr.open('GET', url, false);
    xhr.send();
 }
 
@@ -124,18 +124,26 @@ var element = doc.getElementById("comm");
     element.scrollTop = 0;
 
 function parseXML() {
-//alert(path);
+    var xmlDoc="";// document.implementation.createDocument("","",null);
+    var url = 'http://127.0.0.1:8081/?'+'xml='+ x;
 	if (window.XMLHttpRequest) {
-		xmlDoc = new window.XMLHttpRequest();
-		xmlDoc.open("GET", path, false);
-		xmlDoc.send("");
-		xmlDoc = xmlDoc.responseXML;
+		xmlHttp = new window.XMLHttpRequest();
+		xmlHttp.open("GET", url, false); //url 
+        //xmlHttp.responseType = "document"; // XML-документ (может использовать XPath и другие XML-методы),
+		xmlHttp.send("");
+        //xmlDoc=document.implementation.createDocument("",xmlHttp.responseXML,null);
+        //xmlDoc = xmlHttp.responseXML;
+        xmlDoc = xmlHttp.response;
+        //alert(xmlDoc);
+
+
 	} else if (ActiveXObject("Microsoft.XMLDOM")) { // IE5, IE6
 		xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
 		xmlDoc.async = false;
-		xmlDoc.load(path);
+		xmlDoc.load(url);
 	}
-
+    var parser = new DOMParser();
+    var xmlDoc = parser.parseFromString(xmlDoc, "text/xml"); //important to use "text/xml"
 		// в xmlDoc собссно и хранится XML
 		//var root = xmlDoc.firstChild.childNodes[0].nodeName;
   /*      
