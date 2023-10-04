@@ -16,13 +16,28 @@ var saveOptions = new IllustratorSaveOptions();
 saveOptions.compatibility = Compatibility.ILLUSTRATOR17;
 app.activeDocument.saveAs(new File(pathNamb), saveOptions);//,  SaveOptions.PROMPTTOSAVECHANGES);
 
-if (activeDocument.layers["Knife"].groupItems.length) 
-if(Math.round(activeDocument.layers["Knife"].groupItems[0].pathItems[0].strokeColor.yellow) != 100)
-  alert("Проверить цветность элементов нет 100% цвета"); else ;
-else if (activeDocument.layers["Knife"].pathItems.length > 2)
-if (Math.round(activeDocument.layers["Knife"].pathItems[3].strokeColor.yellow) != 100)
-  alert("Проверить цветность элементов нет 100% цвета");
+//alert(activeDocument.layers["Knife"].groupItems.length);
+if (activeDocument.layers["Knife"].groupItems.length) {
+  var gr0 = activeDocument.layers["Knife"].groupItems[0];
+  while (gr0.pathItems.length == 0){
+    gr0 = gr0.groupItems[0];
+    }
 
+  if(Math.round(gr0.pathItems[0].strokeColor.yellow) != 100)
+    alert("Проверить цветность элементов, нет 100% цвета.");
+
+} else {
+  if (activeDocument.layers["Knife"].pathItems.length > 0){
+    for  (i = 0; i < 20; i++){
+      if ( activeDocument.layers["Knife"].pathItems[i].strokeColor.yellow != 1){
+        if (Math.round(activeDocument.layers["Knife"].pathItems[i].strokeColor.yellow) != 100){
+          alert("Проверить цветность элементов, нет 100% цвета");
+          break;
+        } else break;
+      }
+    }
+  } else alert("Невозможно проверить цветность.");
+}
     return;
   };
 
