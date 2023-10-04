@@ -31,7 +31,8 @@ class myHandler(BaseHTTPRequestHandler):
             return
         
         if params[0] == 'xml':
-            tree = ET.parse("\\\\storage\\zakaz\\" + params[1][:-3] + "000-" + params[1][:-3] + "999\\" + params[1] + "\\xml\\" + 'specification_' + params[1] + '.xml')
+            from_file = "\\\\storage\\zakaz\\" + params[1][:-3] + "000-" + params[1][:-3] + "999\\" + params[1] + "\\xml\\" + 'specification_' + params[1] + '.xml'
+            tree = ET.parse(from_file)
             root = tree.getroot()
             #print(self.address_string())
             #self.fp = io.BufferedIOBase()

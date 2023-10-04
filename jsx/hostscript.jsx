@@ -6,12 +6,7 @@ function saves(namb) {
   //alert(Math.round(activeDocument.layers["Knife"].groupItems[0].pathItems[0].strokeColor.yellow));
   //alert(Math.round(activeDocument.layers["Knife"].pathItems.length));
   //alert(Math.round(activeDocument.layers["Knife"].groupItems.length));
-  if (activeDocument.layers["Knife"].groupItems.length) 
-    if(Math.round(activeDocument.layers["Knife"].groupItems[0].pathItems[0].strokeColor.yellow) != 100)
-      alert("Проверить цветность элементов нет 100% цвета"); else ;
-  else if (activeDocument.layers["Knife"].pathItems.length > 2)
-    if (Math.round(activeDocument.layers["Knife"].pathItems[3].strokeColor.yellow) != 100)
-      alert("Проверить цветность элементов нет 100% цвета");
+
 //alert(app.activeDocument.fullName);
 var n = ""+namb;
 //alert(n.length);
@@ -20,6 +15,14 @@ var pathNamb = "\\\\storage\\zakaz\\" + n.substring(0, n.length-3) + "000-" + n.
 var saveOptions = new IllustratorSaveOptions();
 saveOptions.compatibility = Compatibility.ILLUSTRATOR17;
 app.activeDocument.saveAs(new File(pathNamb), saveOptions);//,  SaveOptions.PROMPTTOSAVECHANGES);
+
+if (activeDocument.layers["Knife"].groupItems.length) 
+if(Math.round(activeDocument.layers["Knife"].groupItems[0].pathItems[0].strokeColor.yellow) != 100)
+  alert("Проверить цветность элементов нет 100% цвета"); else ;
+else if (activeDocument.layers["Knife"].pathItems.length > 2)
+if (Math.round(activeDocument.layers["Knife"].pathItems[3].strokeColor.yellow) != 100)
+  alert("Проверить цветность элементов нет 100% цвета");
+
     return;
   };
 
@@ -447,6 +450,7 @@ for (var i=0; i<docRef.selection.length;i++){
   }
 
   risk (LI.width); 
+  riskDop (LI.width, (WidthForm - newGroup.height/mm).toFixed(2)); // WidthForm -
 
 //-------------------------REZ--------------------------------- 
     var lineCenter = REZ.pathItems.add();
@@ -899,6 +903,40 @@ function risk (li_wi) {
 }   
 
 
+function riskDop (li_wi, bigRisk) {
+//alert(bigRisk);
+
+  LabelSw1 = LI.pathItems.add();
+  LabelSw1.setEntirePath( Array( Array(4*mm, newGroup.top-lineOb*mm/2 + bigRisk*mm/4), Array(9*mm, newGroup.top-lineOb*mm/2 + bigRisk*mm/4)) );
+  LabelSw1.stroked = true;
+  LabelSw1.strokeColor = PRisk;
+  LabelSw1.strokeWidth = 0.2*mm;
+  LabelSw1.filled = false;
+  
+  LabelSw1 = LI.pathItems.add();
+  LabelSw1.setEntirePath( Array( Array(4*mm, newGroup.top-newGroup.height-lineOb*mm/2 - bigRisk*mm/4), Array(9*mm, newGroup.top-newGroup.height-lineOb*mm/2 - bigRisk*mm/4)) );
+  LabelSw1.stroked = true;
+  LabelSw1.strokeColor = PRisk;
+  LabelSw1.strokeWidth = 0.2*mm;
+  LabelSw1.filled = false;
+
+  LabelSw2 = LI.pathItems.add();
+  LabelSw2.setEntirePath( Array( Array(li_wi, newGroup.top-lineOb*mm/2 + bigRisk*mm/4), Array(li_wi-5*mm, newGroup.top-lineOb*mm/2 + bigRisk*mm/4)) );
+  LabelSw2.stroked = true;
+  LabelSw2.strokeColor = PRisk;
+  LabelSw2.strokeWidth = 0.2*mm;
+  LabelSw2.filled = false;
+  
+  LabelSw2 = LI.pathItems.add();
+  LabelSw2.setEntirePath( Array( Array(li_wi, newGroup.top-newGroup.height-lineOb*mm/2 - bigRisk*mm/4), Array(li_wi-5*mm, newGroup.top-newGroup.height-lineOb*mm/2 - bigRisk*mm/4)) );
+  LabelSw2.stroked = true;
+  LabelSw2.strokeColor = PRisk;
+  LabelSw2.strokeWidth = 0.2*mm;
+  LabelSw2.filled = false;
+
+} 
+
+
 function recRap (Rap, WidthForm) {
   var Pr = new CMYKColor(); // text
     Pr.name = 'PrColor';
@@ -934,5 +972,8 @@ function recRap (Rap, WidthForm) {
 
   docRef = null;
   delete sp;
+  win.stop();
+  win.reset();
+  win.close(0);
   return;  
 };
