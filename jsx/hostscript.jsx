@@ -277,14 +277,14 @@ Oporka.strokeDashes = [2,2,2,2];
 
 		
 		riskCenter = LI.pathItems.add();
-		riskCenter.setEntirePath( Array( Array(4*mm, WidthForm*mm/2+12*mm), Array(10*mm, WidthForm*mm/2+12*mm)) );
+		riskCenter.setEntirePath( Array( Array(4*mm, WidthForm*mm/2+12*mm), Array(15*mm, WidthForm*mm/2+12*mm)) );
 		riskCenter.stroked = true;
 		riskCenter.strokeColor = PRisk;
 		riskCenter.strokeWidth = 0.15*mm;
 		riskCenter.filled = false;
 		
 		riskCenter = LI.pathItems.add();
-		riskCenter.setEntirePath( Array( Array(Rap*mm+6*mm, WidthForm*mm/2+12*mm), Array(Rap*mm, WidthForm*mm/2+12*mm)) );
+		riskCenter.setEntirePath( Array( Array(Rap*mm+6*mm, WidthForm*mm/2+12*mm), Array(Rap*mm-5*mm, WidthForm*mm/2+12*mm)) );
 		riskCenter.stroked = true;
 		riskCenter.strokeColor = PRisk;
 		riskCenter.strokeWidth = 0.15*mm;
@@ -922,31 +922,31 @@ function riskDop (li_wi, bigRisk) {
 //alert(bigRisk);
 
   LabelSw1 = LI.pathItems.add();
-  LabelSw1.setEntirePath( Array( Array(4*mm, newGroup.top-lineOb*mm/2 + bigRisk*mm/4), Array(9*mm, newGroup.top-lineOb*mm/2 + bigRisk*mm/4)) );
+  LabelSw1.setEntirePath( Array( Array(4*mm, newGroup.top-lineOb*mm/2 + bigRisk*mm/4), Array(15*mm, newGroup.top-lineOb*mm/2 + bigRisk*mm/4)) );
   LabelSw1.stroked = true;
   LabelSw1.strokeColor = PRisk;
-  LabelSw1.strokeWidth = 0.2*mm;
+  LabelSw1.strokeWidth = 0.15*mm;
   LabelSw1.filled = false;
   
   LabelSw1 = LI.pathItems.add();
-  LabelSw1.setEntirePath( Array( Array(4*mm, newGroup.top-newGroup.height-lineOb*mm/2 - bigRisk*mm/4), Array(9*mm, newGroup.top-newGroup.height-lineOb*mm/2 - bigRisk*mm/4)) );
+  LabelSw1.setEntirePath( Array( Array(4*mm, newGroup.top-newGroup.height-lineOb*mm/2 - bigRisk*mm/4), Array(15*mm, newGroup.top-newGroup.height-lineOb*mm/2 - bigRisk*mm/4)) );
   LabelSw1.stroked = true;
   LabelSw1.strokeColor = PRisk;
-  LabelSw1.strokeWidth = 0.2*mm;
+  LabelSw1.strokeWidth = 0.15*mm;
   LabelSw1.filled = false;
 
   LabelSw2 = LI.pathItems.add();
-  LabelSw2.setEntirePath( Array( Array(li_wi, newGroup.top-lineOb*mm/2 + bigRisk*mm/4), Array(li_wi-5*mm, newGroup.top-lineOb*mm/2 + bigRisk*mm/4)) );
+  LabelSw2.setEntirePath( Array( Array(li_wi, newGroup.top-lineOb*mm/2 + bigRisk*mm/4), Array(li_wi-11*mm, newGroup.top-lineOb*mm/2 + bigRisk*mm/4)) );
   LabelSw2.stroked = true;
   LabelSw2.strokeColor = PRisk;
-  LabelSw2.strokeWidth = 0.2*mm;
+  LabelSw2.strokeWidth = 0.15*mm;
   LabelSw2.filled = false;
   
   LabelSw2 = LI.pathItems.add();
-  LabelSw2.setEntirePath( Array( Array(li_wi, newGroup.top-newGroup.height-lineOb*mm/2 - bigRisk*mm/4), Array(li_wi-5*mm, newGroup.top-newGroup.height-lineOb*mm/2 - bigRisk*mm/4)) );
+  LabelSw2.setEntirePath( Array( Array(li_wi, newGroup.top-newGroup.height-lineOb*mm/2 - bigRisk*mm/4), Array(li_wi-11*mm, newGroup.top-newGroup.height-lineOb*mm/2 - bigRisk*mm/4)) );
   LabelSw2.stroked = true;
   LabelSw2.strokeColor = PRisk;
-  LabelSw2.strokeWidth = 0.2*mm;
+  LabelSw2.strokeWidth = 0.15*mm;
   LabelSw2.filled = false;
 
 } 
