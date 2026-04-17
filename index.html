@@ -152,7 +152,8 @@ Diameter, mm: D1:
  Distortion: <input type="checkbox" id = "disa" name="ch" class="chk" value="1" checked="checked" />
 <input id="Dist" value="0">
 </label>
-<span id = "angleless">Angles less 0.6: <input id = "less" value="0" disabled></span>
+<span id = "angleless">Gapp: <input id = "gpp" value="">
+<0.6: <input id = "less" value="0" disabled></span>
 
 </div>   
     <hr>
@@ -160,15 +161,18 @@ Diameter, mm: D1:
    <script>
 		
         doc.getElementById("disa").onchange = function(e){
-            if (doc.getElementById("disa").value=='0') {di(); doc.getElementById("disa").value='1'}
-            else {doc.getElementById("Dist").value='0'; doc.getElementById("disa").value='0';}}
+			if  (doc.getElementById("disa").checked) {
+				doc.getElementById("Dist").value = 0;
+				di();
+			} else doc.getElementById("Dist").value = 0;
+		}
     </script>
 <!-----------------****------------------>
 
 <div id="comment">
-<textarea class="comm" id="comm" rows = "3" placeholder="Нет комментария">
+<textarea class="comm" id="comm" rows = "5" placeholder="Нет комментария">
 </textarea>
-<button id="comment-set" onClick="comm()"> < </button>
+<!-- <button id="comment-set" onClick="comm()"> < </button> -->
 
 </div>
 
@@ -185,9 +189,15 @@ Diameter, mm: D1:
 
    <script>
        doc.getElementById("gross").onchange = function(e){
- if(doc.getElementById("gross").checked) localStorage.getItem('lineGross') > 0 ? doc.getElementById("Line").value = localStorage.getItem('lineGross') : doc.getElementById("Line").value = 1.1
-    else localStorage.getItem('lineSet') > 0 ? doc.getElementById("Line").value = localStorage.getItem('lineSet') : doc.getElementById("Line").value = 0.7;
-       }
+ if(doc.getElementById("gross").checked){ doc.getElementById("gpp").value = '';
+			//$('#gpp').removeAttr('disabled');
+		localStorage.getItem('lineGross') > 0 ? doc.getElementById("Line").value = localStorage.getItem('lineGross') : doc.getElementById("Line").value = 1.1
+		} else {doc.getElementById("gpp").value = 0.48;
+				//$('#gpp').attr('disabled','disabled');
+		localStorage.getItem('lineSet') > 0 ? doc.getElementById("Line").value = localStorage.getItem('lineSet') : doc.getElementById("Line").value = 0.6
+		}
+		di();
+	   }
     </script>
 
 <div id="button">
@@ -201,7 +211,9 @@ Diameter, mm: D1:
 <div id="btnS">
     <button id="btnSet" class="btnXml" onClick="window.location.href = 'set.html'">Set</button>
 </div>
-
+<div id="eRll">
+    <input id="iRll" value="0"><label id="iRllmm">,мм</label>
+</div>
 <div id='manager'>
     Менеджер: 
 </div>

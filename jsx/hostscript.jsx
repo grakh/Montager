@@ -44,6 +44,10 @@ if (activeDocument.layers["Knife"].groupItems.length) {
 
 function sayHello(sp) {
 
+	var Nams = "" + (sp.Namber | sp.Namb);
+	var Rap = sp.Raport; //.split(' ');
+	var irll = sp.irll;
+	const mm = 72.0/25.4;
   if (sp.btnRll) {
     #include './expDXF.js';
     return;
@@ -70,6 +74,11 @@ var L_Test = docRef.layers.add();
 var REZ = docRef.layers.add();
     REZ.zOrder(ZOrderMethod.SENDTOBACK);
     REZ.name="REZ";
+	
+var NambeL = docRef.layers.add();
+	NambeL .zOrder(ZOrderMethod.SENDTOBACK);
+    NambeL .name="namber";
+	NambeL .printable = false;
     
 docRef.rulerOrigin = Array (0,0);
     var units = 1; // 2-inches, 3-milllimeters, 0-points
@@ -92,7 +101,7 @@ var Dat= String (''+Da.getDate() +'-'+ (Da.getMonth()+1)+'-'+  Da.getFullYear())
     //alert("Namber "+form[10]);
     var dop='';
     var rll='', raa='';
-    var Nam = sp.Namber;
+	var Nam = sp.Namber;
     var Cust = sp.Customer;
     if (sp.rll != '') {dop = rll = ' / '+sp.rll;}
     if (sp.raa != '') {dop += raa = ' / '+sp.raa;}
@@ -104,8 +113,8 @@ var Dat= String (''+Da.getDate() +'-'+ (Da.getMonth()+1)+'-'+  Da.getFullYear())
     var perimetr = 0;
         perimetr = sp.perimetr;
 
-    var Rap = sp.Raport; //.split(' ');
     
+	    
     var PolurotY = sp.PolurotY;
     var Polurot = sp.Polurot;
 	//alert (sp.gross);
@@ -123,14 +132,14 @@ var Dat= String (''+Da.getDate() +'-'+ (Da.getMonth()+1)+'-'+  Da.getFullYear())
     var Kni = sp.Knife;
 	
 	var SAll = sp.Forms.split(';');
-
+	var Lval = Rap - 2.4; //* Distor;
+	
   var Plosk = false;
 
 	if (~Mate.indexOf("Плоская")) Plosk = true;
     
    var lineOb = parseFloat(sp.Material.substring(sp.Material.lastIndexOf(" ")));   
     
-mm = 72.0/25.4;
 mms= mm/2.0;
 var WidthLab = 19*mm; 
 var xEl=0, yEl=0;
@@ -407,7 +416,7 @@ var _str ='';
     
 var LPod2 = Linfo.textFrames.add();
     LPod2.position = [(Rap*mm)/2-(LPod2.width/2)-38*mm, 11*mm];
-    LPod2.contents = (sp.data + ' / '+ Distor+" - "+Kni+" - "+Ang+" - Mirror, L"+lineOb+dop); //.split(".").join(" ");
+    LPod2.contents = (sp.data + ' / '+ Distor+" ("+Lval+") - "+Kni+" - "+Ang+" - Mirror, L"+lineOb+dop); //.split(".").join(" ");
     LPod2.textRange.characterAttributes.size = 12;
 	LPod2.textRange.characterAttributes.tracking = 30;
     LPod2.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
@@ -419,6 +428,15 @@ var LPod2 = Linfo.textFrames.add();
   //  LPod2.textRange.characterAttributes.strokeWidth = 0.05*mm;
 	if (LPod2.width > Rap*mm) LPod2.width = Rap*mm;
     LPod2.position = [(Rap*mm)/2-(LPod2.width/2)+5*mm, 11.3*mm];
+	
+var bigNamber = NambeL.textFrames.add();
+    bigNamber.position = [(Rap*mm/2-60*mm), (Oporka.top - 12*mm)/2];
+    bigNamber.contents = Nam;
+    bigNamber.textRange.characterAttributes.size = 100;
+	//bigNamber.textRange.characterAttributes.tracking = 30;
+    bigNamber.textRange.characterAttributes.alignment = StyleRunAlignmentType.center;
+    bigNamber.textRange.characterAttributes.textFont = app.textFonts.getByName(fonts);
+    bigNamber.textRange.characterAttributes.fillColor = PFull;
     
 if (Distor!=0){   
     
@@ -468,15 +486,15 @@ for (var i=0; i<docRef.selection.length;i++){
   riskDop (LI.width, (WidthForm - newGroup.height/mm).toFixed(2)); // WidthForm -
 
 //-------------------------REZ--------------------------------- 
-    var lineCenter = REZ.pathItems.add();
+    var lineCenter = Linfo.pathItems.add();
         lineCenter .setEntirePath( Array( Array(Oporka.left-0.55*mm+Oporka.strokeWidth/2, WidthForm*mm/2+12*mm), Array(Oporka.left+Oporka.width+0.55*mm+Oporka.strokeWidth/2, WidthForm*mm/2+12*mm)) );
         lineCenter.stroked = false;
         lineCenter.strokeColor = Prll;
         lineCenter.strokeWidth = 0.01*mm;
         lineCenter.filled = false;
         lineCenter.strokeOverprint = true;
-        
-    var leftRez = REZ.pathItems.add();
+     
+    var leftRez = NambeL.pathItems.add();
         leftRez .setEntirePath( Array( Array(Oporka.left+0.3*mm+Oporka.strokeWidth/2, WidthForm*mm+15*mm), Array(Oporka.left+0.3*mm+Oporka.strokeWidth/2, 9*mm)) );
         leftRez.stroked = false;
         leftRez.strokeColor = Prll;
@@ -484,13 +502,37 @@ for (var i=0; i<docRef.selection.length;i++){
         leftRez.filled = false;
         leftRez.strokeOverprint = true;
 
-    var rightRez = REZ.pathItems.add();
+    var rightRez = NambeL.pathItems.add();
         rightRez .setEntirePath( Array( Array(Oporka.left+Oporka.width-0.3*mm+Oporka.strokeWidth/2, WidthForm*mm+15*mm), Array(Oporka.left+Oporka.width-0.3*mm+Oporka.strokeWidth/2, 9*mm)) );
         rightRez.stroked = false;
         rightRez.strokeColor = Prll;
         rightRez.strokeWidth = 0.01*mm;
         rightRez.filled = false;
         rightRez.strokeOverprint = true;
+		
+var RezR = REZ.pathItems.roundedRectangle((12+0.3)*mm, Oporka.left+0.3*mm+Oporka.strokeWidth/2, (Rap*Distor-0.6)*mm, (-WidthForm+0.6)*mm, 3*mm, 3*mm);
+	RezR.closed = true;
+	RezR.filled = false;
+    RezR.stroked = false;
+    RezR.strokeColor = Prll;
+    RezR.strokeWidth = 0.01*mm;
+    RezR.strokeOverprint = true;
+	
+var Rez0 = REZ.pathItems.add();
+    Rez0.setEntirePath( Array( Array(0, 0), Array(0, mm)) );
+    Rez0.stroked = false;
+    Rez0.strokeColor = Prll;
+    Rez0.strokeWidth = 0.01*mm;
+    Rez0.filled = false;
+    Rez0.strokeOverprint = true;
+
+var Rez1 = REZ.pathItems.add();
+    Rez1.setEntirePath( Array( Array(Rap*mm, 0), Array(Rap*mm, mm)) );
+    Rez1.stroked = true;
+    Rez1.strokeColor = Prll;
+    Rez1.strokeWidth = 0.01*mm;
+    Rez1.filled = false;
+    Rez1.strokeOverprint = true;
     
 //------------------POINT----------------------------------------    
 
@@ -513,21 +555,23 @@ var P1K = Point0.duplicate();
     P1K.left += Rap*mm;
     
 //----------RLL----------
-var rll0 = newLayer.pathItems.add();
-    rll0.setEntirePath( Array( Array(0, 0), Array(0, -mm)) );
-    rll0.stroked = false;
-    rll0.strokeColor = Prll;
-    rll0.strokeWidth = 0.01*mm;
-    rll0.filled = false;
-    rll0.strokeOverprint = true;
 
-var rll1 = newLayer.pathItems.add();
-    rll1.setEntirePath( Array( Array(Rap*mm, 0), Array(Rap*mm, -mm)) );
-    rll1.stroked = true;
-    rll1.strokeColor = Prll;
-    rll1.strokeWidth = 0.01*mm;
-    rll1.filled = false;
-    rll1.strokeOverprint = true;
+	var rll0 = newLayer.pathItems.add();
+		rll0.setEntirePath( Array( Array(0, 0), Array(0, -mm)) );
+		rll0.stroked = false;
+		rll0.strokeColor = Prll;
+		rll0.strokeWidth = 0.01*mm;
+		rll0.filled = false;
+		rll0.strokeOverprint = true;
+
+	var rll1 = newLayer.pathItems.add();
+		rll1.setEntirePath( Array( Array(Rap*mm, 0), Array(Rap*mm, -mm)) );
+		rll1.stroked = true;
+		rll1.strokeColor = Prll;
+		rll1.strokeWidth = 0.01*mm;
+		rll1.filled = false;
+		rll1.strokeOverprint = true;
+
 
    var countLabel=0;
    var i = 0;
@@ -592,6 +636,11 @@ Gabarit.strokeWidth = 1.5*mm;
 
 //if (elm.strokeColor.cyan != 100 || elm.strokeColor.magenta != 100 || elm.strokeColor.yellow != 100)
 //  alert("Проверить цветность элементов нет 100% цвета");
+
+   if (sp.rll == 'RLL') {
+    #include './expDXF.js';
+    return;
+  };
 
 newLayer = null;
 Linfo = null;

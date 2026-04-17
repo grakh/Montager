@@ -29,6 +29,19 @@ class myHandler(BaseHTTPRequestHandler):
             #self.wfile.write(bytes(pathNamb, "utf8"))
             os.system("start C:\\Windows\\explorer.exe " + cutpath)
             return
+			
+        if params[0] == 'nesting':
+            nest_file = "\\\\storage\\zakaz\\" + params[1][:-3] + "000-" + params[1][:-3] + "999\\" + params[1] + "\\xml\\" + 'info_' + params[1] + '.xml'
+            tree = ET.parse(nest_file)
+            root = tree.getroot()
+            #print(self.address_string())
+            #self.fp = io.BufferedIOBase()
+            #self.fp.write(bytes(ET.tostring(root, encoding='utf8').decode('utf8')))
+            #print((ET.tostring(root, encoding='utf8').decode('utf8')))
+            self.do_HEAD()
+            
+            self.wfile.write(bytes(ET.tostring(root, encoding='utf8').decode('utf8'), 'utf8'))
+            return
         
         if params[0] == 'xml':
             from_file = "\\\\storage\\zakaz\\" + params[1][:-3] + "000-" + params[1][:-3] + "999\\" + params[1] + "\\xml\\" + 'specification_' + params[1] + '.xml'

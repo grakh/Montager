@@ -2,6 +2,8 @@
 
 #include 'div.js';
 #include 'del.js';
+#include 'smooth.js';
+
 
 PMagenta = new CMYKColor();
 PMagenta .name = 'Process Magenta';
@@ -10,23 +12,100 @@ PMagenta .cyan = 0;
 PMagenta .magenta = 100; 
 PMagenta .yellow = 0;
 
-const mm = 72/25.4;
+//const mm = 72/25.4;
 const TOLERANCE = 0.5;
 const MIN_ANGLE = 0, // Degrees range for the Tolerance
       MAX_ANGLE = 180, // Degrees range for the Tolerance
       COS_INACCURACY = -0.999999, // Correction of coordinate inaccuracy
       COS_180 = -1,
       COS_0 = 1;
-
+	  
 var p, op, pnts;
 var docRef = app.activeDocument;
 var layerName = "Knife";
-var lazerName = "Laser";
-//var newLayer = docRef.layers.add();
-//    newLayer.name="Laser";
+docRef.selection = null;
+//alert(docRef.layers["RLL"].name);
+try {
+	if (docRef.layers["RLL"].name === "RLL"){
+		//docRef.layers["RLL"].remove();
+		docRef.layers["RLL"].hasSelectedArtwork = true;
+		pnts = laser();
+		saves(Nams, pnts);
+	}
+} catch(e) {	
 
-function laser(znamber){
+	var lazerName = docRef.layers.add();
+		lazerName.name="RLL";
+		lazerName.printable = false;
+		lazerName.zOrder(ZOrderMethod.SENDTOBACK);	
 
+
+	for (var i = docRef.layers[layerName].pageItems.length - 1; i >= 0; i--) {
+		var pageItem = docRef.layers[layerName].pageItems[i];
+		pageItem.duplicate(lazerName, ElementPlacement.PLACEATBEGINNING);
+	}
+
+	lazerName.hasSelectedArtwork = true;
+
+	ungroup();
+	//alert(irll);
+	//alert(Rap);
+	if (irll != 0) { addDensityMath(irll); convertPoint(); };
+
+	docRef.selection = null;
+
+	angleRLL = lazerName.pathItems.add();
+    angleRLL.setEntirePath( Array( Array((Rap*mm+3*mm), 0), Array((Rap*mm+1*mm), 1.5*mm), Array((Rap*mm+3*mm), 3*mm)) );
+    angleRLL.stroked = true;
+    angleRLL.strokeColor = PMagenta;
+    angleRLL.strokeWidth = 0.2*mm;
+    angleRLL.filled = false;
+
+	lazerName.hasSelectedArtwork = true;
+
+	pnts = laser();
+
+	saves(Nams, pnts);
+}
+
+	docRef.selection = null;
+
+
+/*
+for (var i = 0; i < docRef.selection.length; i++) {
+    var selectedItem = docRef.selection[i];
+    // Check if the item is a path and is stroked
+    if (selectedItem.typename == "PathItem") {
+        selectedItem.strokeColor = PMagenta; // Apply the new color
+		selectedItem.strokeWidth = 0.2*mm;
+    }
+}
+*/
+function saves(znamber, pathes){
+	var SDefault = "";
+    //var znamber  = doc.getElementById('Namber').value;
+    //alert(znamber);
+    var path = '\\\\storage\\zakaz\\'+znamber.substr (0, znamber.length-3)+'000-'+znamber.substr (0, znamber.length-3)+'999\\'+znamber+'/laser/RLL.dxf';
+    //alert(path);
+    //alert("pathes.length " + pathes.length);
+    var SaveFileDefault = new File( path ); 
+        SaveFileDefault.open ("w"); 
+        SaveFileDefault.write("0\nSECTION\n2\nENTITIES\n"); 
+
+    for(var i = 0; i < pathes.length; i++){
+     SDefault += convertToArc(pathes[i], SaveFileDefault);
+	 
+    }
+	SDefault += "ENDSEC\n0\nEOF";
+	//SaveFile.write(SDefault);  
+    SaveFileDefault.write(SDefault);  
+    SaveFileDefault.close(); 
+    
+}
+
+
+function laser(){
+/*
     // targets are the open-pathes with 2 or more anchors
     docRef.selection = null;
     //alert (docRef.layers[0].name);
@@ -44,6 +123,8 @@ function laser(znamber){
     } catch (e) {
         alert("Layer with name - " + layerName + " doesn't exists");
     }
+	
+*/
 
     var pathes = [];
     getPathItemsInSelection(1, pathes);
@@ -51,27 +132,7 @@ function laser(znamber){
       //alert("pathes.length < 1 "+pathes.length);
       return;
     }
-
-    //var znamber  = prompt("Zakaz namber:", '');
-    //var znamber  = doc.getElementById('Namber').value;
-    //alert(znamber);
-    var path = '\\\\storage\\zakaz\\'+znamber.substr (0, znamber.length-3)+'000-'+znamber.substr (0, znamber.length-3)+'999\\'+znamber+'/laser/RLL.dxf';
-    
-    //alert("pathes.length " + pathes.length);
-    var SaveFileDefault = new File( path ); 
-        SaveFileDefault.open ("w"); 
-        SaveFileDefault.write("0\nSECTION\n2\nENTITIES\n"); 
-
-    for(var i = 0; i < pathes.length; i++){
-      convertToArc(pathes[i], SaveFileDefault);
-    }
-
-
-
-    SaveFileDefault.write("ENDSEC\n0\nEOF");  
-    SaveFileDefault.close(); 
-    
-    docRef.selection = null;
+	return pathes;
 
   }
 
@@ -84,6 +145,7 @@ function getPathItemsInSelection(n, pathes){
     var s = activeDocument.selection;
     
     if (!(s instanceof Array) || s.length < 1) return;
+	
     //alert ( s.length);
     extractPathes(s, n, pathes);
   }
@@ -179,8 +241,8 @@ while( i < n ) {
           var newPnt = [];
           var newPntMid = [];
           var tmpPnt = [];
-
-
+		  var isGood = 0;
+			
           var ts = 0, te = 1;
           var arcLine = [], curv;
 
@@ -204,7 +266,9 @@ while( i < n ) {
 
           newPnt2 = curve.linear(pointEnd.anchor, pointEnd.leftDirection, 1-((t - ts)/2));
 
-          arcLine.push(arcDiv( pointStart, pointEnd, outPts ));
+          //arcLine.push(arcDiv( pointStart, pointEnd, outPts ));
+		  isGood = arcDiv( pointStart, pointEnd, outPts );
+		  //outPts.push ([0, "ARC", 8, "APS_GEOMETRY", 10, newPnt[0]/mm, 20, newPnt[1]/mm, 40, newPnt.r/mm, 50, newPnt.s, 51, newPnt.e]);
           //var Cp =  _getC([newPts[j].anchor, newPts[j+1].anchor], t);
           //var Ap = _getA(newPnt[0], Cp, t);
           
@@ -259,8 +323,9 @@ k = 0;
       for(i=0; i < outPts.length; i++) {
         for (j=0; j < outPts[i].length; j++) SaveDefault += outPts[i][j] + "\n";
       };
-  
-      SaveFile.write(SaveDefault);  
+ if (isGood > 0) alert ("Проблемы с геометрией, проверить RLL");
+ return SaveDefault;
+    //  SaveFile.write(SaveDefault);  
 
 
   }
@@ -485,6 +550,214 @@ function computeError(pc, np1, s, e) {
   return Math.abs(d1 - ref) + Math.abs(d2 - ref);
 }
 
-laser(sp.Namb);
+function ungroup() {
+	var selection = docRef.selection;
+	
+	
+//    try {
+        // Для английской версии (стандартный набор операций)
+//        app.doScript("Add Anchor Points", "Default Actions");
+//    } catch (e) {
+//            alert("Не удалось найти стандартную операцию 'Добавить опорные точки'. Проверьте панель Операции (Actions).");
+ //   }
+	
+	for (var i = 0; i < selection.length; i++) {
+		var item = selection[i];
+		if (item.typename == "GroupItem" || item.typename == "CompoundPathItem") {
+			var elements = getChildAll(item);
+			for (var j = 0; j < elements.length; j++) {
+				elements[j].moveBefore(item);
+			}
+			item.remove();
+			ungroup(); // Recursively ungroup newly ungrouped items
+		} else if (item.typename == "PathItem"){
+			item.strokeColor = PMagenta; // Apply the new color
+			item.strokeWidth = 0.2*mm;
+		}
+	}
+}
+
+function getChildAll(obj) {
+	var childsArr = [];
+	
+	if (obj.typename == "GroupItem") ln = obj.pageItems;
+	else ln = obj.pathItems;
+	
+	for (var i = 0; i < ln.length; i++) {
+		var elm = ln[i];
+		elm.strokeColor = PMagenta; // Apply the new color
+		elm.strokeWidth = 0.2*mm;
+		//elm.simplify (98,0,false,false);
+		childsArr.push(elm);
+	}
+	return childsArr;
+}
+
+
+function myCustomDynamicAction(smoothf) {
+	//alert (smoothf);
+    var actionCode =
+        "/version 3" +
+        "/name [ 5" +
+        "	5365742032" +
+        "]" +
+        "/isOpen 1" +
+        "/actionCount 1" +
+        "/action-1 {" +
+        "	/name [ 8" +
+        "		53696d706c696679" +
+        "	]" +
+        "	/keyIndex 0" +
+        "	/colorIndex 0" +
+        "	/isOpen 1" +
+        "	/eventCount 1" +
+        "	/event-1 {" +
+        "		/useRulersIn1stQuadrant 0" +
+        "		/internalName (ai_plugin_simplify)" +
+        "		/localizedName [ 8" +
+        "			53696d706c696679" +
+        "		]" +
+        "		/isOpen 0" +
+        "		/isOn 1" +
+        "		/hasDialog 1" +
+        "		/showDialog 0" +
+        "		/parameterCount 4" +
+        "		/parameter-1 {" +
+        "			/key 1919182693" +
+        "			/showInPalette 4294967295" +
+        "			/type (unit real)" +
+        "			/value 100.0" +
+        "			/unit 592474723" +
+        "		}" +
+        "		/parameter-2 {" +
+        "			/key 1634561652" +
+        "			/showInPalette 4294967295" +
+        "			/type (unit real)" +
+        "			/value 0.0" +
+        "			/unit 591490663" +
+        "		}" +
+        "		/parameter-3 {" +
+        "			/key 1936553064" +
+        "			/showInPalette 4294967295" +
+        "			/type (boolean)" +
+        "			/value 0" +
+        "		}" +
+        "		/parameter-4 {" +
+        "			/key 1936552044" +
+        "			/showInPalette 4294967295" +
+        "			/type (boolean)" +
+        "			/value 0" +
+        "		}" +
+        "	}" +
+        "}";
+    var tmp = File(Folder.desktop + "/Simplify.aia");
+    tmp.open("w");
+    tmp.write(actionCode);
+    tmp.close();
+    app.loadAction(tmp);
+    app.doScript("Simplify", "Set 2");
+    app.unloadAction("Set 2", "");
+    tmp.remove();
+}
+
+function addDensityMath(TOLER) {
+	if (app.documents.length === 0 || app.selection.length === 0) return;
+	
+    var minDistanceMM = TOLER;
+    var ptLimit = minDistanceMM * 2.83465;
+	var t = 0.5; //Центр между точек
+    var sel = app.selection;
+
+    for (var i = 0; i < sel.length; i++) {
+        if (sel[i].typename === "PathItem") {
+            var item = sel[i];
+            var lastCount = 0;
+
+            // Цикл пока количество точек растет и не превышен предел безопасности
+            while (item.pathPoints.length > lastCount) {
+                lastCount = item.pathPoints.length;
+                var data = getNewPointsData(item, ptLimit);
+                
+                // Если новых точек не добавилось, выходим из цикла для этого объекта
+                if (data.length === lastCount) break;
+                applyPoints(item, data);
+            }
+        }
+    }
+
+    function getNewPointsData(path, limit) {
+        var pts = path.pathPoints;
+        var len = pts.length;
+        var result = [];
+
+        // Сначала просто копируем все точки в независимые объекты
+        for (var i = 0; i < len; i++) {
+            result.push({
+                anchor: [pts[i].anchor[0], pts[i].anchor[1]],
+                left: [pts[i].leftDirection[0], pts[i].leftDirection[1]],
+                right: [pts[i].rightDirection[0], pts[i].rightDirection[1]],
+                type: pts[i].pointType
+            });
+        }
+
+        var finalData = [];
+        for (var i = 0; i < len; i++) {
+            var curr = result[i];
+            var next = result[(i + 1) % len];
+
+            finalData.push(curr);
+
+            if (!path.closed && i === len - 1) break;
+
+            // Расчет дистанции между анкорами
+            var dist = Math.sqrt(Math.pow(next.anchor[0] - curr.anchor[0], 2) + Math.pow(next.anchor[1] - curr.anchor[1], 2));
+
+            if (dist > limit) {
+                var p0 = curr.anchor, r0 = curr.right, l1 = next.left, p3 = next.anchor;
+                
+                // Алгоритм Де Кастельжо (t=0.5)
+                var p01 = [ (p0[0]+r0[0])*t, (p0[1]+r0[1])*t ];
+                var r1l = [ (r0[0]+l1[0])*t, (r0[1]+l1[1])*t ];
+                var l1p3 = [ (l1[0]+p3[0])*t, (l1[1]+p3[1])*t ];
+                
+                var p01l = [ (p01[0]+r1l[0])*t, (p01[1]+r1l[1])*t ];
+                var r1lp3 = [ (r1l[0]+l1p3[0])*t, (r1l[1]+l1p3[1])*t ];
+                
+                var mid = [ (p01l[0]+r1lp3[0])*t, (p01l[1]+r1lp3[1])*t ];
+
+                // Корректируем рычаги текущей и следующей точек
+                curr.right = p01;
+                next.left = l1p3;
+
+                // Добавляем новую точку посередине
+                finalData.push({
+                    anchor: mid,
+                    left: p01l,
+                    right: r1lp3,
+                    type: PointType.SMOOTH
+                });
+            }
+        }
+        return finalData;
+    }
+
+    function applyPoints(path, data) {
+        var isClosed = path.closed;
+        // Очистка через удаление (единственный стабильный способ)
+        while (path.pathPoints.length > 1) {
+            path.pathPoints[path.pathPoints.length - 1].remove();
+        }
+        
+        for (var i = 0; i < data.length; i++) {
+            var p = (i === 0) ? path.pathPoints[0] : path.pathPoints.add();
+            p.anchor = data[i].anchor;
+            p.leftDirection = data[i].left;
+            p.rightDirection = data[i].right;
+            p.pointType = data[i].type;
+        }
+        path.closed = isClosed;
+    }
+};
+
 
 })();

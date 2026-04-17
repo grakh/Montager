@@ -29,17 +29,17 @@ function cancel(){window.location.href = 'index.html';}
 
 function set(){
 
-    var cText = doc.getElementById("colorText").value != '' ? doc.getElementById("colorText").value : 14;
-    var cRisk = doc.getElementById("colorRisk").value != '' ? doc.getElementById("colorRisk").value : 25;
-    var cDush = doc.getElementById("colorDush").value != '' ? doc.getElementById("colorDush").value : 25;
+    var cText = doc.getElementById("colorText").value != '' ? doc.getElementById("colorText").value : localStorage.getItem('Text');
+    var cRisk = doc.getElementById("colorRisk").value != '' ? doc.getElementById("colorRisk").value : localStorage.getItem('Risk');
+    var cDush = doc.getElementById("colorDush").value != '' ? doc.getElementById("colorDush").value : localStorage.getItem('Dush');
 
     localStorage.setItem('Text', cText);
     localStorage.setItem('Risk', cRisk);
     localStorage.setItem('Dush', cDush);
 
-    var cText1 = doc.getElementById("colorText1").value != '' ? doc.getElementById("colorText1").value : 40;
-    var cRisk1 = doc.getElementById("colorRisk1").value != '' ? doc.getElementById("colorRisk1").value : 100;
-    var cDush1 = doc.getElementById("colorDush1").value != '' ? doc.getElementById("colorDush1").value : 100;
+    var cText1 = doc.getElementById("colorText1").value != '' ? doc.getElementById("colorText1").value : localStorage.getItem('Text1');
+    var cRisk1 = doc.getElementById("colorRisk1").value != '' ? doc.getElementById("colorRisk1").value : localStorage.getItem('Risk1');
+    var cDush1 = doc.getElementById("colorDush1").value != '' ? doc.getElementById("colorDush1").value : localStorage.getItem('Dush1');
 
     localStorage.setItem('Text1', cText1);
     localStorage.setItem('Risk1', cRisk1);
@@ -77,7 +77,7 @@ doc.getElementById("gross").checked = false;
             doc.getElementById("Line").value = localStorage.getItem('lineSet');
             doc.getElementById("Line").classList.remove('red')
         } else {
-            doc.getElementById("Line").value = 0.7;
+            doc.getElementById("Line").value = 0.6;
             doc.getElementById("Line").classList.add('red')
         }
 
@@ -101,6 +101,7 @@ doc.getElementById("GAP2").value = '';
 doc.getElementById("offset").value = '0';
 doc.getElementById("offset").disabled = true;
 doc.getElementById("Knife").value = '';
+doc.getElementById("iRll").value = '0';
 doc.getElementById("Angle").value = '';
 doc.getElementById("Dist").value = '0';
 doc.getElementById("Polurot").setAttribute("disabled", "disabled");
@@ -186,7 +187,7 @@ function parseXML() {
     doc.getElementById("GAP").value = xmlDoc.getElementsByTagName("РасстояниеМеждуРучьями")[0] ? (xmlDoc.getElementsByTagName("РасстояниеМеждуРучьями")[0].childNodes[0].nodeValue > 0 ? xmlDoc.getElementsByTagName("РасстояниеМеждуРучьями")[0].childNodes[0].nodeValue : '3' )  : '3';
     doc.getElementById("GAP2").value=xmlDoc.getElementsByTagName("РасстояниеМеждуПовторениями")[0] ? xmlDoc.getElementsByTagName("РасстояниеМеждуПовторениями")[0].childNodes[0].nodeValue : doc.getElementById("Raport").value / doc.getElementById("Repetition").value;    
     doc.getElementById("Knife").value=xmlDoc.getElementsByTagName("ВысотаНожа")[0] ? xmlDoc.getElementsByTagName("ВысотаНожа")[0].childNodes[0].nodeValue : 'не найден';
-    if ((doc.getElementById("Knife").value).split("/")[0] > 0.5) {doc.getElementById("gross").checked = true; 
+    if ((doc.getElementById("Knife").value).split("/")[0] > 0.494) {doc.getElementById("gross").checked = true; 
            localStorage.getItem('gross') > 0 ? doc.getElementById("Line").value = localStorage.getItem('gross') : doc.getElementById("Line").value = 1.1;}
 
 	di(); doc.getElementById("disa").value='1';
@@ -240,6 +241,7 @@ if ( xmlDoc.getElementsByTagName("Контур")[0].childNodes[0].nodeValue==3) 
     doc.getElementById('btnRll').classList.remove('grayl');
     if(doc.getElementById('Customer').getAttribute('rll')){
         doc.getElementById('btnRll').classList.add('gre');
+		$('#Simply').removeAttr('disabled');
     } else doc.getElementById('btnRll').classList.add('grayl');
 
     if ( xmlDoc.getElementsByTagName("Контур")[0].childNodes[0].nodeValue==3) {doc.getElementsByName("figure")[3].checked=true;  verify(3) ;}
@@ -252,6 +254,17 @@ if ( xmlDoc.getElementsByTagName("Контур")[0].childNodes[0].nodeValue==3) 
          doc.getElementById("diam1").value=xmlDoc.getElementsByTagName("ДиаметрКруга")[0] ? xmlDoc.getElementsByTagName("ДиаметрКруга")[0].childNodes[0].nodeValue : '0';
          doc.getElementById("diam2").value=xmlDoc.getElementsByTagName("ДиаметрКруга")[0] ? xmlDoc.getElementsByTagName("ДиаметрКруга")[0].childNodes[0].nodeValue : '0';
           }
+	doc.getElementById("gpp").value = xmlDoc.getElementsByTagName("ВысотаОпорногоКольца")[0] ? xmlDoc.getElementsByTagName("ВысотаОпорногоКольца")[0].childNodes[0].nodeValue : '0';	  
+	doc.getElementById("Dist").classList.remove('red')
+	if ((doc.getElementById("Knife").value).split("/")[0] <= 0.5)
+		doc.getElementById("gpp").value = doc.getElementById("gpp").value ? 0.48 : doc.getElementById("gpp").value;
+	else {
+		if (doc.getElementById("gpp").value == 0) { doc.getElementById("Dist").value = 0; doc.getElementById("Dist").classList.add('red')}
+		doc.getElementById("disa").checked = doc.getElementById("gpp").value == 0 ? false : true;
+	}
+		di();
+	
+
 }
 
 parseXML();
@@ -370,14 +383,26 @@ return(null);
 function di(){
     d = $('#Raport').val();
     H = (doc.getElementById("Knife").value).split("/")[0];
+	G = (doc.getElementById("gpp").value);
     //alert (H);
-	var dis;
+	var dis = 0.0;
+	
     //alert(((d/Math.PI)-0.734)*Math.PI/d);
 	if (doc.getElementById("disa").checked != false){
-        if (H <= 0.5) dis = ((d/Math.PI)-0.734)*Math.PI/d; 
-        else dis = d/(d-(0.5-2*H)*Math.PI);
-		doc.getElementById("Dist").value = parseFloat(parseFloat(dis).toFixed(5));
-		return dis;
+        if (H <= 0.5)
+			dis = ((d / Math.PI) - 0.734) * Math.PI / d; 
+        else{
+			if (G == '0' || G === 'undefined'){
+				G = '0';
+				doc.getElementById("Dist").value = '0';
+				alert ('Для не плоских ножей больше 0.5 мм\nнужно указать расстояние между кольцами!');
+				doc.getElementById("disa").checked = false;
+				return dis;
+			} else
+			dis = ((d / Math.PI) - (2 * G - 0.196)) * Math.PI / d; 
+		}
+		doc.getElementById("Dist").value = parseFloat(parseFloat(dis).toFixed(4));
+		return parseFloat(parseFloat(dis).toFixed(4));
 	}
 }
     

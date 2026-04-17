@@ -67,12 +67,14 @@
         'eWi': doc.getElementById('Customer').getAttribute('eWi'),
         'eHi': doc.getElementById('Customer').getAttribute('eHi'),
         'gross': doc.getElementById("gross").checked,
+		'irll': doc.getElementById("iRll").value,
         'colorText': localStorage.getItem('Text'),
         'colorRisk': localStorage.getItem('Risk'),
         'colorDush': localStorage.getItem('Dush'),
         'colorText1': localStorage.getItem('Text1'),
         'colorRisk1': localStorage.getItem('Risk1'),
-        'colorDush1': localStorage.getItem('Dush1')
+        'colorDush1': localStorage.getItem('Dush1'),
+		'gpp': doc.getElementById("gpp").value
         };  
 
         //alert(doc.getElementById('Customer').getAttribute('rez'));  
@@ -88,6 +90,8 @@
       doc.getElementById('btnRll').classList.add('grayl');
       var dict = {
         'btnRll': true,
+		'Raport': doc.getElementById("Raport").value,
+		'irll': doc.getElementById("iRll").value,
         'Namb': $('#Namber').val()
       };
       csInterface.evalScript('sayHello('+JSON.stringify(dict)+')'); 
@@ -95,6 +99,7 @@
     });
 
     $("#inp").click(function () {
+
       csInterface.evalScript('saves('+$('#Namber').val()+')'); 
     });
 

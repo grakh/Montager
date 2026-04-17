@@ -423,6 +423,7 @@ function arcDiv ( pStart, pEnd, outPts ) {
     var arcs = [];
     var aLine = [];
     var cr = 0.0;
+	var isGood = 0;
 
     do {
       te = 1.0;
@@ -449,14 +450,16 @@ function arcDiv ( pStart, pEnd, outPts ) {
       pointStart = pointEnd;
       
  
-      if ( aLine[0] != undefined || !isNaN(cr)) 
+      if ( aLine[0] != undefined || !isNaN(cr) || aLine.r/mm < 3000)
         outPts.push ([0, "ARC", 8, lazerName, 10, aLine[0]/mm, 20, aLine[1]/mm, 40, aLine.r/mm, 50, aLine.s, 51, aLine.e]);
-
+		else isGood++;
+	//	outPts.push ([0, "LINE", 8, lazerName, 10, start[0]/mm, 20, start[1]/mm, 11, end[0]/mm, 21, end[1]/mm]);
       //arcs[i] = (aLine);
-      //alert('ts= '+ ts);
+      //alert('r= '+ aLine.r/mm);
+	  //alert(isGood);
   } while ( ts < 1 ); 
 
   //alert ('LEN= ' + arcs.length);
 
-return arcs;
+return isGood;
 }
