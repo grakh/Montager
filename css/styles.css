@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-﻿html{
-=======
 html{
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 margin:0px;
 padding:0px;
 }
@@ -157,18 +153,11 @@ input[id="Line"]{
 }
 
 input[id="iRll"]{
-<<<<<<< HEAD
-
-	width:17px;
-	float:right;
-	margin-right:20px;
-=======
 	width:25px;
 }
 
 input[id="Tolerance"]{
 	width:25px;
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 }
 
 input[id="Material"]{
@@ -391,19 +380,11 @@ input[type="radio"]:checked + span {
 }
 #btnRll {
 	font-size: 16px;
-<<<<<<< HEAD
-	padding: 12px 6px;
-    }
-#btnR{
-	width:29px;
-	margin-left:255px;
-=======
 	padding: 12px 6px 12px 6px;
     }
 #btnR{
 	
 	margin-left:130px;
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 	margin-top: -45px;
 	z-index: 2;
 	}
@@ -421,11 +402,7 @@ input[type="radio"]:focus + span {
     background-color: #4CAF50; /* Green */
     border: none;
     color: white;
-<<<<<<< HEAD
-    padding: 12px 30px;
-=======
     padding: 12px 20px;
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -435,11 +412,7 @@ input[type="radio"]:focus + span {
     transition-duration: 0.4s;
     cursor: pointer;
     position:relative;
-<<<<<<< HEAD
-	margin-left:-10px;
-=======
 	margin-left:60px;
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 	z-index:2;
 
 }
@@ -457,11 +430,7 @@ input[type="radio"]:focus + span {
     transition-duration: 0.4s;
     cursor: pointer;
     position:relative;
-<<<<<<< HEAD
-	margin-left:-10px;
-=======
 	margin-left:80px;
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 	display: flex;
 
 }
@@ -577,30 +546,11 @@ padding-left:44px;
  
 #button{
 	margin-top: -47px;
-<<<<<<< HEAD
-	z-index: 1;
-}
-
-#btnSet{
-	background-color: gray;
-	border: none;
-	margin-left:180px;
-	padding: 5px 5px;
-}
-
-
-#btnS{
-	margin-top:-23px;
-	margin-left:140px;
-	z-index: 2;
-}
-=======
 	margin-left: -120px;   /* сдвиг Run code левее */
 	z-index: 1;
 }
 
 /* старые #btnSet и #btnS удалены — кнопка Set теперь внутри #eRll */
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 
 #save{
 	margin-left: 60px;
@@ -634,19 +584,6 @@ padding-left:44px;
 	margin-top: 5px;
 	width:40px;
 }
-<<<<<<< HEAD
-#eRll {	
-	display: flex;
-		margin-top:-23px;
-	margin-left:290px;
-	z-index: 2;
-}
-#iRllmm {	
-
-		margin-top:5px;
-	margin-left:-15px;
-
-=======
 /* ===== Блок: tol + iRll (стэк в колонку) + кнопка Set =====
    Tol сверху, iRll снизу — два инпута со своими подписями справа.
    Кнопка Set справа от стэка (центрирована по вертикали). */
@@ -709,7 +646,6 @@ padding-left:44px;
 #eDxfParams .dxfInp {
     width: 45px;
     margin-right: 4px;
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 }
 
 #btnSim{
@@ -753,8 +689,6 @@ padding-left:44px;
 	z-index: 1;
 }
 
-<<<<<<< HEAD
-=======
 #distortBox{
 	float:left;
 	margin-left: 15px;
@@ -762,7 +696,6 @@ padding-left:44px;
 	z-index: 1;
 }
 
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 .colorLabel{
 	float:left;
 	padding-right:10px;
@@ -773,8 +706,4 @@ padding-left:44px;
 	text-align:right;
 	line-height:30px;
 }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)

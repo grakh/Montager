@@ -23,15 +23,12 @@ function setload(){
     doc.getElementById('colorText1').value = localStorage.getItem('Text1');
     doc.getElementById('colorRisk1').value = localStorage.getItem('Risk1');
     doc.getElementById('colorDush1').value = localStorage.getItem('Dush1');
-<<<<<<< HEAD
-=======
 
     // === Искажения для DXF (X, Shear) ===
     var dx = localStorage.getItem('DistX');
     var ds = localStorage.getItem('DistShear');
     doc.getElementById('DistX').value     = (dx !== null && dx !== '') ? dx : '100';
     doc.getElementById('DistShear').value = (ds !== null && ds !== '') ? ds : '0';
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 }
 
 function cancel(){window.location.href = 'index.html';}
@@ -54,8 +51,6 @@ function set(){
     localStorage.setItem('Risk1', cRisk1);
     localStorage.setItem('Dush1', cDush1);
 
-<<<<<<< HEAD
-=======
     // === Искажения для DXF ===
     // Если поле пустое — оставляем безопасные дефолты (100% / 0°)
     var dxRaw = doc.getElementById("DistX").value;
@@ -85,7 +80,6 @@ function set(){
         }
     } catch(e) { /* если что-то не доступно — настройки в localStorage уже легли, не критично */ }
 
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
     window.location.href = 'index.html';
 }
 
@@ -143,10 +137,7 @@ doc.getElementById("offset").value = '0';
 doc.getElementById("offset").disabled = true;
 doc.getElementById("Knife").value = '';
 doc.getElementById("iRll").value = '0';
-<<<<<<< HEAD
-=======
 doc.getElementById("Tolerance").value = '0.5';   // Tolerance сбрасывается на дефолт при каждом новом заказе
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 doc.getElementById("Angle").value = '';
 doc.getElementById("Dist").value = '0';
 doc.getElementById("Polurot").setAttribute("disabled", "disabled");
@@ -173,11 +164,7 @@ function parseXML() {
     var xmlDoc="";// document.implementation.createDocument("","",null);
     var url = 'http://127.0.0.1:8081/?'+'xml='+ x;
 	if (window.XMLHttpRequest) {
-<<<<<<< HEAD
-		xmlHttp = new window.XMLHttpRequest();
-=======
 		var xmlHttp = new window.XMLHttpRequest();
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 		xmlHttp.open("GET", url, false); //url 
         //xmlHttp.responseType = "document"; // XML-документ (может использовать XPath и другие XML-методы),
 		xmlHttp.send("");
@@ -224,15 +211,9 @@ function parseXML() {
     doc.getElementById("Repetition").value=xmlDoc.getElementsByTagName("КоличествоПовторенийНаРаппорте")[0] ? xmlDoc.getElementsByTagName("КоличествоПовторенийНаРаппорте")[0].childNodes[0].nodeValue : '1';
     doc.getElementById("Streams").value=xmlDoc.getElementsByTagName("КоличествоРучьев")[0] ? xmlDoc.getElementsByTagName("КоличествоРучьев")[0].childNodes[0].nodeValue : '1';
     
-<<<<<<< HEAD
-    les = 0;
-    less = xmlDoc.getElementsByTagName("КоличествоУгловМеньше06");
-    for ( i = 0; i < less.length; i++)
-=======
     var les = 0;
     var less = xmlDoc.getElementsByTagName("КоличествоУгловМеньше06");
     for ( var i = 0; i < less.length; i++)
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
         les += parseInt(xmlDoc.getElementsByTagName("КоличествоУгловМеньше06")[i].childNodes[0].nodeValue);
     if (les > 0) doc.getElementById("less").classList.add('yel');
 

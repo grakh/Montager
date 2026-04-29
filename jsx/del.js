@@ -48,11 +48,7 @@ function isCorner(p, idx){
   var pnt1 = getAnglePnt(p, idx,  1);
   if(! pnt0 || ! pnt1) return false;                    // at the end of a open-path
   if(pnt0.length < 1 || pnt1.length<1) return false;   // anchor is overlapping, so cannot determine the angle
-<<<<<<< HEAD
-  var rad = getRad2(pnt0, p[idx].anchor, pnt1, true);
-=======
   var rad = getRad2(pnt0, p[idx].anchor, pnt1);
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
   if(rad > Math.PI - 0.1) return false;   // set the angle tolerance here
   return true;
 }

@@ -60,11 +60,7 @@ function divide(pnts, t, ts, te){
 
   //alert(t+'  '+ ((t - ts)/2 + ts) +'  '+ ((te - t)/2 + t));
 
-<<<<<<< HEAD
-  anc = curve.bezier(pnts, t);
-=======
   var anc = curve.bezier(pnts, t);
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
   //r = drawCurvePoint(pnts[1].leftDirection, pnts[0].leftDirection, t);
   //l = drawCurvePoint(pnts[1].rightDirection, pnts[0].rightDirection, t);
   var l = defDir(pnts, 0, t);
@@ -180,11 +176,7 @@ function getccenter(p1, p2, p3) {
     my2n = my2 + dy2p,
     // intersection of these lines:
     arc = lli8(mx1, my1, mx1n, my1n, mx2, my2, mx2n, my2n);
-<<<<<<< HEAD
-    r = dist(arc, p1);
-=======
     var r = dist(arc, p1);
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 
   // arc start/end values, over mid point:
   var s = Math.atan2(p1[1] - arc[1], p1[0] - arc[0]),
@@ -255,21 +247,12 @@ function lli8(x1, y1, x2, y2, x3, y3, x4, y4) {
 
 function angle (o, v1) {
 
-<<<<<<< HEAD
-    dx1 = v1[0] - o[0],
-    dy1 = v1[1] - o[1],
-    dx2 = 1,
-    dy2 = 0;
-    cross = dx1 * dy2 - dy1 * dx2,
-    dot = dx1 * dx2 + dy1 * dy2;
-=======
     var dx1 = v1[0] - o[0],
         dy1 = v1[1] - o[1],
         dx2 = 1,
         dy2 = 0;
     var cross = dx1 * dy2 - dy1 * dx2,
         dot = dx1 * dx2 + dy1 * dy2;
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
   var t = Math.atan2(cross, dot);
   //t = Math.abs(t);
   t = t < Math.PI ? Math.PI*2 - t : t;
@@ -281,13 +264,8 @@ function angle2 (o, v1, v2) {
   //var sum = (v1[0] - v2[0]) * (v1[1] + v2[1]);
   //var cw = sum < 0;
 
-<<<<<<< HEAD
-  ts = getRad2(v1, o, [1, 0]);
-  te = getRad2(v2, o, [1, 0]);
-=======
   var ts = getRad2(v1, o, [1, 0]);
   var te = getRad2(v2, o, [1, 0]);
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
   ts > Math.PI ? Math.PI*2 - ts : ts;
   ts < 0 ? Math.PI*2 + ts : ts;
   te > Math.PI ? Math.PI*2 - te : te;
@@ -318,11 +296,7 @@ function vect(o, a0, a3){
    // the sign of distance
    var k = 4.0/3.0 * Math.tan(Math.abs(angle) / 4);
 
-<<<<<<< HEAD
-   d_sign = -1;
-=======
    var d_sign = -1;
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
    if(a3[0] - a0[0] > 0){
      d_sign *= -1;
    }
@@ -368,11 +342,7 @@ return ([a0, a3]);
 }
 
 function arcToB(o){
-<<<<<<< HEAD
-  tau = 2 * Math.PI;
-=======
   var tau = 2 * Math.PI;
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
   var x0 = o[0];
   var y0 = o[1];
   var r = o.r;
@@ -454,44 +424,6 @@ function arcDiv ( pStart, pEnd, outPts ) {
     var aLine = [];
     var cr = 0.0;
 	var isGood = 0;
-<<<<<<< HEAD
-
-    do {
-      te = 1.0;
-
-      do {
-
-        pointEnd = divide([start, end], te, te, te)[0];
-        t = (te - ts)/2 + ts;
-        var nPnt = divide([start, end], t, ts, te);
-        aLine = getccenter(pointStart, nPnt[0], pointEnd);
-
-        cr = Math.abs((nPnt[4]/mm) - (aLine.r/mm));
-        //alert('te= ' + te + ', ts= ' + ts +', t= ' + t +', curv= '+ cr +', r= '+ aLine.r/mm);
-        if ( cr <= TOLERANCE || te <= ts + TOLERANCE ) { break };
-        
-        te -= TOLERANCE;
-        te = parseFloat(te);
-
-        //alert(te);
-      } while ( te > ts );
-      i++;
-      //alert('arcs i= ' + i + ', ts= ' + ts +', t= ' + t +', curv= '+ cr +', r= '+ aLine.r/mm);
-      ts = te;
-      pointStart = pointEnd;
-      
- 
-      if ( aLine[0] != undefined || !isNaN(cr) || aLine.r/mm < 3000)
-        outPts.push ([0, "ARC", 8, lazerName, 10, aLine[0]/mm, 20, aLine[1]/mm, 40, aLine.r/mm, 50, aLine.s, 51, aLine.e]);
-		else isGood++;
-	//	outPts.push ([0, "LINE", 8, lazerName, 10, start[0]/mm, 20, start[1]/mm, 11, end[0]/mm, 21, end[1]/mm]);
-      //arcs[i] = (aLine);
-      //alert('r= '+ aLine.r/mm);
-	  //alert(isGood);
-  } while ( ts < 1 ); 
-
-  //alert ('LEN= ' + arcs.length);
-=======
 	var maxIterations = 500; // защита от зацикливания
 
   // Вспомогательная функция: построить дугу для диапазона [ts..teCand] исходного безье
@@ -579,7 +511,6 @@ function arcDiv ( pStart, pEnd, outPts ) {
     pointStart = chosen.pointEnd;
 
   } while ( ts < 1 - 1e-6 );
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 
 return isGood;
 }

@@ -2,10 +2,6 @@
 'use strict';
 
     var csInterface = new CSInterface();
-<<<<<<< HEAD
-	
-    
-=======
 
     // ========== PERSISTENT STORAGE ==========
     // localStorage в CEP периодически чистится браузерным движком.
@@ -56,7 +52,6 @@
     }
     // ========== / PERSISTENT STORAGE ==========
 
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
     function init() {
                 
         themeManager.init();
@@ -127,9 +122,6 @@
         'colorText1': localStorage.getItem('Text1'),
         'colorRisk1': localStorage.getItem('Risk1'),
         'colorDush1': localStorage.getItem('Dush1'),
-<<<<<<< HEAD
-		'gpp': doc.getElementById("gpp").value
-=======
 		'gpp': doc.getElementById("gpp").value,
         // === Параметры экспорта DXF (см. expDXF.js) ===
         // Tolerance — из формы index.html (точность аппроксимации, мм)
@@ -137,7 +129,6 @@
         'Tolerance': doc.getElementById("Tolerance").value,
         'DistX': localStorage.getItem('DistX'),
         'DistShear': localStorage.getItem('DistShear')
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
         };  
 
         //alert(doc.getElementById('Customer').getAttribute('rez'));  
@@ -155,15 +146,11 @@
         'btnRll': true,
 		'Raport': doc.getElementById("Raport").value,
 		'irll': doc.getElementById("iRll").value,
-<<<<<<< HEAD
-        'Namb': $('#Namber').val()
-=======
         'Namb': $('#Namber').val(),
         // те же параметры, что и в основном dict — RLL может вызываться отдельно
         'Tolerance': doc.getElementById("Tolerance").value,
         'DistX': localStorage.getItem('DistX'),
         'DistShear': localStorage.getItem('DistShear')
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
       };
       csInterface.evalScript('sayHello('+JSON.stringify(dict)+')'); 
   
@@ -180,9 +167,6 @@
 
     return;
   }
-<<<<<<< HEAD
-    init();
-=======
     // Сначала подгружаем настройки из файла в localStorage, потом инициализация UI.
     // Если evalScript не дошёл (например ExtendScript ещё не готов) — всё равно стартуем,
     // чтобы интерфейс не висел.
@@ -195,7 +179,6 @@
     loadSettingsFromDisk(safeInit);
     // страховка — если evalScript почему-то не вернёт коллбэк за 2 сек, стартуем без настроек
     setTimeout(safeInit, 2000);
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 	
 
     

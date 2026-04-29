@@ -4,16 +4,11 @@
 #include 'del.js';
 #include 'smooth.js';
 
-<<<<<<< HEAD
-
-PMagenta = new CMYKColor();
-=======
 // === ДИАГНОСТИКА: поставь DEBUG_MODE = true если вдруг опять перестанет сохранять ===
 var DEBUG_MODE = false;
 function dbg(msg) { if (DEBUG_MODE) alert("[DXF] " + msg); }
 
 var PMagenta = new CMYKColor();
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 PMagenta .name = 'Process Magenta';
 PMagenta .black =0; 
 PMagenta .cyan = 0; 
@@ -21,9 +16,6 @@ PMagenta .magenta = 100;
 PMagenta .yellow = 0;
 
 //const mm = 72/25.4;
-<<<<<<< HEAD
-const TOLERANCE = 0.5;
-=======
 // Был:
 //   const TOLERANCE = 0.5;
 //   const T_STEP = 0.05;
@@ -43,7 +35,6 @@ var DIST_X = (typeof $.global.DistX !== 'undefined' && !isNaN(parseFloat($.globa
     ? parseFloat($.global.DistX) : 100;
 var DIST_SHEAR = (typeof $.global.DistShear !== 'undefined' && !isNaN(parseFloat($.global.DistShear)))
     ? parseFloat($.global.DistShear) : 0;
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 const MIN_ANGLE = 0, // Degrees range for the Tolerance
       MAX_ANGLE = 180, // Degrees range for the Tolerance
       COS_INACCURACY = -0.999999, // Correction of coordinate inaccuracy
@@ -53,20 +44,6 @@ const MIN_ANGLE = 0, // Degrees range for the Tolerance
 var p, op, pnts;
 var docRef = app.activeDocument;
 var layerName = "Knife";
-<<<<<<< HEAD
-docRef.selection = null;
-//alert(docRef.layers["RLL"].name);
-try {
-	if (docRef.layers["RLL"].name === "RLL"){
-		//docRef.layers["RLL"].remove();
-		docRef.layers["RLL"].hasSelectedArtwork = true;
-		pnts = laser();
-		saves(Nams, pnts);
-	}
-} catch(e) {	
-
-	var lazerName = docRef.layers.add();
-=======
 var lazerName = null;
 docRef.selection = null;
 
@@ -86,24 +63,10 @@ try {
 	dbg("RLL doesn't exist, creating. exception: " + e);
 
 	lazerName = docRef.layers.add();
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 		lazerName.name="RLL";
 		lazerName.printable = false;
 		lazerName.zOrder(ZOrderMethod.SENDTOBACK);	
 
-<<<<<<< HEAD
-
-	for (var i = docRef.layers[layerName].pageItems.length - 1; i >= 0; i--) {
-		var pageItem = docRef.layers[layerName].pageItems[i];
-		pageItem.duplicate(lazerName, ElementPlacement.PLACEATBEGINNING);
-	}
-
-	lazerName.hasSelectedArtwork = true;
-
-	ungroup();
-	//alert(irll);
-	//alert(Rap);
-=======
 	dbg("Knife layer pageItems: " + docRef.layers[layerName].pageItems.length);
 
 	// === Копируем Knife → RLL внутрь ОДНОЙ обёрточной группы. ===
@@ -134,16 +97,11 @@ try {
 	ungroup();
 	dbg("after ungroup, selection length: " + docRef.selection.length);
 
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 	if (irll != 0) { addDensityMath(irll); convertPoint(); };
 
 	docRef.selection = null;
 
-<<<<<<< HEAD
-	angleRLL = lazerName.pathItems.add();
-=======
 	var angleRLL = lazerName.pathItems.add();
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
     angleRLL.setEntirePath( Array( Array((Rap*mm+3*mm), 0), Array((Rap*mm+1*mm), 1.5*mm), Array((Rap*mm+3*mm), 3*mm)) );
     angleRLL.stroked = true;
     angleRLL.strokeColor = PMagenta;
@@ -151,12 +109,6 @@ try {
     angleRLL.filled = false;
 
 	lazerName.hasSelectedArtwork = true;
-<<<<<<< HEAD
-
-	pnts = laser();
-
-	saves(Nams, pnts);
-=======
 	dbg("before laser(), RLL selected items: " + docRef.selection.length);
 
 	pnts = laser();
@@ -164,7 +116,6 @@ try {
 
 	saves(Nams, pnts);
 	dbg("saves() completed");
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 }
 
 	docRef.selection = null;
@@ -182,16 +133,6 @@ for (var i = 0; i < docRef.selection.length; i++) {
 */
 function saves(znamber, pathes){
 	var SDefault = "";
-<<<<<<< HEAD
-    //var znamber  = doc.getElementById('Namber').value;
-    //alert(znamber);
-    var path = '\\\\storage\\zakaz\\'+znamber.substr (0, znamber.length-3)+'000-'+znamber.substr (0, znamber.length-3)+'999\\'+znamber+'/laser/RLL.dxf';
-    //alert(path);
-    //alert("pathes.length " + pathes.length);
-    var SaveFileDefault = new File( path ); 
-        SaveFileDefault.open ("w"); 
-        SaveFileDefault.write("0\nSECTION\n2\nENTITIES\n"); 
-=======
     dbg("saves() called, znamber=" + znamber + ", pathes.length=" + (pathes ? pathes.length : "undefined"));
     if (!pathes || pathes.length === 0) {
         dbg("saves(): pathes is empty, abort");
@@ -207,23 +148,15 @@ function saves(znamber, pathes){
         return;
     }
     SaveFileDefault.write("0\nSECTION\n2\nENTITIES\n"); 
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 
     for(var i = 0; i < pathes.length; i++){
      SDefault += convertToArc(pathes[i], SaveFileDefault);
 	 
     }
 	SDefault += "ENDSEC\n0\nEOF";
-<<<<<<< HEAD
-	//SaveFile.write(SDefault);  
-    SaveFileDefault.write(SDefault);  
-    SaveFileDefault.close(); 
-    
-=======
     SaveFileDefault.write(SDefault);  
     SaveFileDefault.close();
     dbg("saves(): DONE, written " + SDefault.length + " chars");
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 }
 
 
@@ -334,19 +267,11 @@ var figClose = false;
    //if (pi.closed) newPoints.push(getData(p[0], line));
 var d = delPoints(p);
 
-<<<<<<< HEAD
-for (i = 0; i < d.length; i++) newPts.push(d[i]);
-
-if (pi.closed) {newPts.push(d[0]); figClose = true;}
-
-t = 1;
-=======
 for (var i = 0; i < d.length; i++) newPts.push(d[i]);
 
 if (pi.closed) {newPts.push(d[0]); figClose = true;}
 
 var t = 1;
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 
 var n = newPts.length;
 var j = 0, i = 0;
@@ -386,11 +311,7 @@ while( i < n ) {
 
           //alert(getT4Len([newPts[j].anchor, newPts[j].rightDirection, newPts[j+1].anchor, newPts[j+1].leftDirection], 0.5));
 
-<<<<<<< HEAD
-        t = 1
-=======
         t = 1;
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
        // pointEnd = newPts[j+1];
       
 
@@ -456,11 +377,7 @@ k = 0;
   //  };
   var SaveDefault = "";
       for(i=0; i < outPts.length; i++) {
-<<<<<<< HEAD
-        for (j=0; j < outPts[i].length; j++) SaveDefault += outPts[i][j] + "\n";
-=======
         for (var jj=0; jj < outPts[i].length; jj++) SaveDefault += outPts[i][jj] + "\n";
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
       };
  if (isGood > 0) alert ("Проблемы с геометрией, проверить RLL");
  return SaveDefault;
@@ -690,30 +607,6 @@ function computeError(pc, np1, s, e) {
 }
 
 function ungroup() {
-<<<<<<< HEAD
-	var selection = docRef.selection;
-	
-	
-//    try {
-        // Для английской версии (стандартный набор операций)
-//        app.doScript("Add Anchor Points", "Default Actions");
-//    } catch (e) {
-//            alert("Не удалось найти стандартную операцию 'Добавить опорные точки'. Проверьте панель Операции (Actions).");
- //   }
-	
-	for (var i = 0; i < selection.length; i++) {
-		var item = selection[i];
-		if (item.typename == "GroupItem" || item.typename == "CompoundPathItem") {
-			var elements = getChildAll(item);
-			for (var j = 0; j < elements.length; j++) {
-				elements[j].moveBefore(item);
-			}
-			item.remove();
-			ungroup(); // Recursively ungroup newly ungrouped items
-		} else if (item.typename == "PathItem"){
-			item.strokeColor = PMagenta; // Apply the new color
-			item.strokeWidth = 0.2*mm;
-=======
 	// Итеративный разгруппировщик без рекурсии.
 	// Работает, пока в выделении есть группы/compound-пути.
 	// ВАЖНО: итерируем с конца, т.к. коллекция selection "живая" и изменяется при remove().
@@ -750,25 +643,17 @@ function ungroup() {
 				item.strokeColor = PMagenta;
 				item.strokeWidth = 0.2*mm;
 			}
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 		}
 	}
 }
 
 function getChildAll(obj) {
 	var childsArr = [];
-<<<<<<< HEAD
-	
-	if (obj.typename == "GroupItem") ln = obj.pageItems;
-	else ln = obj.pathItems;
-	
-=======
 	var ln;
 
 	if (obj.typename == "GroupItem") ln = obj.pageItems;
 	else ln = obj.pathItems;
 
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 	for (var i = 0; i < ln.length; i++) {
 		var elm = ln[i];
 		elm.strokeColor = PMagenta; // Apply the new color
@@ -780,8 +665,6 @@ function getChildAll(obj) {
 }
 
 
-<<<<<<< HEAD
-=======
 // =====================================================================
 // applyRllDistortion(group, distXpct, shearDeg)
 //
@@ -873,7 +756,6 @@ function applyRllDistortion(group, distXpct, shearDeg) {
 	}
 }
 
->>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 function myCustomDynamicAction(smoothf) {
 	//alert (smoothf);
     var actionCode =
