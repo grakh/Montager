@@ -208,12 +208,35 @@ Diameter, mm: D1:
     <button id = "btnRll" class="buttonRll grayb" onClick="laser()" disabled>RLL</button>
 </div>
 
+<<<<<<< HEAD
 <div id="btnS">
     <button id="btnSet" class="btnXml" onClick="window.location.href = 'set.html'">Set</button>
 </div>
 <div id="eRll">
     <input id="iRll" value="0"><label id="iRllmm">,мм</label>
 </div>
+=======
+<!-- ===== Группа: RLL-параметры + Set =====
+     Tol и iRll стоят один под другим (стэк), Set справа от них.
+     Tolerance НЕ сохраняется между заказами — при загрузке нового
+     заказа через fxml() сбрасывается на дефолт 0.5. -->
+<div id="eRll">
+   <div class="stackBox">
+       <div class="tolBox">
+           <input id="Tolerance" value="0.5"><label id="tolLbl">tol</label>
+       </div>
+       <div class="rllBox">
+           <input id="iRll" value="0"><label id="iRllmm">,мм</label>
+       </div>
+   </div>
+   <button id="btnSet" class="btnXml" onClick="window.location.href = 'set.html'">Set</button>
+</div>
+
+<script>
+    // только цифры/точка/минус
+    doc.getElementById("Tolerance").onkeypress = function(e){return !(/[^\d\.\-]/.test(String.fromCharCode(e.charCode)))};
+</script>
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 <div id='manager'>
     Менеджер: 
 </div>

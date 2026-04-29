@@ -60,7 +60,11 @@ function divide(pnts, t, ts, te){
 
   //alert(t+'  '+ ((t - ts)/2 + ts) +'  '+ ((te - t)/2 + t));
 
+<<<<<<< HEAD
   anc = curve.bezier(pnts, t);
+=======
+  var anc = curve.bezier(pnts, t);
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
   //r = drawCurvePoint(pnts[1].leftDirection, pnts[0].leftDirection, t);
   //l = drawCurvePoint(pnts[1].rightDirection, pnts[0].rightDirection, t);
   var l = defDir(pnts, 0, t);
@@ -176,7 +180,11 @@ function getccenter(p1, p2, p3) {
     my2n = my2 + dy2p,
     // intersection of these lines:
     arc = lli8(mx1, my1, mx1n, my1n, mx2, my2, mx2n, my2n);
+<<<<<<< HEAD
     r = dist(arc, p1);
+=======
+    var r = dist(arc, p1);
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 
   // arc start/end values, over mid point:
   var s = Math.atan2(p1[1] - arc[1], p1[0] - arc[0]),
@@ -247,12 +255,21 @@ function lli8(x1, y1, x2, y2, x3, y3, x4, y4) {
 
 function angle (o, v1) {
 
+<<<<<<< HEAD
     dx1 = v1[0] - o[0],
     dy1 = v1[1] - o[1],
     dx2 = 1,
     dy2 = 0;
     cross = dx1 * dy2 - dy1 * dx2,
     dot = dx1 * dx2 + dy1 * dy2;
+=======
+    var dx1 = v1[0] - o[0],
+        dy1 = v1[1] - o[1],
+        dx2 = 1,
+        dy2 = 0;
+    var cross = dx1 * dy2 - dy1 * dx2,
+        dot = dx1 * dx2 + dy1 * dy2;
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
   var t = Math.atan2(cross, dot);
   //t = Math.abs(t);
   t = t < Math.PI ? Math.PI*2 - t : t;
@@ -264,8 +281,13 @@ function angle2 (o, v1, v2) {
   //var sum = (v1[0] - v2[0]) * (v1[1] + v2[1]);
   //var cw = sum < 0;
 
+<<<<<<< HEAD
   ts = getRad2(v1, o, [1, 0]);
   te = getRad2(v2, o, [1, 0]);
+=======
+  var ts = getRad2(v1, o, [1, 0]);
+  var te = getRad2(v2, o, [1, 0]);
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
   ts > Math.PI ? Math.PI*2 - ts : ts;
   ts < 0 ? Math.PI*2 + ts : ts;
   te > Math.PI ? Math.PI*2 - te : te;
@@ -296,7 +318,11 @@ function vect(o, a0, a3){
    // the sign of distance
    var k = 4.0/3.0 * Math.tan(Math.abs(angle) / 4);
 
+<<<<<<< HEAD
    d_sign = -1;
+=======
+   var d_sign = -1;
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
    if(a3[0] - a0[0] > 0){
      d_sign *= -1;
    }
@@ -342,7 +368,11 @@ return ([a0, a3]);
 }
 
 function arcToB(o){
+<<<<<<< HEAD
   tau = 2 * Math.PI;
+=======
+  var tau = 2 * Math.PI;
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
   var x0 = o[0];
   var y0 = o[1];
   var r = o.r;
@@ -424,6 +454,7 @@ function arcDiv ( pStart, pEnd, outPts ) {
     var aLine = [];
     var cr = 0.0;
 	var isGood = 0;
+<<<<<<< HEAD
 
     do {
       te = 1.0;
@@ -460,6 +491,95 @@ function arcDiv ( pStart, pEnd, outPts ) {
   } while ( ts < 1 ); 
 
   //alert ('LEN= ' + arcs.length);
+=======
+	var maxIterations = 500; // защита от зацикливания
+
+  // Вспомогательная функция: построить дугу для диапазона [ts..teCand] исходного безье
+  // Возвращает { aLine, cr, pointEnd } или null если центр не определён
+  function tryArc(tsLocal, teCand) {
+    var pEnd = divide([start, end], teCand, teCand, teCand)[0];
+    var tMid = (teCand - tsLocal)/2 + tsLocal;
+    var nPnt = divide([start, end], tMid, tsLocal, teCand);
+    var aL = getccenter(pointStart, nPnt[0], pEnd);
+    if (!aL || isNaN(aL.r) || !aL[0] && aL[0] !== 0) return null;
+    var crVal = Math.abs((nPnt[4]/mm) - (aL.r/mm));
+    return { aLine: aL, cr: crVal, pointEnd: pEnd };
+  }
+
+  do {
+    i++;
+    if (i > maxIterations) { isGood++; break; }
+
+    // ---- Бинарный поиск максимального te такого, что дуга аппроксимирует безье с точностью TOLERANCE ----
+    // Сначала пробуем весь оставшийся кусок
+    var resultFull = tryArc(ts, 1.0);
+    var chosen = null;
+
+    if (resultFull && resultFull.cr <= TOLERANCE) {
+      // Весь оставшийся кусок помещается одной дугой
+      te = 1.0;
+      chosen = resultFull;
+    } else {
+      // Бинарный поиск: ищем максимальное te, при котором дуга укладывается в TOLERANCE
+      var lo = ts + T_MIN_SEGMENT;
+      if (lo > 1.0) lo = 1.0;
+      var hi = 1.0;
+      var bestTe = -1;
+      var bestResult = null;
+
+      for (var bi = 0; bi < 24; bi++) {
+        var mid = (lo + hi) / 2;
+        var res = tryArc(ts, mid);
+        if (res && res.cr <= TOLERANCE) {
+          bestTe = mid;
+          bestResult = res;
+          lo = mid;
+        } else {
+          hi = mid;
+        }
+        if (hi - lo < 1e-5) break;
+      }
+
+      if (bestResult) {
+        te = bestTe;
+        chosen = bestResult;
+      } else {
+        // Даже минимальный кусок не даёт хорошую дугу (сильная кривизна / вырожденность).
+        // ВАЖНО: всё равно продвигаемся маленьким шагом. Лучше неточная дуга,
+        // чем LINE через большой кусок кривой.
+        te = Math.min(ts + T_MIN_SEGMENT, 1.0);
+        var resFallback = tryArc(ts, te);
+        if (resFallback) {
+          chosen = resFallback;
+        } else {
+          // Совсем вырождено (коллинеарные точки) — здесь уместна LINE, но короткая
+          var pEndLine = divide([start, end], te, te, te)[0];
+          outPts.push ([0, "LINE", 8, lazerName,
+                        10, pointStart[0]/mm, 20, pointStart[1]/mm,
+                        11, pEndLine[0]/mm, 21, pEndLine[1]/mm]);
+          ts = te;
+          pointStart = pEndLine;
+          continue;
+        }
+      }
+    }
+
+    // Запись дуги. Если радиус подозрительно большой — пишем LINE для этого МАЛЕНЬКОГО сегмента.
+    var aL = chosen.aLine;
+    if ( aL && aL[0] !== undefined && !isNaN(aL.r) && aL.r/mm < 3000 && aL.r/mm > 0 ) {
+      outPts.push ([0, "ARC", 8, lazerName, 10, aL[0]/mm, 20, aL[1]/mm, 40, aL.r/mm, 50, aL.s, 51, aL.e]);
+    } else {
+      // Радиус слишком велик (почти прямая) — заменяем на LINE, но только для текущего сегмента
+      outPts.push ([0, "LINE", 8, lazerName,
+                    10, pointStart[0]/mm, 20, pointStart[1]/mm,
+                    11, chosen.pointEnd[0]/mm, 21, chosen.pointEnd[1]/mm]);
+    }
+
+    ts = te;
+    pointStart = chosen.pointEnd;
+
+  } while ( ts < 1 - 1e-6 );
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 
 return isGood;
 }

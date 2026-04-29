@@ -4,8 +4,16 @@
 #include 'del.js';
 #include 'smooth.js';
 
+<<<<<<< HEAD
 
 PMagenta = new CMYKColor();
+=======
+// === ДИАГНОСТИКА: поставь DEBUG_MODE = true если вдруг опять перестанет сохранять ===
+var DEBUG_MODE = false;
+function dbg(msg) { if (DEBUG_MODE) alert("[DXF] " + msg); }
+
+var PMagenta = new CMYKColor();
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 PMagenta .name = 'Process Magenta';
 PMagenta .black =0; 
 PMagenta .cyan = 0; 
@@ -13,7 +21,29 @@ PMagenta .magenta = 100;
 PMagenta .yellow = 0;
 
 //const mm = 72/25.4;
+<<<<<<< HEAD
 const TOLERANCE = 0.5;
+=======
+// Был:
+//   const TOLERANCE = 0.5;
+//   const T_STEP = 0.05;
+//   const T_MIN_SEGMENT = 0.05;
+// Теперь:
+var TOLERANCE = (typeof $.global.Tolerance !== 'undefined' && parseFloat($.global.Tolerance) > 0)
+    ? parseFloat($.global.Tolerance)
+    : 0.5;
+var T_STEP = TOLERANCE / 10;          // 0.5 → 0.05 — как было по умолчанию
+var T_MIN_SEGMENT = T_STEP;
+
+// === Параметры искажения геометрии перед записью DXF ===
+// Передаются из index.html через main.js → hostscript.jsx → $.global
+// DIST_X      — масштаб по X в % (100 = без изменений)
+// DIST_SHEAR  — наклон по X в градусах (0 = без наклона)
+var DIST_X = (typeof $.global.DistX !== 'undefined' && !isNaN(parseFloat($.global.DistX)))
+    ? parseFloat($.global.DistX) : 100;
+var DIST_SHEAR = (typeof $.global.DistShear !== 'undefined' && !isNaN(parseFloat($.global.DistShear)))
+    ? parseFloat($.global.DistShear) : 0;
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 const MIN_ANGLE = 0, // Degrees range for the Tolerance
       MAX_ANGLE = 180, // Degrees range for the Tolerance
       COS_INACCURACY = -0.999999, // Correction of coordinate inaccuracy
@@ -23,6 +53,7 @@ const MIN_ANGLE = 0, // Degrees range for the Tolerance
 var p, op, pnts;
 var docRef = app.activeDocument;
 var layerName = "Knife";
+<<<<<<< HEAD
 docRef.selection = null;
 //alert(docRef.layers["RLL"].name);
 try {
@@ -35,10 +66,32 @@ try {
 } catch(e) {	
 
 	var lazerName = docRef.layers.add();
+=======
+var lazerName = null;
+docRef.selection = null;
+
+dbg("start. Nams=" + Nams + ", irll=" + irll);
+
+//alert(docRef.layers["RLL"].name);
+try {
+	if (docRef.layers["RLL"].name === "RLL"){
+		dbg("RLL exists, using existing");
+		lazerName = docRef.layers["RLL"];
+		docRef.layers["RLL"].hasSelectedArtwork = true;
+		pnts = laser();
+		dbg("laser() returned " + (pnts ? pnts.length + " paths" : "nothing"));
+		saves(Nams, pnts);
+	}
+} catch(e) {	
+	dbg("RLL doesn't exist, creating. exception: " + e);
+
+	lazerName = docRef.layers.add();
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 		lazerName.name="RLL";
 		lazerName.printable = false;
 		lazerName.zOrder(ZOrderMethod.SENDTOBACK);	
 
+<<<<<<< HEAD
 
 	for (var i = docRef.layers[layerName].pageItems.length - 1; i >= 0; i--) {
 		var pageItem = docRef.layers[layerName].pageItems[i];
@@ -50,11 +103,47 @@ try {
 	ungroup();
 	//alert(irll);
 	//alert(Rap);
+=======
+	dbg("Knife layer pageItems: " + docRef.layers[layerName].pageItems.length);
+
+	// === Копируем Knife → RLL внутрь ОДНОЙ обёрточной группы. ===
+	// Это нужно, чтобы потом применить искажение (X / Shear) ко всей
+	// раскладке как к единому целому: group.width *= sxF и group.shear()
+	// действуют на содержимое пропорционально, как делает hostscript для
+	// основной дисторции (см. строка ~462: newGroup.width *= Distor).
+	// БЕЗ обёрточной группы каждый pathItem трансформируется относительно
+	// своего собственного центра — формы сжимаются, но раскладка
+	// (расстояния между ними) остаётся прежней — это не то, что нужно.
+	var rllWrap = lazerName.groupItems.add();
+	for (var i = docRef.layers[layerName].pageItems.length - 1; i >= 0; i--) {
+		var pageItem = docRef.layers[layerName].pageItems[i];
+		pageItem.duplicate(rllWrap, ElementPlacement.PLACEATBEGINNING);
+	}
+
+	// === Применяем искажение к ОБЁРТОЧНОЙ ГРУППЕ ===
+	// Сразу после копирования и ДО ungroup — пока есть единый groupItem,
+	// который Illustrator умеет ресайзить как единое целое.
+	applyRllDistortion(rllWrap, DIST_X, DIST_SHEAR);
+
+	// Теперь выделяем уже искажённую группу и разбираем её на отдельные
+	// pathItem (как было раньше — для последующей работы laser/saves).
+	docRef.selection = null;
+	lazerName.hasSelectedArtwork = true;
+
+	dbg("before ungroup, selection length: " + docRef.selection.length);
+	ungroup();
+	dbg("after ungroup, selection length: " + docRef.selection.length);
+
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 	if (irll != 0) { addDensityMath(irll); convertPoint(); };
 
 	docRef.selection = null;
 
+<<<<<<< HEAD
 	angleRLL = lazerName.pathItems.add();
+=======
+	var angleRLL = lazerName.pathItems.add();
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
     angleRLL.setEntirePath( Array( Array((Rap*mm+3*mm), 0), Array((Rap*mm+1*mm), 1.5*mm), Array((Rap*mm+3*mm), 3*mm)) );
     angleRLL.stroked = true;
     angleRLL.strokeColor = PMagenta;
@@ -62,10 +151,20 @@ try {
     angleRLL.filled = false;
 
 	lazerName.hasSelectedArtwork = true;
+<<<<<<< HEAD
 
 	pnts = laser();
 
 	saves(Nams, pnts);
+=======
+	dbg("before laser(), RLL selected items: " + docRef.selection.length);
+
+	pnts = laser();
+	dbg("laser() returned " + (pnts ? pnts.length + " paths" : "nothing or empty"));
+
+	saves(Nams, pnts);
+	dbg("saves() completed");
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 }
 
 	docRef.selection = null;
@@ -83,6 +182,7 @@ for (var i = 0; i < docRef.selection.length; i++) {
 */
 function saves(znamber, pathes){
 	var SDefault = "";
+<<<<<<< HEAD
     //var znamber  = doc.getElementById('Namber').value;
     //alert(znamber);
     var path = '\\\\storage\\zakaz\\'+znamber.substr (0, znamber.length-3)+'000-'+znamber.substr (0, znamber.length-3)+'999\\'+znamber+'/laser/RLL.dxf';
@@ -91,16 +191,39 @@ function saves(znamber, pathes){
     var SaveFileDefault = new File( path ); 
         SaveFileDefault.open ("w"); 
         SaveFileDefault.write("0\nSECTION\n2\nENTITIES\n"); 
+=======
+    dbg("saves() called, znamber=" + znamber + ", pathes.length=" + (pathes ? pathes.length : "undefined"));
+    if (!pathes || pathes.length === 0) {
+        dbg("saves(): pathes is empty, abort");
+        return;
+    }
+    var path = '\\\\storage\\zakaz\\'+znamber.substr (0, znamber.length-3)+'000-'+znamber.substr (0, znamber.length-3)+'999\\'+znamber+'/laser/RLL.dxf';
+    dbg("saves(): path = " + path);
+    var SaveFileDefault = new File( path );
+    var opened = SaveFileDefault.open ("w");
+    dbg("saves(): file.open() = " + opened + ", File.error = " + SaveFileDefault.error);
+    if (!opened) {
+        alert("Не удалось открыть файл для записи:\n" + path + "\n\nОшибка: " + SaveFileDefault.error);
+        return;
+    }
+    SaveFileDefault.write("0\nSECTION\n2\nENTITIES\n"); 
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 
     for(var i = 0; i < pathes.length; i++){
      SDefault += convertToArc(pathes[i], SaveFileDefault);
 	 
     }
 	SDefault += "ENDSEC\n0\nEOF";
+<<<<<<< HEAD
 	//SaveFile.write(SDefault);  
     SaveFileDefault.write(SDefault);  
     SaveFileDefault.close(); 
     
+=======
+    SaveFileDefault.write(SDefault);  
+    SaveFileDefault.close();
+    dbg("saves(): DONE, written " + SDefault.length + " chars");
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 }
 
 
@@ -211,11 +334,19 @@ var figClose = false;
    //if (pi.closed) newPoints.push(getData(p[0], line));
 var d = delPoints(p);
 
+<<<<<<< HEAD
 for (i = 0; i < d.length; i++) newPts.push(d[i]);
 
 if (pi.closed) {newPts.push(d[0]); figClose = true;}
 
 t = 1;
+=======
+for (var i = 0; i < d.length; i++) newPts.push(d[i]);
+
+if (pi.closed) {newPts.push(d[0]); figClose = true;}
+
+var t = 1;
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 
 var n = newPts.length;
 var j = 0, i = 0;
@@ -255,7 +386,11 @@ while( i < n ) {
 
           //alert(getT4Len([newPts[j].anchor, newPts[j].rightDirection, newPts[j+1].anchor, newPts[j+1].leftDirection], 0.5));
 
+<<<<<<< HEAD
         t = 1
+=======
+        t = 1;
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
        // pointEnd = newPts[j+1];
       
 
@@ -321,7 +456,11 @@ k = 0;
   //  };
   var SaveDefault = "";
       for(i=0; i < outPts.length; i++) {
+<<<<<<< HEAD
         for (j=0; j < outPts[i].length; j++) SaveDefault += outPts[i][j] + "\n";
+=======
+        for (var jj=0; jj < outPts[i].length; jj++) SaveDefault += outPts[i][jj] + "\n";
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
       };
  if (isGood > 0) alert ("Проблемы с геометрией, проверить RLL");
  return SaveDefault;
@@ -551,6 +690,7 @@ function computeError(pc, np1, s, e) {
 }
 
 function ungroup() {
+<<<<<<< HEAD
 	var selection = docRef.selection;
 	
 	
@@ -573,16 +713,62 @@ function ungroup() {
 		} else if (item.typename == "PathItem"){
 			item.strokeColor = PMagenta; // Apply the new color
 			item.strokeWidth = 0.2*mm;
+=======
+	// Итеративный разгруппировщик без рекурсии.
+	// Работает, пока в выделении есть группы/compound-пути.
+	// ВАЖНО: итерируем с конца, т.к. коллекция selection "живая" и изменяется при remove().
+	var hasGroups = true;
+	var safetyLimit = 50; // защита от бесконечного цикла на патологических данных
+	var iteration = 0;
+
+	while (hasGroups && iteration < safetyLimit) {
+		hasGroups = false;
+		iteration++;
+
+		// копия ссылок на текущее выделение в обычный массив, чтобы не мутировать "живую" коллекцию во время обхода
+		var sel = docRef.selection;
+		var items = [];
+		for (var k = 0; k < sel.length; k++) items.push(sel[k]);
+
+		for (var i = items.length - 1; i >= 0; i--) {
+			var item = items[i];
+			// доступ к удаленным объектам кидает исключение — оборачиваем
+			try {
+				var tn = item.typename;
+			} catch (e) {
+				continue;
+			}
+
+			if (tn == "GroupItem" || tn == "CompoundPathItem") {
+				var elements = getChildAll(item);
+				for (var jj = 0; jj < elements.length; jj++) {
+					try { elements[jj].moveBefore(item); } catch (e) {}
+				}
+				try { item.remove(); } catch (e) {}
+				hasGroups = true;
+			} else if (tn == "PathItem") {
+				item.strokeColor = PMagenta;
+				item.strokeWidth = 0.2*mm;
+			}
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 		}
 	}
 }
 
 function getChildAll(obj) {
 	var childsArr = [];
+<<<<<<< HEAD
 	
 	if (obj.typename == "GroupItem") ln = obj.pageItems;
 	else ln = obj.pathItems;
 	
+=======
+	var ln;
+
+	if (obj.typename == "GroupItem") ln = obj.pageItems;
+	else ln = obj.pathItems;
+
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 	for (var i = 0; i < ln.length; i++) {
 		var elm = ln[i];
 		elm.strokeColor = PMagenta; // Apply the new color
@@ -594,6 +780,100 @@ function getChildAll(obj) {
 }
 
 
+<<<<<<< HEAD
+=======
+// =====================================================================
+// applyRllDistortion(group, distXpct, shearDeg)
+//
+// Применяет к ГРУППЕ (groupItem) искажение по X и сдвиг (shear).
+// Параметры:
+//   distXpct — масштаб по X в процентах. 100 = без изменений.
+//   shearDeg — наклон по X в градусах. 0 = без изменений.
+//
+// Работает по тому же паттерну, что и hostscript.jsx с основной
+// дисторцией (newGroup.width *= Distor): просто меняет ширину группы,
+// и Illustrator сам пропорционально пересчитывает всё содержимое —
+// и формы элементов, и взаимные расстояния. Для shear используется
+// штатный метод groupItem.shear().
+//
+// Вызывается ДО ungroup() — пока ещё есть единая группа.
+// =====================================================================
+function applyRllDistortion(group, distXpct, shearDeg) {
+	var sx = parseFloat(distXpct);
+	var sh = parseFloat(shearDeg);
+	if (isNaN(sx)) sx = 100;
+	if (isNaN(sh)) sh = 0;
+
+	var EPS = 0.0001;
+	var doScale = Math.abs(sx - 100) > EPS;
+	var doShear = Math.abs(sh)       > EPS;
+	if (!doScale && !doShear) {
+		dbg("applyRllDistortion: identity, skip");
+		return;
+	}
+
+	dbg("applyRllDistortion: X=" + sx + "%, Shear=" + sh + "°, group.width=" + group.width);
+
+	try {
+		// 1) Сначала shear (наклон по горизонтали).
+		//
+		// Делаем через transform() с явной матрицей. Это рабочий
+		// рецепт из проверенного скрипта пользователя.
+		//
+		// КЛЮЧЕВОЕ — последний аргумент Transformation.DOCUMENTORIGIN.
+		// Без него transform применяется относительно центра объекта,
+		// и сдвиг визуально не виден. С DOCUMENTORIGIN объект двигается
+		// относительно начала координат документа — точка с y > 0
+		// реально смещается по X на tan(α)·y.
+		//
+		// Горизонтальный shear:  x' = x + tan(α)·y, y' = y.
+		//   [ 1   tan(α)  0 ]
+		//   [ 0     1     0 ]
+		if (doShear) {
+			var shTan = Math.tan(sh * Math.PI / 180.0);
+
+			// Берём настоящий Matrix через app.getIdentityMatrix() —
+			// объект-литерал {mValueA:..., mValueB:...} в ExtendScript
+			// не всегда распознается как Matrix.
+			var M = app.getIdentityMatrix();
+			M.mValueC = shTan;   // остальное уже identity (A=D=1, B=TX=TY=0)
+
+			dbg("applyRllDistortion: shear matrix C=" + shTan + " (sh=" + sh + "°)");
+
+			// Применяем к КАЖДОМУ pageItem группы — с одной и той же
+			// матрицей и относительно ОДНОЙ опорной точки (DOCUMENTORIGIN).
+			// Так наклон получается согласованным: все элементы
+			// смещаются по тому же закону x' = x + tan(α)·y.
+			//
+			// transform(matrix, changePositions, changeFillPatterns,
+			//           changeFillGradients, changeStrokePattern,
+			//           lineScale, transformAbout)
+			var children = group.pageItems;
+			for (var i = 0; i < children.length; i++) {
+				try {
+					children[i].transform(M, true, true, true, true, 1,
+						Transformation.DOCUMENTORIGIN);
+				} catch(e) {
+					dbg("applyRllDistortion: shear failed on item " + i + ": " + e);
+				}
+			}
+			dbg("applyRllDistortion: shear applied to " + children.length + " items");
+		}
+
+		// 2) Масштаб по X. Меняем ширину группы — Illustrator сам
+		//    пропорционально пересчитает всё содержимое (как hostscript:
+		//    newGroup.width *= Distor).
+		if (doScale) {
+			var sxF = sx / 100.0;
+			group.width = group.width * sxF;
+			dbg("applyRllDistortion: after scale group.width=" + group.width);
+		}
+	} catch(e) {
+		dbg("applyRllDistortion: failed: " + e);
+	}
+}
+
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 function myCustomDynamicAction(smoothf) {
 	//alert (smoothf);
     var actionCode =

@@ -39,7 +39,27 @@
             <input id="colorDush1" class="colorSet" value="100">
             </div>
             
+<<<<<<< HEAD
         </div>    
+=======
+        </div>
+
+        <!-- ===== Искажения геометрии RLL (для expDXF) =====
+             X     — масштаб по X в %, 100 = без изменений
+             Shear — наклон по X в градусах, 0 = без наклона
+             Применяются после копирования Knife → RLL. -->
+        <div id="distortBox">
+            <label id="zagDist" class="colorLabel">Искажения RLL:</label>
+            <div class="field">
+                <label class="colorLabel">X, %:</label>
+                <input id="DistX" class="colorSet" value="100">
+            </div>
+            <div class="field">
+                <label class="colorLabel">Shear, X°:</label>
+                <input id="DistShear" class="colorSet" value="0">
+            </div>
+        </div>
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
     </div>
 
     <div id="btnBox">

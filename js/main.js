@@ -2,8 +2,61 @@
 'use strict';
 
     var csInterface = new CSInterface();
+<<<<<<< HEAD
 	
     
+=======
+
+    // ========== PERSISTENT STORAGE ==========
+    // localStorage в CEP периодически чистится браузерным движком.
+    // Оборачиваем его так, чтобы все записи дублировались в файл
+    // %APPDATA%/ru.list.don.montager/settings.json через ExtendScript.
+    // При старте читаем файл и восстанавливаем localStorage.
+
+    var STORAGE_LOADED = false;
+    var _origSetItem = localStorage.setItem.bind(localStorage);
+    var _origRemoveItem = localStorage.removeItem.bind(localStorage);
+
+    function _flushToDisk() {
+        // сериализуем весь localStorage и пишем в файл
+        var all = {};
+        for (var i = 0; i < localStorage.length; i++) {
+            var k = localStorage.key(i);
+            all[k] = localStorage.getItem(k);
+        }
+        var json = JSON.stringify(all);
+        // JSON нужно ещё раз обернуть как строковой литерал для evalScript
+        csInterface.evalScript('storageSaveAll(' + JSON.stringify(json) + ')');
+    }
+
+    // перехват setItem — сохраняем в localStorage И в файл
+    localStorage.setItem = function(k, v) {
+        _origSetItem(k, v);
+        if (STORAGE_LOADED) _flushToDisk();
+    };
+    localStorage.removeItem = function(k) {
+        _origRemoveItem(k);
+        if (STORAGE_LOADED) _flushToDisk();
+    };
+
+    function loadSettingsFromDisk(cb) {
+        csInterface.evalScript('storageLoadAll()', function(result) {
+            try {
+                var obj = JSON.parse(result || '{}');
+                for (var k in obj) {
+                    if (obj.hasOwnProperty(k)) {
+                        // пишем напрямую, минуя наш перехватчик (не нужен flush при загрузке)
+                        _origSetItem(k, obj[k]);
+                    }
+                }
+            } catch(e) { /* файл битый или пустой — не страшно */ }
+            STORAGE_LOADED = true;
+            if (cb) cb();
+        });
+    }
+    // ========== / PERSISTENT STORAGE ==========
+
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
     function init() {
                 
         themeManager.init();
@@ -74,7 +127,17 @@
         'colorText1': localStorage.getItem('Text1'),
         'colorRisk1': localStorage.getItem('Risk1'),
         'colorDush1': localStorage.getItem('Dush1'),
+<<<<<<< HEAD
 		'gpp': doc.getElementById("gpp").value
+=======
+		'gpp': doc.getElementById("gpp").value,
+        // === Параметры экспорта DXF (см. expDXF.js) ===
+        // Tolerance — из формы index.html (точность аппроксимации, мм)
+        // DistX / DistShear — из настроек set.html (localStorage)
+        'Tolerance': doc.getElementById("Tolerance").value,
+        'DistX': localStorage.getItem('DistX'),
+        'DistShear': localStorage.getItem('DistShear')
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
         };  
 
         //alert(doc.getElementById('Customer').getAttribute('rez'));  
@@ -92,7 +155,15 @@
         'btnRll': true,
 		'Raport': doc.getElementById("Raport").value,
 		'irll': doc.getElementById("iRll").value,
+<<<<<<< HEAD
         'Namb': $('#Namber').val()
+=======
+        'Namb': $('#Namber').val(),
+        // те же параметры, что и в основном dict — RLL может вызываться отдельно
+        'Tolerance': doc.getElementById("Tolerance").value,
+        'DistX': localStorage.getItem('DistX'),
+        'DistShear': localStorage.getItem('DistShear')
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
       };
       csInterface.evalScript('sayHello('+JSON.stringify(dict)+')'); 
   
@@ -109,7 +180,22 @@
 
     return;
   }
+<<<<<<< HEAD
     init();
+=======
+    // Сначала подгружаем настройки из файла в localStorage, потом инициализация UI.
+    // Если evalScript не дошёл (например ExtendScript ещё не готов) — всё равно стартуем,
+    // чтобы интерфейс не висел.
+    var initCalled = false;
+    function safeInit() {
+        if (initCalled) return;
+        initCalled = true;
+        init();
+    }
+    loadSettingsFromDisk(safeInit);
+    // страховка — если evalScript почему-то не вернёт коллбэк за 2 сек, стартуем без настроек
+    setTimeout(safeInit, 2000);
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 	
 
     

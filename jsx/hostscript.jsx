@@ -1,6 +1,11 @@
 ﻿/*jslint vars: true, plusplus: true, devel: true, nomen: true, regexp: true, indent: 4, maxerr: 50 */
 /*global $, Folder*/
 
+<<<<<<< HEAD
+=======
+#include './storage.jsx';
+
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 function saves(namb) {
 
   //alert(Math.round(activeDocument.layers["Knife"].groupItems[0].pathItems[0].strokeColor.yellow));
@@ -28,7 +33,11 @@ if (activeDocument.layers["Knife"].groupItems.length) {
 
 } else {
   if (activeDocument.layers["Knife"].pathItems.length > 0){
+<<<<<<< HEAD
     for  (i = 0; i < 20; i++){
+=======
+    for  (var i = 0; i < 20; i++){
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
       if ( activeDocument.layers["Knife"].pathItems[i].strokeColor.yellow != 1){
         if (Math.round(activeDocument.layers["Knife"].pathItems[i].strokeColor.yellow) != 100){
           alert("Проверить цветность элементов, нет 100% цвета");
@@ -44,12 +53,38 @@ if (activeDocument.layers["Knife"].groupItems.length) {
 
 function sayHello(sp) {
 
+<<<<<<< HEAD
 	var Nams = "" + (sp.Namber | sp.Namb);
 	var Rap = sp.Raport; //.split(' ');
 	var irll = sp.irll;
 	const mm = 72.0/25.4;
   if (sp.btnRll) {
     #include './expDXF.js';
+=======
+	var Nams = "" + (sp.Namber || sp.Namb);
+	var Rap = sp.Raport; //.split(' ');
+	var irll = sp.irll;
+	const mm = 72.0/25.4;
+	var PolurotY = sp.PolurotY;
+    var Polurot = sp.Polurot;
+
+	// === Параметры экспорта DXF, переданные из index.html ===
+	// Кладём в $.global, чтобы expDXF.js мог их прочитать
+	// (он подключается через #include и видит общий скоуп).
+	// Поведение по умолчанию (если поля пустые):
+	//   Tolerance = 0.5  (точность аппроксимации кривых, мм)
+	//   DistX     = 100  (масштаб по X, %)
+	//   DistShear = 0    (наклон по X, градусы)
+	$.global.Tolerance = (sp.Tolerance !== undefined && sp.Tolerance !== '' && parseFloat(sp.Tolerance) > 0)
+		? parseFloat(sp.Tolerance) : 0.5;
+	$.global.DistX = (sp.DistX !== undefined && sp.DistX !== '' && !isNaN(parseFloat(sp.DistX)))
+		? parseFloat(sp.DistX) : 100;
+	$.global.DistShear = (sp.DistShear !== undefined && sp.DistShear !== '' && !isNaN(parseFloat(sp.DistShear)))
+		? parseFloat(sp.DistShear) : 0;
+
+  if (sp.btnRll) {
+    runExpDXF(Nams, Polurot || Rap, mm, irll);
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
     return;
   };
     
@@ -113,10 +148,13 @@ var Dat= String (''+Da.getDate() +'-'+ (Da.getMonth()+1)+'-'+  Da.getFullYear())
     var perimetr = 0;
         perimetr = sp.perimetr;
 
+<<<<<<< HEAD
     
 	    
     var PolurotY = sp.PolurotY;
     var Polurot = sp.Polurot;
+=======
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 	//alert (sp.gross);
     var Rep = sp.Repetition;
     var Stre = sp.Streams;
@@ -140,7 +178,11 @@ var Dat= String (''+Da.getDate() +'-'+ (Da.getMonth()+1)+'-'+  Da.getFullYear())
     
    var lineOb = parseFloat(sp.Material.substring(sp.Material.lastIndexOf(" ")));   
     
+<<<<<<< HEAD
 mms= mm/2.0;
+=======
+var mms= mm/2.0;
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 var WidthLab = 19*mm; 
 var xEl=0, yEl=0;
 var compens = 6;
@@ -225,6 +267,13 @@ var PFull = new CMYKColor();
     
 var newGroup = newLayer.groupItems.add();
     
+<<<<<<< HEAD
+=======
+// ВНИМАНИЕ: цикл намеренно с i++ по живой коллекции.
+// Это не баг — рабочий процесс скрипта полагается на то, что
+// moveToBeginning сокращает pathItems и часть элементов остаётся на месте.
+// Попытка "починить" это (i-- или while length>0) ломает геометрию раскладки.
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 for(var i=0;i<docRef.pathItems.length;i++){
     var a = docRef.pathItems[i];
 a.moveToBeginning(newGroup);
@@ -245,7 +294,11 @@ a.moveToBeginning(newGroup);
 var LI = Linfo.groupItems.add();
 var RiskGorizont = LI.groupItems.add();
     
+<<<<<<< HEAD
 Oporka = LI.pathItems.rectangle( 12*mm, 5*mm, Rap*mm, -WidthForm*mm);
+=======
+var Oporka = LI.pathItems.rectangle( 12*mm, 5*mm, Rap*mm, -WidthForm*mm);
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 //Oporka.setEntirePath( Array( Array(0, 0), Array(0, hi), Array(5*mm, hi), Array(5*mm, 0) ) );
 Oporka.closed = true;
 Oporka.filled = false;
@@ -255,28 +308,44 @@ Oporka.fillOverprint = false;
 Oporka.strokeWidth = 0.1*mm;
 Oporka.strokeDashes = [2,2,2,2];
     
+<<<<<<< HEAD
     angleLB = LI.pathItems.add();
+=======
+    var angleLB = LI.pathItems.add();
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
     angleLB.setEntirePath( Array( Array(2*mm, 12*mm), Array(5*mm, 12*mm), Array(5*mm, 9*mm) ) );
     angleLB.stroked = true;
     angleLB.strokeColor = PCyan;
     angleLB.strokeWidth = 0.1*mm;
     angleLB.filled = false;
   
+<<<<<<< HEAD
     angleLT = LI.pathItems.add();
+=======
+    var angleLT = LI.pathItems.add();
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
     angleLT.setEntirePath( Array( Array(2*mm, WidthForm*mm+12*mm), Array(5*mm, WidthForm*mm+12*mm), Array(5*mm, WidthForm*mm+15*mm) ) );
     angleLT.stroked = true;
     angleLT.strokeColor = PCyan;
     angleLT.strokeWidth = 0.1*mm;
     angleLT.filled = false;
      
+<<<<<<< HEAD
     angleRT = LI.pathItems.add();
+=======
+    var angleRT = LI.pathItems.add();
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
     angleRT.setEntirePath( Array( Array(Rap*mm+8*mm, 12*mm), Array(Rap*mm+5*mm, 12*mm), Array(Rap*mm+5*mm, 9*mm) ) );
     angleRT.stroked = true;
     angleRT.strokeColor = PCyan;
     angleRT.strokeWidth = 0.1*mm;
     angleRT.filled = false;
    
+<<<<<<< HEAD
     angleRB = LI.pathItems.add();
+=======
+    var angleRB = LI.pathItems.add();
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
     angleRB.setEntirePath( Array( Array(Rap*mm+8*mm, WidthForm*mm+12*mm), Array(Rap*mm+5*mm, WidthForm*mm+12*mm), Array(Rap*mm+5*mm, WidthForm*mm+15*mm) ) );
     angleRB.stroked = true;
     angleRB.strokeColor = PCyan;
@@ -285,7 +354,11 @@ Oporka.strokeDashes = [2,2,2,2];
 	
 
 		
+<<<<<<< HEAD
 		riskCenter = LI.pathItems.add();
+=======
+		var riskCenter = LI.pathItems.add();
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 		riskCenter.setEntirePath( Array( Array(4*mm, WidthForm*mm/2+12*mm), Array(15*mm, WidthForm*mm/2+12*mm)) );
 		riskCenter.stroked = true;
 		riskCenter.strokeColor = PRisk;
@@ -301,7 +374,11 @@ Oporka.strokeDashes = [2,2,2,2];
         
 
 var i = 0, yRisk = 0, yCompensation=0;
+<<<<<<< HEAD
     iv=(SAll[0]*mm+Gapp[0]*mm);
+=======
+    var iv=(SAll[0]*mm+Gapp[0]*mm);
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
     if (casi==3){iv/=2; Stre+=1;};
     //alert(newGroup.height);
     if (newGroup.height/mm >= (WidthForm - 0.5*mm)) {
@@ -310,7 +387,11 @@ var i = 0, yRisk = 0, yCompensation=0;
       //alert(yCompensation);
     }
 //---- Metki po ruchym
+<<<<<<< HEAD
 for (s1=0; s1<=Stre; s1++) {
+=======
+for (var s1=0; s1<=Stre; s1++) {
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
   //alert(WidthLab+'  '+i+'  '+iv);
 
     yRisk = WidthLab+i;
@@ -320,14 +401,22 @@ for (s1=0; s1<=Stre; s1++) {
       s1==Stre ? yRisk -= yCompensation : yRisk;
     }
   
+<<<<<<< HEAD
     LabelSw1 = RiskGorizont.pathItems.add();
+=======
+    var LabelSw1 = RiskGorizont.pathItems.add();
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
     LabelSw1.setEntirePath( Array( Array(5*mm, yRisk), Array(10*mm, yRisk)) );
     LabelSw1.stroked = true;
     LabelSw1.strokeColor = PRisk;
     LabelSw1.strokeWidth = 0.1*mm;
     LabelSw1.filled = false;
     
+<<<<<<< HEAD
     LabelSw2 = RiskGorizont.pathItems.add();
+=======
+    var LabelSw2 = RiskGorizont.pathItems.add();
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
     LabelSw2.setEntirePath( Array( Array(Rap*mm+5*mm, yRisk), Array(Rap*mm, yRisk)) );
     LabelSw2.stroked = true;
     LabelSw2.strokeColor = PRisk;
@@ -337,13 +426,21 @@ for (s1=0; s1<=Stre; s1++) {
 }
 var offsetVector = 0*mm;    
 var LVector1 = LI.groupItems.add();
+<<<<<<< HEAD
     LV1 = LVector1.pathItems.add();
+=======
+    var LV1 = LVector1.pathItems.add();
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
     LV1.setEntirePath( Array( Array(4*mm, WidthLab-5*mm+offsetVector), Array(13*mm, WidthLab-5*mm+offsetVector)) );
     LV1.stroked = true;
     LV1.strokeColor = PRisk;
     LV1.strokeWidth = 0.1*mm;
     LV1.filled = false;
+<<<<<<< HEAD
     LV2 = LVector1.pathItems.add();
+=======
+    var LV2 = LVector1.pathItems.add();
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
     LV2.setEntirePath( Array( Array(10*mm, WidthLab-6*mm+offsetVector), Array(15*mm, WidthLab-5*mm+offsetVector), Array(10*mm, WidthLab-4*mm+offsetVector)) );
     LV2.stroked = true;
     LV2.strokeColor = PRisk;
@@ -582,10 +679,17 @@ var P1K = Point0.duplicate();
     if (ver>40) ver=40;
     //alert('gor '+gor+"\n ver "+ver);
     
+<<<<<<< HEAD
 for (s=0; s<gor; s++) {
     countLabel++;
 var LTest = L_Test.groupItems.add();
     newPath = LTest.pathItems.add();
+=======
+for (var s=0; s<gor; s++) {
+    countLabel++;
+var LTest = L_Test.groupItems.add();
+    var newPath = LTest.pathItems.add();
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
     newPath.setEntirePath( Array( Array(5*mm+i, 6*mm), Array(5*mm+i, 0), Array(8.5*mm+i, 0) ) );
     newPath.stroked = true;
     newPath.strokeColor = PFull;
@@ -602,11 +706,19 @@ var LText = Linfo.textFrames.add();
 
     }
     
+<<<<<<< HEAD
    var countLabel=0;
    var i = 0;
 for (s=0; s<ver; s++) {
     countLabel++;
 var LTest = L_Test.groupItems.add();
+=======
+   countLabel=0;
+   i = 0;
+for (var sv=0; sv<ver; sv++) {
+    countLabel++;
+    LTest = L_Test.groupItems.add();
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
     newPath = LTest.pathItems.add();
     newPath.setEntirePath( Array( Array(-8*mm, 6*mm+i), Array(-8*mm, i), Array(-4.5*mm, i) ) );
     newPath.stroked = true;
@@ -614,7 +726,11 @@ var LTest = L_Test.groupItems.add();
     newPath.strokeCap = StrokeCap.ROUNDENDCAP;
     newPath.strokeWidth = lineOb*mm;
     newPath.filled = false;
+<<<<<<< HEAD
 var LText = Linfo.textFrames.add();
+=======
+    LText = Linfo.textFrames.add();
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
     LText.position = [-6*mm,6*mm+i];
     LText.contents = countLabel;
     LText.textRange.characterAttributes.size = 11;
@@ -625,7 +741,11 @@ var LText = Linfo.textFrames.add();
     }
  
     
+<<<<<<< HEAD
 Gabarit = L_Test.pathItems.rectangle( -5*mm, -12*mm, Rap*mm+23*mm, -WidthForm*mm-27*mm);
+=======
+var Gabarit = L_Test.pathItems.rectangle( -5*mm, -12*mm, Rap*mm+23*mm, -WidthForm*mm-27*mm);
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 //Oporka.setEntirePath( Array( Array(0, 0), Array(0, hi), Array(5*mm, hi), Array(5*mm, 0) ) );
 Gabarit.closed = true;
 Gabarit.filled = false;
@@ -638,7 +758,11 @@ Gabarit.strokeWidth = 1.5*mm;
 //  alert("Проверить цветность элементов нет 100% цвета");
 
    if (sp.rll == 'RLL') {
+<<<<<<< HEAD
     #include './expDXF.js';
+=======
+    runExpDXF(Nams, Polurot || Rap, mm, irll);
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
     return;
   };
 
@@ -654,7 +778,11 @@ function circ(){
     var j =0;
  // alert(SAll[0],SAll[1]);
  
+<<<<<<< HEAD
     elip = elm.pathItems.ellipse(0, 0, 70, 70, false, false );
+=======
+    var elip = elm.pathItems.ellipse(0, 0, 70, 70, false, false );
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
     elip.stroked = true;
     elip.filled = false;
     elip.strokeColor = PFull;
@@ -674,7 +802,11 @@ function rect(){
     var corn = SAll[0]/SAll[1];
 
  
+<<<<<<< HEAD
     elip = elm.pathItems.roundedRectangle(0, 0, SAll[0]*mm, SAll[1]*mm, SAll[2]*mm, SAll[2]*mm, false );
+=======
+    var elip = elm.pathItems.roundedRectangle(0, 0, SAll[0]*mm, SAll[1]*mm, SAll[2]*mm, SAll[2]*mm, false );
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
     elip.stroked = true;
     elip.filled = false;
     elip.strokeColor = PFull;
@@ -749,8 +881,13 @@ function elSelect(mirror){
 	
 	var tr=Gap2*mm+SAll[1]*mm;
 
+<<<<<<< HEAD
 for (q=0; q<Rep; q++){      
 for (w=0; w<Stre; w++){ 
+=======
+for (var q=0; q<Rep; q++){      
+for (var w=0; w<Stre; w++){ 
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
 
 	if (kostyl) elm.duplicate();
     elm.strokeColor = PFull;
@@ -829,11 +966,19 @@ if (documents.length<1) {
     if (selection.length > 0) {
       var onlySelection = 1;
       var selcount = 0;
+<<<<<<< HEAD
       for (var i = 0; i < selection.lenght; i++)
       {
         if (selection[i].typename == "PathItem") { selcount++; }
       }
       if (selcount == selection.lenght)
+=======
+      for (var i = 0; i < selection.length; i++)
+      {
+        if (selection[i].typename == "PathItem") { selcount++; }
+      }
+      if (selcount == selection.length)
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
       {
         var allPaths = selection;
       }
@@ -908,7 +1053,11 @@ function isLocked (test) {
 
 function risk (li_wi) {
 
+<<<<<<< HEAD
   LabelW2 = LI.pathItems.add();
+=======
+  var LabelW2 = LI.pathItems.add();
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
   LabelW2.setEntirePath( Array( Array(newGroup.left+lineOb*mm/2, 11*mm), Array(newGroup.left+lineOb*mm/2, 17*mm)) );
   LabelW2.stroked = true;
   LabelW2.strokeColor = PRisk;
@@ -936,7 +1085,11 @@ function risk (li_wi) {
   LabelW2.strokeWidth = 0.1*mm;
   LabelW2.filled = false;
 //----------
+<<<<<<< HEAD
   LabelSw1 = LI.pathItems.add();
+=======
+  var LabelSw1 = LI.pathItems.add();
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
   LabelSw1.setEntirePath( Array( Array(4*mm, newGroup.top-lineOb*mm/2), Array(9*mm, newGroup.top-lineOb*mm/2)) );
   LabelSw1.stroked = true;
   LabelSw1.strokeColor = PRisk;
@@ -950,7 +1103,11 @@ function risk (li_wi) {
   LabelSw1.strokeWidth = 0.1*mm;
   LabelSw1.filled = false;
 
+<<<<<<< HEAD
   LabelSw2 = LI.pathItems.add();
+=======
+  var LabelSw2 = LI.pathItems.add();
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
   LabelSw2.setEntirePath( Array( Array(li_wi, newGroup.top-lineOb*mm/2), Array(li_wi-5*mm, newGroup.top-lineOb*mm/2)) );
   LabelSw2.stroked = true;
   LabelSw2.strokeColor = PRisk;
@@ -970,7 +1127,11 @@ function risk (li_wi) {
 function riskDop (li_wi, bigRisk) {
 //alert(bigRisk);
 
+<<<<<<< HEAD
   LabelSw1 = LI.pathItems.add();
+=======
+  var LabelSw1 = LI.pathItems.add();
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
   LabelSw1.setEntirePath( Array( Array(4*mm, newGroup.top-lineOb*mm/2 + bigRisk*mm/4), Array(15*mm, newGroup.top-lineOb*mm/2 + bigRisk*mm/4)) );
   LabelSw1.stroked = true;
   LabelSw1.strokeColor = PRisk;
@@ -984,7 +1145,11 @@ function riskDop (li_wi, bigRisk) {
   LabelSw1.strokeWidth = 0.15*mm;
   LabelSw1.filled = false;
 
+<<<<<<< HEAD
   LabelSw2 = LI.pathItems.add();
+=======
+  var LabelSw2 = LI.pathItems.add();
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
   LabelSw2.setEntirePath( Array( Array(li_wi, newGroup.top-lineOb*mm/2 + bigRisk*mm/4), Array(li_wi-11*mm, newGroup.top-lineOb*mm/2 + bigRisk*mm/4)) );
   LabelSw2.stroked = true;
   LabelSw2.strokeColor = PRisk;
@@ -1009,7 +1174,11 @@ function recRap (Rap, WidthForm) {
     Pr.magenta = 0; 
     Pr.yellow = 100;
 
+<<<<<<< HEAD
   RRap = Linfo.pathItems.rectangle( 12*mm, 5*mm, Rap*mm, -WidthForm*mm);
+=======
+  var RRap = Linfo.pathItems.rectangle( 12*mm, 5*mm, Rap*mm, -WidthForm*mm);
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
   RRap.closed = true;
   RRap.filled = false;
   RRap.stroked = true;
@@ -1017,7 +1186,11 @@ function recRap (Rap, WidthForm) {
   RRap.fillOverprint = false;
   RRap.strokeWidth = 0.3*mm;
 
+<<<<<<< HEAD
   RR1 = REZ.pathItems.rectangle( -3*mm, -10*mm, Rap*mm+30*mm, -WidthForm*mm-30*mm);
+=======
+  var RR1 = REZ.pathItems.rectangle( -3*mm, -10*mm, Rap*mm+30*mm, -WidthForm*mm-30*mm);
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
   RR1.closed = true;
   RR1.filled = false;
   RR1.stroked = true;
@@ -1034,6 +1207,7 @@ function recRap (Rap, WidthForm) {
 
 }
 
+<<<<<<< HEAD
   docRef = null;
   delete sp;
   win.stop();
@@ -1041,3 +1215,31 @@ function recRap (Rap, WidthForm) {
   win.close(0);
   return;  
 };
+=======
+  // ===== Полная очистка ссылок, которые могли утечь в глобальный скоуп =====
+  // В ExtendScript глобалы живут до перезагрузки Illustrator и держат память.
+  try {
+    PMagenta = PCyan = PLabel = PRisk = PWhite = PFull = Prll = null;
+    newLayer = Linfo = L_Test = REZ = NambeL = newGroup = elm = null;
+    Oporka = LI = RiskGorizont = LVector1 = LVector4 = null;
+    Llog = LPod = LPod2 = bigNamber = null;
+    lineCenter = leftRez = rightRez = RezR = Rez0 = Rez1 = null;
+    Point0 = P0K = P0W = P1K = rll0 = rll1 = null;
+    Gabarit = null;
+    docRef = null;
+  } catch(e) {}
+  // убраны вызовы несуществующего `win` — они падали в try/catch выше и скрывали ошибки
+  $.gc(); // принудительный сборщик мусора ExtendScript
+  return;
+};
+
+
+// ===== Обёртка для expDXF.js =====
+// Код подключается через #include ОДИН раз (в одном месте файла),
+// а вызывается из двух мест sayHello через эту функцию.
+// Это исключает двойную компиляцию expDXF.js в одном скрипте.
+function runExpDXF(Nams, Rap, mm, irll) {
+  #include './expDXF.js';
+  $.gc();
+}
+>>>>>>> f093dc8 (ver. 4.6.2 fix cloude)
