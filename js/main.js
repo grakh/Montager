@@ -115,6 +115,7 @@
         'eWi': doc.getElementById('Customer').getAttribute('eWi'),
         'eHi': doc.getElementById('Customer').getAttribute('eHi'),
         'gross': doc.getElementById("gross").checked,
+		'rad': doc.getElementById("Rad").checked,
 		'irll': doc.getElementById("iRll").value,
         'colorText': localStorage.getItem('Text'),
         'colorRisk': localStorage.getItem('Risk'),
@@ -125,10 +126,11 @@
 		'gpp': doc.getElementById("gpp").value,
         // === Параметры экспорта DXF (см. expDXF.js) ===
         // Tolerance — из формы index.html (точность аппроксимации, мм)
-        // DistX / DistShear — из настроек set.html (localStorage)
+        // DistX / DistShear / DistShearY — из настроек set.html (localStorage)
         'Tolerance': doc.getElementById("Tolerance").value,
         'DistX': localStorage.getItem('DistX'),
-        'DistShear': localStorage.getItem('DistShear')
+        'DistShear': localStorage.getItem('DistShear'),
+        'DistShearY': localStorage.getItem('DistShearY')
         };  
 
         //alert(doc.getElementById('Customer').getAttribute('rez'));  
@@ -150,7 +152,8 @@
         // те же параметры, что и в основном dict — RLL может вызываться отдельно
         'Tolerance': doc.getElementById("Tolerance").value,
         'DistX': localStorage.getItem('DistX'),
-        'DistShear': localStorage.getItem('DistShear')
+        'DistShear': localStorage.getItem('DistShear'),
+        'DistShearY': localStorage.getItem('DistShearY')
       };
       csInterface.evalScript('sayHello('+JSON.stringify(dict)+')'); 
   

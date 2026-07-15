@@ -59,34 +59,34 @@
 </div>
 
 <div id="LabelTextbox">
-<label>
-Повторений:
-<input id="Repetition" type="text" value="1"><br>
-</label>
-</div>
-
-<div id="LabelTextbox">
-<label>
 Ручьев:
-<input id="Streams" type="text" value="1"><br>
-</label>
+<input id="Streams" class="field100" value="1">
+<label id="spOff">; Повторений:</label>
+<input id="Repetition" class="field100 field200" value="1"><br>
 </div>
 
 <div id="LabelTextbox2">
 <label>
-G A P, mm:
-<input id="GAP" value="3">
-
-<input id="GAP2" value="" disabled><br>
+Межручевой:
+<input id="GAP" class="field100" value="3">
+<label id="spOff">; Шаг печати:</label>
+<input id="GAP2" class="field100 field200" value="" disabled><br>
 </label>
 </div>
     
 <div id="LabelTextbox">
 <label>
 Высота, mm:
-<input id="Knife" type="text" value="">
+<input id="Knife" class="field100" value="">
 <label id="spOff">; смещение:</label>
-<input id="offset" value="0" disabled><br>
+<input id="offset" class="field100 field200" value="0" disabled><br>
+</label>
+</div>
+
+<div id="LabelTextbox">
+<label>
+Покрытие:
+<input id="Rad" type="checkbox" class="field100" value="">
 </label>
 </div>
 
@@ -176,17 +176,6 @@ Diameter, mm: D1:
 
 </div>
 
-<div id="LabelTextbox3" class="east">
-<label>
- Line: 
-<input id="Line" onloadstart="doc.getElementById('Line').value = localStorage.getItem('lineSet')" value="">
-</label>
-</div>  
-<div id ="knife1" class="east">
-    <label>1 mm: </label>
-    <input type="checkbox" id = "gross" name="gross">
-</div>
-
    <script>
        doc.getElementById("gross").onchange = function(e){
  if(doc.getElementById("gross").checked){ doc.getElementById("gpp").value = '';
@@ -200,28 +189,47 @@ Diameter, mm: D1:
 	   }
     </script>
 
-<div id="button">
-    <button id = "bot" class="button" onClick="" disabled>Run code</button>
-</div>
+<!-- ===== Нижняя строка с кнопками: [Line/1mm] | Run code | RLL | tol/мм + Set ===== -->
+<div class="btnRow">
 
-<div id="btnR">
-    <button id = "btnRll" class="buttonRll grayb" onClick="laser()" disabled>RLL</button>
-</div>
+    <!-- Колонка Line (сверху) + 1mm (снизу) — как было -->
+    <div class="lineCol">
+        <div id="LabelTextbox3" class="east">
+            <label>
+             Line:
+            <input id="Line" onloadstart="doc.getElementById('Line').value = localStorage.getItem('lineSet')" value="">
+            </label>
+        </div>
+        <div id="knife1" class="east">
+            <span class="oneMmTxt">1 mm:</span>
+            <input type="checkbox" id="gross" name="gross">
+        </div>
+    </div>
 
-<!-- ===== Группа: RLL-параметры + Set =====
-     Tol и iRll стоят один под другим (стэк), Set справа от них.
-     Tolerance НЕ сохраняется между заказами — при загрузке нового
-     заказа через fxml() сбрасывается на дефолт 0.5. -->
-<div id="eRll">
-   <div class="stackBox">
-       <div class="tolBox">
-           <input id="Tolerance" value="0.5"><label id="tolLbl">tol</label>
+    <div id="button">
+        <button id = "bot" class="button" onClick="" disabled>Run code</button>
+    </div>
+
+    <div id="btnR">
+        <button id = "btnRll" class="buttonRll grayb" onClick="laser()" disabled>RLL</button>
+    </div>
+
+    <!-- Группа: RLL-параметры + Set
+         Tol и iRll стоят один под другим (стэк), Set справа.
+         Tolerance НЕ сохраняется между заказами — при загрузке нового
+         заказа через fxml() сбрасывается на дефолт 0.5. -->
+    <div id="eRll">
+       <div class="stackBox">
+           <div class="tolBox">
+               <input id="Tolerance" value="0.5"><label id="tolLbl">tol</label>
+           </div>
+           <div class="rllBox">
+               <input id="iRll" value="0"><label id="iRllmm">,мм</label>
+           </div>
        </div>
-       <div class="rllBox">
-           <input id="iRll" value="0"><label id="iRllmm">,мм</label>
-       </div>
-   </div>
-   <button id="btnSet" class="btnXml" onClick="window.location.href = 'set.html'">Set</button>
+       <button id="btnSet" class="btnXml" onClick="window.location.href = 'set.html'">Set</button>
+    </div>
+
 </div>
 
 <script>

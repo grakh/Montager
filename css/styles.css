@@ -96,34 +96,28 @@ input[id="PolurotY"]{
 }
 
 input[id="GAP"]{
-	position: absolute;
 
-	left: 120px;
-    width:100px;
 }
 
 input[id="GAP2"]{
-	position: absolute;
-	left: 260px;
-	width:60px;
+
+
 }
 
 input[id="Knife"]{
 	position: absolute;
 
 	left: 120px;
-    width:80px;
+
 }
 
 input[id="offset"]{
-	position: absolute;
-	left: 300px;
-	width:20px;
+
 }
 
 #spOff{
 	position: absolute;
-	left: 210px;
+	left: 170px;
 }
 
 input[name="XYR"]{
@@ -378,16 +372,98 @@ input[type="radio"]:checked + span {
 #btnRll:disabled {
 	background-color: #686666;
 }
+/* ===== Нижняя строка с кнопками: [Line/1mm] | Run code | RLL | tol/мм + Set =====
+   Один общий flex-row. Внутри — все элементы в горизонталь, выровненные
+   по вертикали по центру. */
+.btnRow {
+	display: flex;
+	align-items: center;
+	padding-left: 5px;
+	margin-top: -25px;
+	margin-bottom: 5px;
+	flex-wrap: nowrap;
+}
+/* Имитация gap (CEP CEF не поддерживает flex gap) — прицельно по id */
+.btnRow #button {
+	margin-left: 8px !important;
+}
+.btnRow #btnR {
+	margin-left: 8px !important;
+}
+.btnRow #eRll {
+	margin-left: 8px !important;
+}
+
+/* Колонка Line/1mm — стэк двух строк один под другим */
+.btnRow .lineCol {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+.btnRow .lineCol > * + * {
+	margin-top: 4px;          /* имитация gap для столбца */
+}
+
+/* Внутри btnRow обнуляем кастомные отступы east, чтобы flex не сбивался */
+.btnRow #LabelTextbox3,
+.btnRow #knife1 {
+	margin: 0;
+	padding: 0;
+	width: auto;
+	display: flex;
+	flex-direction: row;     /* текст слева, инпут/чекбокс справа */
+	align-items: center;
+}
+.btnRow #LabelTextbox3 > * + *,
+.btnRow #knife1 > * + * {
+	margin-left: 6px;        /* имитация gap между текстом и полем/чекбоксом */
+}
+.btnRow #LabelTextbox3 label,
+.btnRow #knife1 .oneMmTxt {
+	font-size: 12px;
+	margin: 0;
+	padding: 0;
+	white-space: nowrap;
+	flex-shrink: 0;
+	min-width: 0;
+	color: rgb(211, 211, 208);
+	order: 1;             /* текст левее */
+}
+/* фиксированная ширина для текста "1 mm:" чтобы он точно влез */
+.btnRow #knife1 .oneMmTxt {
+	min-width: 38px;
+	display: inline-block;
+}
+.btnRow #LabelTextbox3 input[id="Line"] {
+	position: static;
+	left: auto;
+	width: 35px;
+	margin: 0;
+	flex-shrink: 0;
+	order: 2;             /* поле Line правее текста */
+}
+.btnRow #knife1 input[type="checkbox"] {
+	margin: 0;
+	flex-shrink: 0;
+	float: none;          /* на всякий случай отключим float */
+	position: static;
+	order: 2;             /* чекбокс правее текста "1 mm:" */
+}
+
+#button{
+	margin: 0;
+	padding: 0;
+}
+
+#btnR{
+	margin: 0;
+	padding: 0;
+}
+
 #btnRll {
 	font-size: 16px;
 	padding: 12px 6px 12px 6px;
-    }
-#btnR{
-	
-	margin-left:130px;
-	margin-top: -45px;
-	z-index: 2;
-	}
+}
 
 
 #btnRll:hover {
@@ -412,7 +488,6 @@ input[type="radio"]:focus + span {
     transition-duration: 0.4s;
     cursor: pointer;
     position:relative;
-	margin-left:60px;
 	z-index:2;
 
 }
@@ -430,7 +505,6 @@ input[type="radio"]:focus + span {
     transition-duration: 0.4s;
     cursor: pointer;
     position:relative;
-	margin-left:80px;
 	display: flex;
 
 }
@@ -545,9 +619,8 @@ padding-left:44px;
 }
  
 #button{
-	margin-top: -47px;
-	margin-left: -120px;   /* сдвиг Run code левее */
-	z-index: 1;
+	margin: 0;
+	padding: 0;
 }
 
 /* старые #btnSet и #btnS удалены — кнопка Set теперь внутри #eRll */
@@ -585,22 +658,21 @@ padding-left:44px;
 	width:40px;
 }
 /* ===== Блок: tol + iRll (стэк в колонку) + кнопка Set =====
-   Tol сверху, iRll снизу — два инпута со своими подписями справа.
-   Кнопка Set справа от стэка (центрирована по вертикали). */
+   Tol сверху, iRll снизу, Set справа. Живёт внутри .btnRow. */
 #eRll {
 	display: flex;
 	align-items: center;
-	gap: 6px;
-	margin-top: -42px;
-	margin-left: 255px;
-	z-index: 5;
-	position: relative;
+}
+#eRll > * + * {
+	margin-left: 6px;       /* имитация gap между stackBox и Set */
 }
 /* контейнер с двумя строками инпутов */
 #eRll .stackBox {
 	display: flex;
 	flex-direction: column;
-	gap: 2px;
+}
+#eRll .stackBox > * + * {
+	margin-top: 2px;        /* имитация gap между tol и iRll */
 }
 #eRll .tolBox,
 #eRll .rllBox {
@@ -626,7 +698,9 @@ padding-left:44px;
 	cursor: pointer;
 	color: white;
 	font-size: 12px;
-	margin-left: 58px;
+	position: static !important;
+	margin: 0 0 0 6px !important;     /* перебить .btnXml { margin-left:200px } */
+	margin-top: 0 !important;
 }
 
 /* ===== DXF params (Tolerance / DistX / Shear) ===== */
@@ -706,4 +780,16 @@ padding-left:44px;
 	text-align:right;
 	line-height:30px;
 }
+.field100 {
+	position:absolute;
+	left: 120px;
+    width:40px;
+}
+
+.field200 {
+	position:absolute;
+	left: 280px;
+
+}
+
 }

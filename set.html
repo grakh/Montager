@@ -42,8 +42,9 @@
         </div>
 
         <!-- ===== Искажения геометрии RLL (для expDXF) =====
-             X     — масштаб по X в %, 100 = без изменений
-             Shear — наклон по X в градусах, 0 = без наклона
+             X       — масштаб по X в %, 100 = без изменений
+             Shear X — наклон по горизонтали (x' = x + tan(α)·y), 0 = без наклона
+             Shear Y — наклон по вертикали   (y' = y + tan(β)·x), 0 = без наклона
              Применяются после копирования Knife → RLL. -->
         <div id="distortBox">
             <label id="zagDist" class="colorLabel">Искажения RLL:</label>
@@ -54,6 +55,10 @@
             <div class="field">
                 <label class="colorLabel">Shear, X°:</label>
                 <input id="DistShear" class="colorSet" value="0">
+            </div>
+            <div class="field">
+                <label class="colorLabel">Shear, Y°:</label>
+                <input id="DistShearY" class="colorSet" value="0">
             </div>
         </div>
     </div>

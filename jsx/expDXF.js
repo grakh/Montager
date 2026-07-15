@@ -29,12 +29,15 @@ var T_MIN_SEGMENT = T_STEP;
 
 // === Параметры искажения геометрии перед записью DXF ===
 // Передаются из index.html через main.js → hostscript.jsx → $.global
-// DIST_X      — масштаб по X в % (100 = без изменений)
-// DIST_SHEAR  — наклон по X в градусах (0 = без наклона)
+// DIST_X         — масштаб по X в % (100 = без изменений)
+// DIST_SHEAR     — наклон по горизонтали (x' = x + tan(α)·y), 0 = без наклона
+// DIST_SHEAR_Y   — наклон по вертикали   (y' = y + tan(β)·x), 0 = без наклона
 var DIST_X = (typeof $.global.DistX !== 'undefined' && !isNaN(parseFloat($.global.DistX)))
     ? parseFloat($.global.DistX) : 100;
 var DIST_SHEAR = (typeof $.global.DistShear !== 'undefined' && !isNaN(parseFloat($.global.DistShear)))
     ? parseFloat($.global.DistShear) : 0;
+var DIST_SHEAR_Y = (typeof $.global.DistShearY !== 'undefined' && !isNaN(parseFloat($.global.DistShearY)))
+    ? parseFloat($.global.DistShearY) : 0;
 const MIN_ANGLE = 0, // Degrees range for the Tolerance
       MAX_ANGLE = 180, // Degrees range for the Tolerance
       COS_INACCURACY = -0.999999, // Correction of coordinate inaccuracy
@@ -86,7 +89,7 @@ try {
 	// === Применяем искажение к ОБЁРТОЧНОЙ ГРУППЕ ===
 	// Сразу после копирования и ДО ungroup — пока есть единый groupItem,
 	// который Illustrator умеет ресайзить как единое целое.
-	applyRllDistortion(rllWrap, DIST_X, DIST_SHEAR);
+	applyRllDistortion(rllWrap, DIST_X, DIST_SHEAR, DIST_SHEAR_Y);
 
 	// Теперь выделяем уже искажённую группу и разбираем её на отдельные
 	// pathItem (как было раньше — для последующей работы laser/saves).
@@ -666,39 +669,42 @@ function getChildAll(obj) {
 
 
 // =====================================================================
-// applyRllDistortion(group, distXpct, shearDeg)
+// applyRllDistortion(group, distXpct, shearDeg, shearYDeg)
 //
-// Применяет к ГРУППЕ (groupItem) искажение по X и сдвиг (shear).
+// Применяет к ГРУППЕ (groupItem) масштаб по X и два наклона (shear).
 // Параметры:
-//   distXpct — масштаб по X в процентах. 100 = без изменений.
-//   shearDeg — наклон по X в градусах. 0 = без изменений.
+//   distXpct  — масштаб по X в процентах. 100 = без изменений.
+//   shearDeg  — наклон по горизонтали в градусах (x' = x + tan(α)·y).
+//   shearYDeg — наклон по вертикали   в градусах (y' = y + tan(β)·x).
 //
-// Работает по тому же паттерну, что и hostscript.jsx с основной
-// дисторцией (newGroup.width *= Distor): просто меняет ширину группы,
-// и Illustrator сам пропорционально пересчитывает всё содержимое —
-// и формы элементов, и взаимные расстояния. Для shear используется
-// штатный метод groupItem.shear().
+// Масштаб по X — через group.width *= sx/100 (как в hostscript.jsx).
+// Shear — через transform(matrix, ..., DOCUMENTORIGIN). Оба наклона
+// (X и Y) комбинируются в одну матрицу и применяются ОДНОВРЕМЕННО
+// ко всем pageItem группы.
 //
 // Вызывается ДО ungroup() — пока ещё есть единая группа.
 // =====================================================================
-function applyRllDistortion(group, distXpct, shearDeg) {
+function applyRllDistortion(group, distXpct, shearDeg, shearYDeg) {
 	var sx = parseFloat(distXpct);
 	var sh = parseFloat(shearDeg);
+	var shY = parseFloat(shearYDeg);
 	if (isNaN(sx)) sx = 100;
 	if (isNaN(sh)) sh = 0;
+	if (isNaN(shY)) shY = 0;
 
 	var EPS = 0.0001;
-	var doScale = Math.abs(sx - 100) > EPS;
-	var doShear = Math.abs(sh)       > EPS;
-	if (!doScale && !doShear) {
+	var doScale  = Math.abs(sx - 100) > EPS;
+	var doShear  = Math.abs(sh)       > EPS;
+	var doShearY = Math.abs(shY)      > EPS;
+	if (!doScale && !doShear && !doShearY) {
 		dbg("applyRllDistortion: identity, skip");
 		return;
 	}
 
-	dbg("applyRllDistortion: X=" + sx + "%, Shear=" + sh + "°, group.width=" + group.width);
+	dbg("applyRllDistortion: X=" + sx + "%, ShearX=" + sh + "°, ShearY=" + shY + "°, group.width=" + group.width);
 
 	try {
-		// 1) Сначала shear (наклон по горизонтали).
+		// 1) Shear по X (наклон по горизонтали) И/ИЛИ по Y (наклон по вертикали).
 		//
 		// Делаем через transform() с явной матрицей. Это рабочий
 		// рецепт из проверенного скрипта пользователя.
@@ -709,24 +715,31 @@ function applyRllDistortion(group, distXpct, shearDeg) {
 		// относительно начала координат документа — точка с y > 0
 		// реально смещается по X на tan(α)·y.
 		//
-		// Горизонтальный shear:  x' = x + tan(α)·y, y' = y.
-		//   [ 1   tan(α)  0 ]
-		//   [ 0     1     0 ]
-		if (doShear) {
-			var shTan = Math.tan(sh * Math.PI / 180.0);
+		// Матрица Illustrator (column-major): [A C TX; B D TY]
+		//   A=mValueA   B=mValueB   C=mValueC   D=mValueD   TX=mValueTX TY=mValueTY
+		//   x' = A·x + C·y + TX
+		//   y' = B·x + D·y + TY
+		//
+		// Horizontal shear:  x' = x + tan(α)·y, y' = y       →  C = tan(α)
+		// Vertical   shear:  x' = x,            y' = y + tan(β)·x  →  B = tan(β)
+		// Оба сразу комбинируются в одну матрицу C и B.
+		if (doShear || doShearY) {
+			var shTanX = doShear  ? Math.tan(sh  * Math.PI / 180.0) : 0;
+			var shTanY = doShearY ? Math.tan(shY * Math.PI / 180.0) : 0;
 
 			// Берём настоящий Matrix через app.getIdentityMatrix() —
 			// объект-литерал {mValueA:..., mValueB:...} в ExtendScript
 			// не всегда распознается как Matrix.
 			var M = app.getIdentityMatrix();
-			M.mValueC = shTan;   // остальное уже identity (A=D=1, B=TX=TY=0)
+			if (doShear)  M.mValueC = shTanX;   // X-shear (горизонтальный)
+			if (doShearY) M.mValueB = shTanY;   // Y-shear (вертикальный)
 
-			dbg("applyRllDistortion: shear matrix C=" + shTan + " (sh=" + sh + "°)");
+			dbg("applyRllDistortion: shear matrix C=" + shTanX + " B=" + shTanY);
 
 			// Применяем к КАЖДОМУ pageItem группы — с одной и той же
 			// матрицей и относительно ОДНОЙ опорной точки (DOCUMENTORIGIN).
 			// Так наклон получается согласованным: все элементы
-			// смещаются по тому же закону x' = x + tan(α)·y.
+			// смещаются по тому же закону.
 			//
 			// transform(matrix, changePositions, changeFillPatterns,
 			//           changeFillGradients, changeStrokePattern,

@@ -24,11 +24,13 @@ function setload(){
     doc.getElementById('colorRisk1').value = localStorage.getItem('Risk1');
     doc.getElementById('colorDush1').value = localStorage.getItem('Dush1');
 
-    // === Искажения для DXF (X, Shear) ===
+    // === Искажения для DXF (X, Shear X, Shear Y) ===
     var dx = localStorage.getItem('DistX');
     var ds = localStorage.getItem('DistShear');
-    doc.getElementById('DistX').value     = (dx !== null && dx !== '') ? dx : '100';
-    doc.getElementById('DistShear').value = (ds !== null && ds !== '') ? ds : '0';
+    var dsy = localStorage.getItem('DistShearY');
+    doc.getElementById('DistX').value      = (dx !== null && dx !== '') ? dx : '100';
+    doc.getElementById('DistShear').value  = (ds !== null && ds !== '') ? ds : '0';
+    doc.getElementById('DistShearY').value = (dsy !== null && dsy !== '') ? dsy : '0';
 }
 
 function cancel(){window.location.href = 'index.html';}
@@ -52,13 +54,16 @@ function set(){
     localStorage.setItem('Dush1', cDush1);
 
     // === Искажения для DXF ===
-    // Если поле пустое — оставляем безопасные дефолты (100% / 0°)
-    var dxRaw = doc.getElementById("DistX").value;
-    var dsRaw = doc.getElementById("DistShear").value;
-    var dxVal = (dxRaw !== '' && !isNaN(parseFloat(dxRaw))) ? dxRaw : '100';
-    var dsVal = (dsRaw !== '' && !isNaN(parseFloat(dsRaw))) ? dsRaw : '0';
+    // Если поле пустое — оставляем безопасные дефолты (100% / 0° / 0°)
+    var dxRaw  = doc.getElementById("DistX").value;
+    var dsRaw  = doc.getElementById("DistShear").value;
+    var dsyRaw = doc.getElementById("DistShearY").value;
+    var dxVal  = (dxRaw  !== '' && !isNaN(parseFloat(dxRaw)))  ? dxRaw  : '100';
+    var dsVal  = (dsRaw  !== '' && !isNaN(parseFloat(dsRaw)))  ? dsRaw  : '0';
+    var dsyVal = (dsyRaw !== '' && !isNaN(parseFloat(dsyRaw))) ? dsyRaw : '0';
     localStorage.setItem('DistX', dxVal);
     localStorage.setItem('DistShear', dsVal);
+    localStorage.setItem('DistShearY', dsyVal);
 
     // === Принудительный сброс localStorage в файл ===
     // В index.html main.js перехватывает localStorage.setItem и
@@ -144,6 +149,7 @@ doc.getElementById("Polurot").setAttribute("disabled", "disabled");
 doc.getElementById("bot").disabled = false;
 doc.getElementById("GAP2").disabled = true;
 doc.getElementById("disa").checked = true;
+doc.getElementById("Rad").checked = false;
 doc.getElementById("Customer").setAttribute('rll', '');
 doc.getElementById("Customer").setAttribute('raa', '');
 doc.getElementById("Customer").setAttribute('rez', '');
@@ -218,7 +224,8 @@ function parseXML() {
     if (les > 0) doc.getElementById("less").classList.add('yel');
 
     doc.getElementById("Customer").setAttribute('perimetr', xmlDoc.getElementsByTagName("СуммаПериметровЭлементов")[0].childNodes[0].nodeValue);
- 
+	//alert (xmlDoc.getElementsByTagName("УпрочняющееПокрытие")[0].childNodes[0].nodeValue);
+	doc.getElementById("Rad").checked = xmlDoc.getElementsByTagName("УпрочняющееПокрытие")[0] ? (xmlDoc.getElementsByTagName("УпрочняющееПокрытие")[0].childNodes[0].nodeValue == 'true' ? true : false ) : false;
     doc.getElementById("less").value=xmlDoc.getElementsByTagName("КоличествоУгловМеньше06")[0] ? les : '0';
     doc.getElementById("GAP").value = xmlDoc.getElementsByTagName("РасстояниеМеждуРучьями")[0] ? (xmlDoc.getElementsByTagName("РасстояниеМеждуРучьями")[0].childNodes[0].nodeValue > 0 ? xmlDoc.getElementsByTagName("РасстояниеМеждуРучьями")[0].childNodes[0].nodeValue : '3' )  : '3';
     doc.getElementById("GAP2").value=xmlDoc.getElementsByTagName("РасстояниеМеждуПовторениями")[0] ? xmlDoc.getElementsByTagName("РасстояниеМеждуПовторениями")[0].childNodes[0].nodeValue : doc.getElementById("Raport").value / doc.getElementById("Repetition").value;    
