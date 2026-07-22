@@ -119,7 +119,8 @@ function sayHello(sp) {
     var Kni = sp.Knife;
 
     var SAll = sp.Forms.split(';');
-    var Lval = Rap - 2.4;
+	var Lval;
+	Distor != 1 ? Lval = (Rap - 2.4) : Lval = "Нет";
     var Plosk = false;
     if (~Mate.indexOf("Плоская")) {Plosk = true; Rap = Polurot; Distor = 1.0;} 
     var lineOb = parseFloat(sp.Material.substring(sp.Material.lastIndexOf(" ")));
@@ -376,7 +377,7 @@ function sayHello(sp) {
     bigNamber.textRange.characterAttributes.textFont = app.textFonts.getByName(fonts);
     bigNamber.textRange.characterAttributes.fillColor = PFull;
     
-    if (Distor != 0 || Distor != 1) {
+    if (Distor != 0) {
         LI.width *= Distor;
         newGroup.width *= Distor;
         if (sp.offset != '0') {

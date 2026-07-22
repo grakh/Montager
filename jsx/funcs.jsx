@@ -144,7 +144,7 @@ doc.getElementById("Knife").value = '';
 doc.getElementById("iRll").value = '0';
 doc.getElementById("Tolerance").value = '0.5';   // Tolerance сбрасывается на дефолт при каждом новом заказе
 doc.getElementById("Angle").value = '';
-doc.getElementById("Dist").value = '0';
+doc.getElementById("Dist").value = '1';
 doc.getElementById("Polurot").setAttribute("disabled", "disabled");
 doc.getElementById("bot").disabled = false;
 doc.getElementById("GAP2").disabled = true;
@@ -234,7 +234,7 @@ function parseXML() {
            localStorage.getItem('gross') > 0 ? doc.getElementById("Line").value = localStorage.getItem('gross') : doc.getElementById("Line").value = 1.1;}
 
 	di(); doc.getElementById("disa").value='1';
-	if (~doc.getElementById("Material").value.indexOf("Плоская")) {doc.getElementById("disa").checked = false; doc.getElementById("Dist").value = "0";}
+	if (~doc.getElementById("Material").value.indexOf("Плоская")) {doc.getElementById("disa").checked = false; doc.getElementById("Dist").value = "1";}
 	
 	if (~doc.getElementById("Material").value.indexOf("Полуротация") || ~doc.getElementById("Material").value.indexOf("Плоская")) {
 		$('#Polurot').removeAttr('disabled'); 
@@ -302,7 +302,7 @@ if ( xmlDoc.getElementsByTagName("Контур")[0].childNodes[0].nodeValue==3) 
 	if ((doc.getElementById("Knife").value).split("/")[0] <= 0.5)
 		doc.getElementById("gpp").value = doc.getElementById("gpp").value ? 0.48 : doc.getElementById("gpp").value;
 	else {
-		if (doc.getElementById("gpp").value == 0) { doc.getElementById("Dist").value = 0; doc.getElementById("Dist").classList.add('red')}
+		if (doc.getElementById("gpp").value == 0) { doc.getElementById("Dist").value = 1; doc.getElementById("Dist").classList.add('red')}
 		doc.getElementById("disa").checked = doc.getElementById("gpp").value == 0 ? false : true;
 	}
 		di();
@@ -437,7 +437,7 @@ function di(){
         else{
 			if (G == '0' || G === 'undefined'){
 				G = '0';
-				doc.getElementById("Dist").value = '0';
+				doc.getElementById("Dist").value = '1';
 				alert ('Для не плоских ножей больше 0.5 мм\nнужно указать расстояние между кольцами!');
 				doc.getElementById("disa").checked = false;
 				return dis;

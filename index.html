@@ -150,7 +150,7 @@ Diameter, mm: D1:
 <div id="LabelTextbox">
 <label>
  Distortion: <input type="checkbox" id = "disa" name="ch" class="chk" value="1" checked="checked" />
-<input id="Dist" value="0">
+<input id="Dist" value="1">
 </label>
 <span id = "angleless">Gapp: <input id = "gpp" value="">
 <0.6: <input id = "less" value="0" disabled></span>
@@ -162,9 +162,9 @@ Diameter, mm: D1:
 		
         doc.getElementById("disa").onchange = function(e){
 			if  (doc.getElementById("disa").checked) {
-				doc.getElementById("Dist").value = 0;
+				doc.getElementById("Dist").value = 1;
 				di();
-			} else doc.getElementById("Dist").value = 0;
+			} else doc.getElementById("Dist").value = 1;
 		}
     </script>
 <!-----------------****------------------>
